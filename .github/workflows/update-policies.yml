@@ -1,0 +1,63 @@
+name: Update Policy Data
+
+on:
+  # 매일 새벽 2시 KST (= UTC 17:00 전날)
+  schedule:
+    - cron: '0 17 * * *'
+  # 수동 실행 (GitHub Actions 탭에서 "Run workflow" 버튼)
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Force update even if no changes'
+        type: boolean
+        default: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # git push 허용
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # 커밋 권한이 있는 토큰으로 체크아웃
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch latest policy data
+        env:
+          DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
+        run: node scripts/fetchPolicies.mjs
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet src/data/policies.generated.json \
+            && echo "changed=false" >> $GITHUB_OUTPUT \
+            || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push updated data
+        if: steps.changes.outputs.changed == 'true' || inputs.force == 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/policies.generated.json
+          git commit -m "chore(data): auto-update policy data [$(date -u +'%Y-%m-%d')]
+
+          Source: 복지로 API (data.go.kr)
+          Triggered by: ${{ github.event_name }}"
+          git push
+
+      - name: No changes
+        if: steps.changes.outputs.changed == 'false' && inputs.force != 'true'
+        run: echo "Policy data is already up-to-date. No commit needed."

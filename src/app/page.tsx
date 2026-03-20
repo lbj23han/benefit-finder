@@ -1,65 +1,217 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import AppShell from '@/components/layout/AppShell';
+import PolicyCard from '@/components/policy/PolicyCard';
+import FreshnessBar from '@/components/common/FreshnessBar';
+import { getProfile } from '@/lib/storage';
+import { getRecommendations } from '@/lib/recommendation';
+import { usePolicies } from '@/hooks/usePolicies';
+import { UserProfile, RecommendationResult } from '@/types';
+
+export default function HomePage() {
+  const router = useRouter();
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [results, setResults] = useState<RecommendationResult[]>([]);
+  const [profileLoaded, setProfileLoaded] = useState(false);
+  const { policies, fetchedAt, source, loading, isStale, error, refresh } = usePolicies();
+
+  useEffect(() => {
+    const p = getProfile();
+    setProfile(p);
+    setProfileLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (profile && policies.length > 0) {
+      setResults(getRecommendations(policies, profile));
+    }
+  }, [profile, policies]);
+
+  if (!profileLoaded || (loading && policies.length === 0)) {
+    return (
+      <div className="min-h-screen bg-[#F4F8F6] flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-[#1B6B4A] border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (!profile) {
+    return <SplashScreen />;
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <AppShell>
+      <div className="flex flex-col">
+        {/* Header — logo only on mobile; hidden on desktop (sidebar shows it) */}
+        <header className="flex items-center px-5 pt-12 pb-4 bg-white lg:hidden">
+          <span className="text-xl font-extrabold text-[#1B6B4A]">혜택줍줍</span>
+        </header>
+        {/* Desktop page title */}
+        <header className="hidden lg:flex items-center px-8 pt-10 pb-4 bg-white border-b border-gray-50">
+          <h1 className="text-2xl font-extrabold text-[#1a1a1a]">홈</h1>
+        </header>
+
+        {/* Hero */}
+        <div className="relative bg-gradient-to-br from-[#1B6B4A] to-[#2A9D8F] px-5 pt-6 pb-10 lg:px-8 lg:pt-8 lg:pb-12 overflow-hidden">
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-4 right-4 w-32 h-32 rounded-full bg-white/20" />
+            <div className="absolute bottom-0 left-8 w-20 h-20 rounded-full bg-white/10" />
+          </div>
+          <h1 className="text-3xl lg:text-4xl font-black text-white leading-tight mb-1">지금 받을 수 있는</h1>
+          <h1 className="text-3xl lg:text-4xl font-black text-white leading-tight mb-6">숨은 혜택</h1>
+
+          {/* Search card */}
+          <div
+            className="bg-white rounded-2xl shadow-lg p-4 flex items-center gap-3 cursor-pointer lg:max-w-lg"
+            onClick={() => router.push('/results')}
+          >
+            <span className="text-2xl">🔍</span>
+            <span className="flex-1 text-[#888] text-sm">맞춤 혜택을 찾아볼까요?</span>
+            <span className="text-[#1B6B4A] font-bold text-xl">→</span>
+          </div>
+        </div>
+
+        {/* Freshness bar */}
+        <FreshnessBar
+          fetchedAt={fetchedAt}
+          source={source}
+          isStale={isStale}
+          loading={loading}
+          onRefresh={refresh}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+
+        {/* API error notice */}
+        {error && (
+          <div className="mx-4 mt-3 px-4 py-3 bg-red-50 rounded-xl border border-red-100">
+            <p className="text-xs text-red-600">⚠ {error} 샘플 데이터를 표시합니다.</p>
+          </div>
+        )}
+
+        {/* Stats row */}
+        <div className="bg-white px-5 py-3 flex items-center gap-4 border-b border-gray-50">
+          <div className="text-center">
+            <p className="text-xl font-extrabold text-[#1B6B4A]">{results.filter((r) => r.isFullMatch).length}</p>
+            <p className="text-[10px] text-[#888]">완전 매칭</p>
+          </div>
+          <div className="w-px h-8 bg-gray-100" />
+          <div className="text-center">
+            <p className="text-xl font-extrabold text-[#1B6B4A]">{results.filter((r) => r.score >= 50).length}</p>
+            <p className="text-[10px] text-[#888]">조건 일치</p>
+          </div>
+          <div className="w-px h-8 bg-gray-100" />
+          <div className="text-center">
+            <p className="text-xl font-extrabold text-[#1B6B4A]">{results.length}</p>
+            <p className="text-[10px] text-[#888]">전체 혜택</p>
+          </div>
+          <div className="ml-auto">
+            <Link href="/profile" className="text-xs text-[#2A9D8F] font-medium">
+              프로필 수정 →
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Category shortcuts */}
+        <div className="px-5 py-4 bg-white border-b border-gray-50">
+          <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide">
+            {[
+              { icon: '🏠', label: '주거', href: '/results?category=housing' },
+              { icon: '💼', label: '취업', href: '/results?category=employment' },
+              { icon: '🎓', label: '교육', href: '/results?category=education' },
+              { icon: '👶', label: '보육', href: '/results?category=childcare' },
+              { icon: '🤝', label: '복지', href: '/results?category=welfare' },
+              { icon: '🚀', label: '창업', href: '/results?category=business' },
+            ].map((cat) => (
+              <Link key={cat.label} href={cat.href} className="flex-shrink-0 flex flex-col items-center gap-1">
+                <div className="w-12 h-12 rounded-2xl bg-[#E0F2EC] flex items-center justify-center text-xl">
+                  {cat.icon}
+                </div>
+                <span className="text-[10px] text-[#555] font-medium">{cat.label}</span>
+              </Link>
+            ))}
+          </div>
         </div>
-      </main>
+
+        {/* Recommended cards */}
+        <div className="px-4 pt-4 pb-4 lg:px-6">
+          <div className="flex items-center justify-between px-1 mb-3">
+            <h2 className="font-bold text-[#1a1a1a] text-base">내 맞춤 혜택 TOP 5</h2>
+            <Link href="/results" className="text-xs text-[#2A9D8F]">전체보기</Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+            {results.slice(0, 6).map((r) => (
+              <PolicyCard
+                key={r.policy.id}
+                policy={r.policy}
+                score={r.score}
+                matchReasons={r.matchReasons}
+                isFullMatch={r.isFullMatch}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Sticky CTA */}
+        <div className="sticky bottom-20 px-4 py-3 bg-gradient-to-t from-[#F4F8F6] to-transparent pointer-events-none">
+          <Link
+            href="/results"
+            className="pointer-events-auto block w-full text-center bg-[#1B6B4A] text-white font-bold py-4 rounded-2xl shadow-lg text-base"
+          >
+            내 조건으로 맞춤 보기 →
+          </Link>
+        </div>
+      </div>
+    </AppShell>
+  );
+}
+
+function SplashScreen() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-[#1B6B4A] to-[#2A9D8F] flex flex-col items-center justify-center px-6">
+      <div className="text-center mb-10">
+        <div className="text-6xl mb-4">🎁</div>
+        <h1 className="text-4xl font-black text-white mb-2">혜택줍줍</h1>
+        <p className="text-white/80 text-lg leading-relaxed">
+          나에게 맞는<br />
+          <span className="font-bold text-white">정부 지원 혜택</span>을 찾아드려요
+        </p>
+      </div>
+
+      <div className="w-full max-w-sm space-y-3">
+        <div className="bg-white/10 rounded-2xl p-4 flex items-center gap-3">
+          <span className="text-2xl">📋</span>
+          <div>
+            <p className="text-white font-semibold text-sm">간단한 질문 3가지</p>
+            <p className="text-white/70 text-xs">나이, 지역, 직업만 알면 돼요</p>
+          </div>
+        </div>
+        <div className="bg-white/10 rounded-2xl p-4 flex items-center gap-3">
+          <span className="text-2xl">🔍</span>
+          <div>
+            <p className="text-white font-semibold text-sm">맞춤 혜택 추천</p>
+            <p className="text-white/70 text-xs">조건에 맞는 혜택만 골라드려요</p>
+          </div>
+        </div>
+        <div className="bg-white/10 rounded-2xl p-4 flex items-center gap-3">
+          <span className="text-2xl">💰</span>
+          <div>
+            <p className="text-white font-semibold text-sm">숨은 혜택 발굴</p>
+            <p className="text-white/70 text-xs">몰랐던 지원금을 찾아드려요</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-10 w-full max-w-sm">
+        <Link
+          href="/onboarding"
+          className="block w-full text-center bg-white text-[#1B6B4A] font-extrabold py-5 rounded-2xl shadow-xl text-lg"
+        >
+          시작하기 →
+        </Link>
+        <p className="text-center text-white/50 text-xs mt-3">30초면 완료돼요</p>
+      </div>
     </div>
   );
 }
