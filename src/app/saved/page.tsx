@@ -5,19 +5,21 @@ import AppShell from '@/components/layout/AppShell';
 import PolicyCard from '@/components/policy/PolicyCard';
 import EmptyState from '@/components/common/EmptyState';
 import { getBookmarks } from '@/lib/storage';
-import { policies } from '@/data/policies';
+import { usePolicies } from '@/hooks/usePolicies';
 import { Policy } from '@/types';
 import Link from 'next/link';
 
 export default function SavedPage() {
+  const { policies, loading } = usePolicies();
   const [saved, setSaved] = useState<Policy[]>([]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    if (loading || policies.length === 0) return;
     const ids = getBookmarks();
     setSaved(policies.filter((p) => ids.includes(p.id)));
     setLoaded(true);
-  }, []);
+  }, [policies, loading]);
 
   if (!loaded) {
     return (
