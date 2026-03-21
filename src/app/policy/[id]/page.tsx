@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import AppShell from '@/components/layout/AppShell';
 import BookmarkButton from '@/components/common/BookmarkButton';
-import { policies } from '@/data/policies';
+import { activePolicies as policies } from '@/data/index';
 import { formatAmount, getCategoryLabel, getCategoryIcon } from '@/lib/utils';
 import { getDaysUntilDeadline } from '@/lib/recommendation';
 import { getBestUrl } from '@/lib/deeplink';
