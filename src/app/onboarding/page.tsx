@@ -59,8 +59,8 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F4F8F6] flex justify-center">
-      <div className="w-full max-w-[430px] min-h-screen flex flex-col bg-white">
+    <div className="min-h-dvh bg-[#F4F8F6] flex justify-center">
+      <div className="w-full max-w-[430px] min-h-dvh flex flex-col bg-white">
         {/* Header */}
         <div className="px-5 pt-12 pb-4">
           <div className="flex items-center gap-3 mb-6">

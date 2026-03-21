@@ -33,7 +33,7 @@ export default function HomePage() {
 
   if (!profileLoaded || (loading && policies.length === 0)) {
     return (
-      <div className="min-h-screen bg-[#F4F8F6] flex items-center justify-center">
+      <div className="min-h-dvh bg-[#F4F8F6] flex items-center justify-center">
         <div className="w-8 h-8 border-2 border-[#1B6B4A] border-t-transparent rounded-full animate-spin" />
       </div>
     );
@@ -211,7 +211,7 @@ export default function HomePage() {
 
 function SplashScreen() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1B6B4A] to-[#2A9D8F] flex flex-col items-center justify-center px-6">
+    <div className="min-h-dvh bg-gradient-to-br from-[#1B6B4A] to-[#2A9D8F] flex flex-col items-center justify-center px-6">
       <div className="text-center mb-10">
         <div className="text-6xl mb-4">🎁</div>
         <h1 className="text-4xl font-black text-white mb-2">혜택줍줍</h1>

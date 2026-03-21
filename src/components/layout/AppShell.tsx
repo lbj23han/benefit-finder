@@ -7,12 +7,12 @@ interface AppShellProps {
 
 export default function AppShell({ children, showBottomNav = true }: AppShellProps) {
   return (
-    <div className="min-h-screen bg-[#F4F8F6]">
+    <div className="min-h-dvh bg-[#F4F8F6]">
       {showBottomNav && <BottomNav />}
       {/* Content area: full width on mobile, offset for sidebar on desktop */}
       <div
         className={[
-          'min-h-screen flex flex-col',
+          'min-h-dvh flex flex-col',
           showBottomNav ? 'pb-16 lg:pb-0 lg:ml-56' : '',
         ].join(' ')}
       >
