@@ -165,6 +165,13 @@ export default function ProfilePage() {
               ⚠️ 본 앱에서 제공하는 정보는 참고용이며, 실제 혜택 수혜 여부는 해당 기관에서 직접 확인하시기 바랍니다.
             </p>
           </div>
+
+          {/* Legal links */}
+          <div className="flex items-center justify-center gap-4 pb-2">
+            <Link href="/privacy" className="text-xs text-[#888] hover:text-[#1B6B4A]">개인정보처리방침</Link>
+            <span className="text-gray-200">|</span>
+            <Link href="/terms" className="text-xs text-[#888] hover:text-[#1B6B4A]">이용약관</Link>
+          </div>
         </div>
       </div>
 
