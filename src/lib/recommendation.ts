@@ -43,6 +43,9 @@ const CHILD_SPECIFIC = /다문화.*자녀|자녀.*다문화|소년소녀\s*가(?
 const COUPLE_INCOME   = /부부합산|세대합산|배우자\s*소득|공동명의\s*(?:자산|재산)|맞벌이\s*(?:지원|우대)/;
 const BIZ_ONLY        = /소상공인|전통시장.*(?:지원|개선|사업)|재래시장.*지원|사업자\s*(?:지원|등록)\s*(?:보조|혜택)|법인세\s*감면|사업\s*운영\s*지원/;
 
+// Vocational high school workforce programs — not for general college students (age > 22)
+const VOCATIONAL_SCHOOL = /특성화고\s*인력양성|직업계고.*인력|중소기업\s*인식개선\s*교육/;
+
 // ─── Title-based implicit age inference ───────────────────────────────────────
 function inferAgeRangeFromTitle(title: string): { min?: number; max?: number } {
   if (/치매|노인|어르신|경로당|고령자|노년|노령|실버\s*(?:산업|용품)/.test(title)) return { min: 65 };
@@ -100,6 +103,9 @@ function eligibilityScore(policy: Policy, profile: UserProfile, age: number): nu
     if (profile.occupation !== 'self-employed' && profile.occupation !== 'employed') return 0.07;
     return 0.18; // employer applies, not the individual
   }
+
+  // Vocational school programs are not for general adult students (college+)
+  if (VOCATIONAL_SCHOOL.test(t) && age > 22) return 0.05;
 
   // ── [B] Region ────────────────────────────────────────────────────────────
   if (!policy.region.includes('전국') && !policy.region.includes(profile.region)) return 0.05;
@@ -353,6 +359,10 @@ export function getRecommendations(
         }
         if (policy.category === 'housing') {
           finalRaw *= 1.12;
+        }
+        // Deprioritize loans for low-income users — debt burden is a real risk
+        if (policy.benefitType === 'loan') {
+          finalRaw *= 0.78;
         }
       }
 
