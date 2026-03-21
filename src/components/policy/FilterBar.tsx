@@ -7,6 +7,7 @@ interface FilterBarProps {
   onFilterChange: (f: FilterState) => void;
   sort: SortOption;
   onSortChange: (s: SortOption) => void;
+  onReset: () => void;
 }
 
 const categories = [
@@ -19,10 +20,12 @@ const categories = [
   { value: 'business', label: '창업' },
 ];
 
-export default function FilterBar({ filter, onFilterChange, sort, onSortChange }: FilterBarProps) {
+export default function FilterBar({ filter, onFilterChange, sort, onSortChange, onReset }: FilterBarProps) {
+  const hasActiveFilter = filter.category !== null || filter.keyword !== '';
+
   return (
     <div className="space-y-2">
-      {/* Category chips */}
+      {/* Category chips + reset */}
       <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
         {categories.map((cat) => (
           <button
@@ -37,26 +40,20 @@ export default function FilterBar({ filter, onFilterChange, sort, onSortChange }
             {cat.label}
           </button>
         ))}
+
+        {/* Reset chip — only visible when a filter is active */}
+        {hasActiveFilter && (
+          <button
+            onClick={onReset}
+            className="flex-shrink-0 flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-full bg-red-50 text-red-500 border border-red-200 transition-colors"
+          >
+            <span>✕</span> 필터 초기화
+          </button>
+        )}
       </div>
 
-      {/* Sort + active only row */}
-      <div className="flex items-center justify-between">
-        <label className="flex items-center gap-2 cursor-pointer">
-          <div
-            onClick={() => onFilterChange({ ...filter, activeOnly: !filter.activeOnly })}
-            className={`w-9 h-5 rounded-full transition-colors relative ${
-              filter.activeOnly ? 'bg-[#1B6B4A]' : 'bg-gray-200'
-            }`}
-          >
-            <div
-              className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${
-                filter.activeOnly ? 'translate-x-4' : 'translate-x-0.5'
-              }`}
-            />
-          </div>
-          <span className="text-xs text-gray-600">신청 가능한 것만</span>
-        </label>
-
+      {/* Sort row */}
+      <div className="flex items-center justify-end">
         <select
           value={sort}
           onChange={(e) => onSortChange(e.target.value as SortOption)}

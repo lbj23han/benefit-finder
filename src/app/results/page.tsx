@@ -23,7 +23,7 @@ function ResultsContent() {
 
   const [filter, setFilter] = useState<FilterState>({
     category: searchParams.get('category') || null,
-    activeOnly: false,
+    activeOnly: false, // toggle removed from UI (all data is isAlwaysOpen)
     keyword: '',
   });
   const [sort, setSort] = useState<SortOption>('recommended');
@@ -123,7 +123,7 @@ function ResultsContent() {
 
       {/* Filter */}
       <div className="bg-white px-5 py-3 border-b border-gray-50">
-        <FilterBar filter={filter} onFilterChange={setFilter} sort={sort} onSortChange={setSort} />
+        <FilterBar filter={filter} onFilterChange={setFilter} sort={sort} onSortChange={setSort} onReset={resetFilter} />
       </div>
 
       {/* Results */}
@@ -157,15 +157,6 @@ function ResultsContent() {
         )}
       </div>
 
-      {/* Bottom CTA */}
-      <div className="sticky bottom-20 px-4 py-3 pointer-events-none">
-        <button
-          onClick={resetFilter}
-          className="pointer-events-auto w-full flex items-center justify-center gap-2 bg-white border border-[#1B6B4A] text-[#1B6B4A] font-bold py-4 rounded-2xl shadow-md text-sm"
-        >
-          <span>🔄</span> 필터 다시 설정
-        </button>
-      </div>
     </div>
   );
 }

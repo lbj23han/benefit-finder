@@ -195,15 +195,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Sticky CTA */}
-        <div className="sticky bottom-20 px-4 py-3 bg-gradient-to-t from-[#F4F8F6] to-transparent pointer-events-none">
-          <Link
-            href="/results"
-            className="pointer-events-auto block w-full text-center bg-[#1B6B4A] text-white font-bold py-4 rounded-2xl shadow-lg text-base"
-          >
-            내 조건으로 맞춤 보기 →
-          </Link>
-        </div>
       </div>
     </AppShell>
   );
