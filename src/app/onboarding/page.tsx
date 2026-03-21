@@ -23,10 +23,11 @@ const INCOME_LEVELS: { value: UserProfile['incomeLevel']; label: string; desc: s
 ];
 
 const HOUSEHOLD_TYPES: { value: UserProfile['householdType']; label: string; icon: string }[] = [
-  { value: 'single', label: '1인 가구', icon: '🙋' },
-  { value: 'couple', label: '부부 (자녀 없음)', icon: '👫' },
-  { value: 'family-with-children', label: '자녀가 있는 가족', icon: '👨‍👩‍👧' },
-  { value: 'single-parent', label: '한부모 가족', icon: '👩‍👧' },
+  { value: 'single',               label: '1인 가구',      icon: '🙋' },
+  { value: 'with-parents',         label: '부모와 함께',    icon: '🏠' },
+  { value: 'couple',               label: '부부 가구',      icon: '👫' },
+  { value: 'family-with-children', label: '자녀 있는 가구', icon: '👨‍👩‍👧' },
+  { value: 'single-parent',        label: '한부모 가구',    icon: '👩‍👧' },
 ];
 
 export default function OnboardingPage() {
@@ -124,58 +125,36 @@ export default function OnboardingPage() {
 }
 
 function Step1({ profile, setProfile }: { profile: Partial<UserProfile>; setProfile: (p: Partial<UserProfile>) => void }) {
-  const options: { value: UserProfile['ageGroup']; title: string; range: string; desc: string; emoji: string }[] = [
-    { value: 'youth', title: 'YOUTH', range: '20 ~ 34세', desc: '취업·주거·청년 혜택 집중', emoji: '🌱' },
-    { value: 'prime', title: 'PRIME', range: '35 ~ 49세', desc: '가족·자녀·경력 혜택 집중', emoji: '💪' },
-    { value: 'senior', title: 'SENIOR', range: '50세 이상', desc: '노후·건강·복지 혜택 집중', emoji: '🌿' },
+  const options: { value: UserProfile['ageGroup']; range: string; desc: string }[] = [
+    { value: '20s',    range: '20대',    desc: '만 20~29세' },
+    { value: '30s',    range: '30대',    desc: '만 30~39세' },
+    { value: '40s',    range: '40대',    desc: '만 40~49세' },
+    { value: '50s',    range: '50대',    desc: '만 50~59세' },
+    { value: '60plus', range: '60대 이상', desc: '만 60세 이상' },
   ];
 
   return (
-    <div className="space-y-3 pb-4">
+    <div className="space-y-2 pb-4">
       {options.map((opt) => {
         const selected = profile.ageGroup === opt.value;
         return (
           <button
             key={opt.value}
             onClick={() => setProfile({ ...profile, ageGroup: opt.value })}
-            className={`w-full rounded-2xl p-5 text-left transition-all border-2 ${
+            className={`w-full rounded-2xl px-5 py-4 text-left transition-all border-2 flex items-center justify-between ${
               selected
-                ? 'bg-gradient-to-r from-[#1B6B4A] to-[#2A9D8F] border-transparent text-white shadow-lg scale-[1.02]'
+                ? 'bg-[#E0F2EC] border-[#1B6B4A]'
                 : 'bg-white border-gray-100 hover:border-[#2A9D8F]/30'
             }`}
           >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <span className="text-3xl">{opt.emoji}</span>
-                <div>
-                  <p className={`text-xs font-black tracking-wider mb-0.5 ${selected ? 'text-white/80' : 'text-[#2A9D8F]'}`}>
-                    {opt.title}
-                  </p>
-                  <p className={`text-xl font-extrabold ${selected ? 'text-white' : 'text-[#1a1a1a]'}`}>
-                    {opt.range}
-                  </p>
-                  <p className={`text-xs mt-1 ${selected ? 'text-white/70' : 'text-[#888]'}`}>{opt.desc}</p>
-                </div>
-              </div>
-              {selected && (
-                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-              )}
+            <div>
+              <p className={`text-lg font-extrabold ${selected ? 'text-[#1B6B4A]' : 'text-[#1a1a1a]'}`}>{opt.range}</p>
+              <p className="text-xs text-[#888] mt-0.5">{opt.desc}</p>
             </div>
+            {selected && <span className="text-[#1B6B4A] text-xl">✓</span>}
           </button>
         );
       })}
-
-      {/* Info notice */}
-      <div className="bg-blue-50 rounded-2xl p-4 flex gap-3 mt-4">
-        <span className="text-blue-500 text-lg mt-0.5">ℹ️</span>
-        <p className="text-xs text-blue-700 leading-relaxed">
-          나이대에 따라 추천되는 맞춤형 복지 혜택이 달라집니다. 정확한 나이대를 선택하면 더 많은 혜택을 찾을 수 있어요.
-        </p>
-      </div>
     </div>
   );
 }

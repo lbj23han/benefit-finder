@@ -2,12 +2,11 @@ import { Policy, UserProfile, RecommendationResult } from '@/types';
 
 function getAgeFromGroup(ageGroup: UserProfile['ageGroup']): number {
   switch (ageGroup) {
-    case 'youth':
-      return 27; // representative age 20-34
-    case 'prime':
-      return 42; // representative age 35-49
-    case 'senior':
-      return 58; // representative age 50+
+    case '20s':    return 25;
+    case '30s':    return 35;
+    case '40s':    return 45;
+    case '50s':    return 55;
+    case '60plus': return 65;
   }
 }
 

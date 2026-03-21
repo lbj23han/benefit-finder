@@ -1,10 +1,10 @@
 export interface UserProfile {
-  ageGroup: 'youth' | 'prime' | 'senior'; // 20-34, 35-49, 50+
+  ageGroup: '20s' | '30s' | '40s' | '50s' | '60plus';
   region: string; // 서울, 경기, 부산, etc.
   district?: string;
   occupation: 'employed' | 'self-employed' | 'student' | 'unemployed' | 'freelancer';
   incomeLevel: 'low' | 'middle-low' | 'middle' | 'high';
-  householdType: 'single' | 'couple' | 'family-with-children' | 'single-parent';
+  householdType: 'single' | 'with-parents' | 'couple' | 'family-with-children' | 'single-parent';
 }
 
 export interface Policy {

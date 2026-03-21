@@ -15,9 +15,11 @@ const FIELD_CONFIG: Record<FieldKey, { title: string; options: Option[] }> = {
   ageGroup: {
     title: '나이대',
     options: [
-      { value: 'youth', label: '청년', description: '만 19~34세' },
-      { value: 'prime', label: '중장년', description: '만 35~49세' },
-      { value: 'senior', label: '장년', description: '만 50세 이상' },
+      { value: '20s',    label: '20대', description: '만 20~29세' },
+      { value: '30s',    label: '30대', description: '만 30~39세' },
+      { value: '40s',    label: '40대', description: '만 40~49세' },
+      { value: '50s',    label: '50대', description: '만 50~59세' },
+      { value: '60plus', label: '60대 이상', description: '만 60세 이상' },
     ],
   },
   region: {
@@ -64,10 +66,11 @@ const FIELD_CONFIG: Record<FieldKey, { title: string; options: Option[] }> = {
   householdType: {
     title: '가구 유형',
     options: [
-      { value: 'single', label: '1인 가구' },
-      { value: 'couple', label: '부부 가구' },
-      { value: 'family-with-children', label: '자녀 있는 가구' },
-      { value: 'single-parent', label: '한부모 가구' },
+      { value: 'single',               label: '1인 가구',       description: '혼자 독립해서 살아요' },
+      { value: 'with-parents',         label: '부모와 함께',     description: '부모님 집에서 같이 살아요' },
+      { value: 'couple',               label: '부부 가구',       description: '배우자와 둘이 살아요' },
+      { value: 'family-with-children', label: '자녀 있는 가구',  description: '자녀와 함께 살아요' },
+      { value: 'single-parent',        label: '한부모 가구',     description: '혼자 자녀를 키워요' },
     ],
   },
 };
@@ -94,12 +97,10 @@ export default function ProfileFieldModal({ field, currentValue, onSave, onClose
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-50 flex items-end justify-center bg-black/40"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4"
       onClick={(e) => { if (e.target === overlayRef.current) onClose(); }}
     >
-      <div className="w-full max-w-lg bg-white rounded-t-3xl px-5 pt-5 pb-8 safe-area-bottom">
-        {/* Handle bar */}
-        <div className="w-10 h-1 bg-gray-200 rounded-full mx-auto mb-5" />
+      <div className="w-full max-w-sm bg-white rounded-3xl px-5 pt-6 pb-5 max-h-[80dvh] overflow-y-auto">
 
         <h2 className="text-lg font-extrabold text-[#1a1a1a] mb-4">{config.title} 선택</h2>
 
