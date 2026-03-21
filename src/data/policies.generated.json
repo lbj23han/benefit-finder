@@ -29,7 +29,11 @@
       "tags": [
         "보육·교육",
         "교육부"
-      ]
+      ],
+      "ageMin": 3,
+      "ageMax": 5,
+      "relevanceScore": 0.85,
+      "estimatedBenefitText": "유아학비 전액 지원 (월 최대 40만원)"
     },
     {
       "id": "gov24-105100000001",
@@ -57,7 +61,17 @@
       "tags": [
         "주거·자립",
         "국세청"
-      ]
+      ],
+      "occupationTarget": [
+        "employed",
+        "self-employed"
+      ],
+      "incomeCondition": [
+        "low",
+        "middle-low"
+      ],
+      "relevanceScore": 0.75,
+      "estimatedBenefitText": "연간 최대 300만원 현금 (근로/자녀장려금)"
     },
     {
       "id": "gov24-116010000001",
@@ -86,7 +100,23 @@
       "tags": [
         "주거·자립",
         "한국주택금융공사"
-      ]
+      ],
+      "ageMin": 20,
+      "ageMax": 35,
+      "occupationTarget": [
+        "unemployed",
+        "employed"
+      ],
+      "incomeCondition": [
+        "low",
+        "middle-low"
+      ],
+      "householdCondition": [
+        "single",
+        "with-parents"
+      ],
+      "relevanceScore": 0.7,
+      "estimatedBenefitText": "월세 최대 60만원 대출 (보증금 1억원 이하)"
     },
     {
       "id": "gov24-119200000001",
@@ -114,7 +144,10 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "친환경 선박 장비 보급 (국고 지원)"
     },
     {
       "id": "gov24-119200000007",
@@ -142,7 +175,13 @@
       "tags": [
         "행정·안전",
         "해양수산부"
-      ]
+      ],
+      "incomeCondition": [
+        "low"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "해양사고 국선 심판변론인 지원"
     },
     {
       "id": "gov24-119200000008",
@@ -170,7 +209,10 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.08,
+      "estimatedBenefitText": "국제옵서버 승선경비 50% 국고 지원"
     },
     {
       "id": "gov24-119200000010",
@@ -198,7 +240,10 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.05,
+      "estimatedBenefitText": "합작수산물 관세 감면"
     },
     {
       "id": "gov24-119200000012",
@@ -226,7 +271,10 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "targetSpecialty": "agriculture",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "귀어 창업 및 주택구입 지원 (융자)"
     },
     {
       "id": "gov24-119200000016",
@@ -254,7 +302,10 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.08,
+      "estimatedBenefitText": "원양어업 경영자금 지원 (융자)"
     },
     {
       "id": "gov24-119200000022",
@@ -282,7 +333,10 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.08,
+      "estimatedBenefitText": "원양어선 안전관리 투자 지원"
     },
     {
       "id": "gov24-119200000027",
@@ -310,7 +364,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.08,
+      "estimatedBenefitText": "산지·소비지 유통자금 융자"
     },
     {
       "id": "gov24-119200000044",
@@ -338,7 +398,10 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.08,
+      "estimatedBenefitText": "수산경영인 회생자금 지원 (융자)"
     },
     {
       "id": "gov24-119200000045",
@@ -366,7 +429,10 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.09,
+      "estimatedBenefitText": "어업경영자금 대출 (최대 10~15억원)"
     },
     {
       "id": "gov24-119200000053",
@@ -394,7 +460,10 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.08,
+      "estimatedBenefitText": "TAC 참여어업인 경영개선자금 지원"
     },
     {
       "id": "gov24-119200000055",
@@ -422,7 +491,13 @@
       "tags": [
         "행정·안전",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.08,
+      "estimatedBenefitText": "연안선박 현대화 금융 지원 (저금리 대출)"
     },
     {
       "id": "gov24-119200000056",
@@ -450,7 +525,10 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.08,
+      "estimatedBenefitText": "안전복지형 연근해어선 기반구축 지원"
     },
     {
       "id": "gov24-119200000059",
@@ -479,7 +557,11 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "genderCondition": "female",
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "어업활동 지원 (사고·질병·교육·임신 시)"
     },
     {
       "id": "gov24-119200000066",
@@ -507,7 +589,10 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.09,
+      "estimatedBenefitText": "어업인 역량 강화 교육 지원 (무료)"
     },
     {
       "id": "gov24-119200000067",
@@ -535,7 +620,10 @@
       "tags": [
         "행정·안전",
         "해양수산부"
-      ]
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.09,
+      "estimatedBenefitText": "어업인 안전조업교육 지원 (무료)"
     },
     {
       "id": "gov24-119200000070",
@@ -564,7 +652,10 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.09,
+      "estimatedBenefitText": "창업어가 멘토링 지원 (무료)"
     },
     {
       "id": "gov24-119200000073",
@@ -592,7 +683,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "무료 교육 제공"
     },
     {
       "id": "gov24-119200000074",
@@ -620,7 +717,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "시설 설치비 일부 지원"
     },
     {
       "id": "gov24-119200000076",
@@ -649,7 +752,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "무료 교육 제공"
     },
     {
       "id": "gov24-119200000077",
@@ -677,7 +786,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "포장재 지원"
     },
     {
       "id": "gov24-119200000078",
@@ -705,7 +820,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "염전 바닥재 개선비 지원"
     },
     {
       "id": "gov24-119200000082",
@@ -733,7 +854,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "물류환경 개선사업비 지원"
     },
     {
       "id": "gov24-119200000085",
@@ -761,7 +888,13 @@
       "tags": [
         "행정·안전",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "무료 전문교육 제공"
     },
     {
       "id": "gov24-119200000097",
@@ -789,7 +922,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.12,
+      "estimatedBenefitText": "자조금 지원"
     },
     {
       "id": "gov24-119200000109",
@@ -817,7 +956,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "인증부표 교체비 지원"
     },
     {
       "id": "gov24-119200000110",
@@ -845,7 +990,13 @@
       "tags": [
         "문화·환경",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "전처리시설 설치비 지원"
     },
     {
       "id": "gov24-119200000111",
@@ -873,7 +1024,13 @@
       "tags": [
         "보건·의료",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "예방백신 공급 지원"
     },
     {
       "id": "gov24-119200000113",
@@ -901,7 +1058,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "방역사업비 지원"
     },
     {
       "id": "gov24-119200000115",
@@ -929,7 +1092,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "방역장비 지원"
     },
     {
       "id": "gov24-119200000116",
@@ -957,7 +1126,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "쏙 구제 장비 구매 및 임대료 지원"
     },
     {
       "id": "gov24-119200000117",
@@ -985,7 +1160,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "기생충 구제비 지원"
     },
     {
       "id": "gov24-119200000118",
@@ -1013,7 +1194,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "무료 전문교육 제공"
     },
     {
       "id": "gov24-119200000120",
@@ -1041,7 +1228,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "우수공동체 육성사업비 지원"
     },
     {
       "id": "gov24-119200000126",
@@ -1069,7 +1262,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "친환경에너지 설치비 지원"
     },
     {
       "id": "gov24-119200000128",
@@ -1097,7 +1296,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.12,
+      "estimatedBenefitText": "국내 물류센터 이용료 지원"
     },
     {
       "id": "gov24-119200000129",
@@ -1125,7 +1330,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.12,
+      "estimatedBenefitText": "해외 공동물류센터 이용료 지원"
     },
     {
       "id": "gov24-119200000130",
@@ -1153,7 +1364,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "수산물 수출 관련 위험 관리 지원"
     },
     {
       "id": "gov24-119200000133",
@@ -1181,7 +1398,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "수산식품 선도조직 육성 지원"
     },
     {
       "id": "gov24-119200000135",
@@ -1209,7 +1432,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "수산식품 유망상품화 지원"
     },
     {
       "id": "gov24-119200000136",
@@ -1237,7 +1466,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "수산식품 기업 바우처 지원"
     },
     {
       "id": "gov24-119200000137",
@@ -1265,7 +1500,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "국제인증 획득 비용 지원"
     },
     {
       "id": "gov24-119200000138",
@@ -1293,7 +1534,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "수산식품 무역 상담 및 정보 제공"
     },
     {
       "id": "gov24-119200000139",
@@ -1321,7 +1568,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "국제박람회 참전 지원"
     },
     {
       "id": "gov24-119200000143",
@@ -1349,7 +1602,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "수산식품 가공설비 지원"
     },
     {
       "id": "gov24-119200000145",
@@ -1377,7 +1636,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "활어컨테이너 제작 비용 지원"
     },
     {
       "id": "gov24-119200000153",
@@ -1405,7 +1670,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.05,
+      "estimatedBenefitText": "원양어선원 해외묘지 관리 및 국내이장 비용 지원"
     },
     {
       "id": "gov24-119200000154",
@@ -1433,7 +1704,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.05,
+      "estimatedBenefitText": "러시아 수역 입어선 경비 지원"
     },
     {
       "id": "gov24-119200000157",
@@ -1461,7 +1738,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "수산장비 임대료 지원"
     },
     {
       "id": "gov24-119200000162",
@@ -1489,7 +1772,14 @@
       "tags": [
         "고용·창업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed",
+        "employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "선원 복지 및 고용 지원 서비스"
     },
     {
       "id": "gov24-119200000164",
@@ -1517,7 +1807,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "수산식품 무역 상담회 개최"
     },
     {
       "id": "gov24-119200000165",
@@ -1545,7 +1841,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "수산물 통합마케팅 지원"
     },
     {
       "id": "gov24-119200000166",
@@ -1574,7 +1876,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "이동수리소 운영 및 수리비 지원"
     },
     {
       "id": "gov24-119200000168",
@@ -1602,7 +1910,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "해외진출 및 협상 전문가 지원"
     },
     {
       "id": "gov24-119200000173",
@@ -1630,7 +1944,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.05,
+      "estimatedBenefitText": "원양산업 통계조사 참여"
     },
     {
       "id": "gov24-119200000174",
@@ -1659,7 +1979,15 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "ageMin": 18,
+      "ageMax": 40,
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "월 최대 200만원 생활자금 및 경영자금"
     },
     {
       "id": "gov24-119200000176",
@@ -1687,7 +2015,10 @@
       "tags": [
         "문화·환경",
         "해양수산부"
-      ]
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.05,
+      "estimatedBenefitText": "해양문화행사 및 해양영토 대장정 참가"
     },
     {
       "id": "gov24-119200000191",
@@ -1716,7 +2047,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "조건불리지역 어업인 직접지불금"
     },
     {
       "id": "gov24-119200000192",
@@ -1744,7 +2081,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "수산업경영인 육성비 지원"
     },
     {
       "id": "gov24-119200000193",
@@ -1772,7 +2115,13 @@
       "tags": [
         "행정·안전",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "e-Nav 선박단말기 구매비용 지원"
     },
     {
       "id": "gov24-119200000194",
@@ -1801,7 +2150,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "수산자원보호 직접지불금"
     },
     {
       "id": "gov24-119200000195",
@@ -1829,7 +2184,13 @@
       "tags": [
         "농림축산어업",
         "해양수산부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "maritime",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "친환경 수산물 생산지원 직불제"
     },
     {
       "id": "gov24-122000000003",
@@ -1858,7 +2219,12 @@
       "tags": [
         "보육·교육",
         "관세청"
-      ]
+      ],
+      "occupationTarget": [
+        "employed"
+      ],
+      "relevanceScore": 0.3,
+      "estimatedBenefitText": "원산지검증 대응 지원"
     },
     {
       "id": "gov24-125000000004",
@@ -1887,7 +2253,20 @@
       "tags": [
         "주거·자립",
         "통일부"
-      ]
+      ],
+      "ageMin": 18,
+      "occupationTarget": [
+        "employed",
+        "self-employed"
+      ],
+      "incomeCondition": [
+        "low",
+        "middle-low",
+        "middle"
+      ],
+      "targetSpecialty": "foreign-national",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "월 최대 150만원 자산형성 매칭"
     },
     {
       "id": "gov24-125000000014",
@@ -1916,7 +2295,10 @@
       "tags": [
         "주거·자립",
         "통일부"
-      ]
+      ],
+      "targetSpecialty": "foreign-national",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "정착금 기본금 1천만원~2천만원대"
     },
     {
       "id": "gov24-125000000015",
@@ -1945,7 +2327,15 @@
       "tags": [
         "주거·자립",
         "통일부"
-      ]
+      ],
+      "ageMin": 60,
+      "householdCondition": [
+        "single-parent",
+        "family-with-children"
+      ],
+      "targetSpecialty": "foreign-national",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "정착금 가산금 추가 지원"
     },
     {
       "id": "gov24-127000000002",
@@ -1973,7 +2363,13 @@
       "tags": [
         "행정·안전",
         "법무부"
-      ]
+      ],
+      "incomeCondition": [
+        "low"
+      ],
+      "targetSpecialty": "disability-severe",
+      "relevanceScore": 0.4,
+      "estimatedBenefitText": "무료 법률서비스"
     },
     {
       "id": "gov24-127000000022",
@@ -2001,7 +2397,10 @@
       "tags": [
         "생활안정",
         "법무부"
-      ]
+      ],
+      "targetSpecialty": "foreign-national",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "특별귀화 신청수수료 면제"
     },
     {
       "id": "gov24-127000000023",
@@ -2029,7 +2428,10 @@
       "tags": [
         "생활안정",
         "법무부"
-      ]
+      ],
+      "targetSpecialty": "foreign-national",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "귀화허가 신청수수료 면제"
     },
     {
       "id": "gov24-127000000025",
@@ -2057,7 +2459,10 @@
       "tags": [
         "행정·안전",
         "법무부"
-      ]
+      ],
+      "ageMax": 19,
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "무료 진술조력인 지원"
     },
     {
       "id": "gov24-127000000026",
@@ -2085,7 +2490,9 @@
       "tags": [
         "행정·안전",
         "법무부"
-      ]
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "무료 국선변호사 지원"
     },
     {
       "id": "gov24-127000000037",
@@ -2113,7 +2520,14 @@
       "tags": [
         "보육·교육",
         "법무부"
-      ]
+      ],
+      "ageMin": 12,
+      "ageMax": 24,
+      "incomeCondition": [
+        "low"
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "청소년자립생활관 운영지원"
     },
     {
       "id": "gov24-128000000001",
@@ -2141,7 +2555,9 @@
       "tags": [
         "행정·안전",
         "대검찰청"
-      ]
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "범죄피해구조금 최대 3천만원"
     },
     {
       "id": "gov24-128000000002",
@@ -2169,7 +2585,9 @@
       "tags": [
         "행정·안전",
         "대검찰청"
-      ]
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "범죄피해자 이전비 지원"
     },
     {
       "id": "gov24-128000000003",
@@ -2197,7 +2615,9 @@
       "tags": [
         "행정·안전",
         "대검찰청"
-      ]
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "범죄피해자 경제적 지원"
     },
     {
       "id": "gov24-128000000004",
@@ -2225,7 +2645,9 @@
       "tags": [
         "행정·안전",
         "대검찰청"
-      ]
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "범죄수익환수 포상금"
     },
     {
       "id": "gov24-129000000007",
@@ -2253,7 +2675,10 @@
       "tags": [
         "생활안정",
         "국방부"
-      ]
+      ],
+      "targetSpecialty": "military",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "군인 재해보상 유족급여"
     },
     {
       "id": "gov24-129000000008",
@@ -2281,7 +2706,10 @@
       "tags": [
         "생활안정",
         "국방부"
-      ]
+      ],
+      "targetSpecialty": "veteran",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "특수임무수행자 및 유족 보상금"
     },
     {
       "id": "gov24-129000000009",
@@ -2309,7 +2737,13 @@
       "tags": [
         "행정·안전",
         "국방부"
-      ]
+      ],
+      "occupationTarget": [
+        "military"
+      ],
+      "targetSpecialty": "military",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "장병 인권상담 무료 지원"
     },
     {
       "id": "gov24-129000000013",
@@ -2337,7 +2771,13 @@
       "tags": [
         "고용·창업",
         "국방부"
-      ]
+      ],
+      "occupationTarget": [
+        "military"
+      ],
+      "targetSpecialty": "military",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "전역예정군인 재취업 지원 프로그램"
     },
     {
       "id": "gov24-129000000014",
@@ -2365,7 +2805,10 @@
       "tags": [
         "생활안정",
         "국방부"
-      ]
+      ],
+      "targetSpecialty": "veteran",
+      "relevanceScore": 0.05,
+      "estimatedBenefitText": "6·25 비정규군 공로자 보상금"
     },
     {
       "id": "gov24-129000000015",
@@ -2393,7 +2836,13 @@
       "tags": [
         "고용·창업",
         "국방부"
-      ]
+      ],
+      "occupationTarget": [
+        "military"
+      ],
+      "targetSpecialty": "military",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "전역예정장병 취업활동 지원"
     },
     {
       "id": "gov24-129000000032",
@@ -2421,7 +2870,17 @@
       "tags": [
         "고용·창업",
         "국방부"
-      ]
+      ],
+      "incomeCondition": [
+        "low",
+        "middle-low"
+      ],
+      "householdCondition": [
+        "single-parent",
+        "family-with-children"
+      ],
+      "relevanceScore": 0.5,
+      "estimatedBenefitText": "군무원 채용시험 응시수수료 면제"
     },
     {
       "id": "gov24-129000000082",
@@ -2450,7 +2909,10 @@
       "tags": [
         "행정·안전",
         "국방부"
-      ]
+      ],
+      "targetSpecialty": "veteran",
+      "relevanceScore": 0.08,
+      "estimatedBenefitText": "6·25전사자 유가족 DNA 채취 포상금"
     },
     {
       "id": "gov24-131200000002",
@@ -2478,7 +2940,17 @@
       "tags": [
         "행정·안전",
         "행정안전부"
-      ]
+      ],
+      "incomeCondition": [
+        "low",
+        "middle-low"
+      ],
+      "householdCondition": [
+        "single-parent",
+        "family-with-children"
+      ],
+      "relevanceScore": 0.5,
+      "estimatedBenefitText": "지방공무원 신규임용시험 응시수수료 면제"
     },
     {
       "id": "gov24-131200000004",
@@ -2506,7 +2978,10 @@
       "tags": [
         "행정·안전",
         "행정안전부"
-      ]
+      ],
+      "targetSpecialty": "disability-severe",
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "장애인차량 취득세 및 자동차세 면제"
     },
     {
       "id": "gov24-131200000005",
@@ -2534,7 +3009,10 @@
       "tags": [
         "행정·안전",
         "행정안전부"
-      ]
+      ],
+      "ageMin": 65,
+      "relevanceScore": 0.05,
+      "estimatedBenefitText": "노인복지시설 지방세 감면"
     },
     {
       "id": "gov24-131200000006",
@@ -2562,7 +3040,10 @@
       "tags": [
         "행정·안전",
         "행정안전부"
-      ]
+      ],
+      "targetSpecialty": "veteran",
+      "relevanceScore": 0.12,
+      "estimatedBenefitText": "국가유공자 부동산 취득세 감면"
     },
     {
       "id": "gov24-131200000008",
@@ -2591,7 +3072,12 @@
       "tags": [
         "행정·안전",
         "행정안전부"
-      ]
+      ],
+      "householdCondition": [
+        "family-with-children"
+      ],
+      "relevanceScore": 0.6,
+      "estimatedBenefitText": "다자녀가구 자동차취득세 최대 100% 감면"
     },
     {
       "id": "gov24-131200000010",
@@ -2619,7 +3105,10 @@
       "tags": [
         "행정·안전",
         "행정안전부"
-      ]
+      ],
+      "ageMax": 5,
+      "relevanceScore": 0.08,
+      "estimatedBenefitText": "영유아보육시설 지방세 감면"
     },
     {
       "id": "gov24-131200000011",
@@ -2647,7 +3136,10 @@
       "tags": [
         "행정·안전",
         "행정안전부"
-      ]
+      ],
+      "targetSpecialty": "veteran",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "국가유공자 단체 지방세 감면"
     },
     {
       "id": "gov24-131200000012",
@@ -2675,7 +3167,9 @@
       "tags": [
         "행정·안전",
         "행정안전부"
-      ]
+      ],
+      "relevanceScore": 0.05,
+      "estimatedBenefitText": "사회복지법인 지방세 감면"
     },
     {
       "id": "gov24-131200000013",
@@ -2703,7 +3197,12 @@
       "tags": [
         "행정·안전",
         "행정안전부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.08,
+      "estimatedBenefitText": "사회적기업 지방세 감면"
     },
     {
       "id": "gov24-131200000014",
@@ -2731,7 +3230,10 @@
       "tags": [
         "행정·안전",
         "행정안전부"
-      ]
+      ],
+      "targetSpecialty": "veteran",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "국가유공자 차량취득세 및 자동차세 면제"
     },
     {
       "id": "gov24-132000000001",
@@ -2759,7 +3261,10 @@
       "tags": [
         "행정·안전",
         "경찰청"
-      ]
+      ],
+      "targetSpecialty": "foreign-national",
+      "relevanceScore": 0.3,
+      "estimatedBenefitText": "외국인 범죄 예방교실 무료 제공"
     },
     {
       "id": "gov24-132000000002",
@@ -2787,7 +3292,10 @@
       "tags": [
         "행정·안전",
         "경찰청"
-      ]
+      ],
+      "targetSpecialty": "foreign-national",
+      "relevanceScore": 0.25,
+      "estimatedBenefitText": "다문화가족 및 외국인 운전면허교실 무료 지원"
     },
     {
       "id": "gov24-132000000003",
@@ -2815,7 +3323,10 @@
       "tags": [
         "행정·안전",
         "경찰청"
-      ]
+      ],
+      "targetSpecialty": "foreign-national",
+      "relevanceScore": 0.25,
+      "estimatedBenefitText": "외국인 피해자 지원제도 안내·연계 서비스"
     },
     {
       "id": "gov24-132000000006",
@@ -2843,7 +3354,9 @@
       "tags": [
         "행정·안전",
         "경찰청"
-      ]
+      ],
+      "relevanceScore": 0.3,
+      "estimatedBenefitText": "운전면허 적성검사 간소화 서비스"
     },
     {
       "id": "gov24-132000000008",
@@ -2871,7 +3384,9 @@
       "tags": [
         "행정·안전",
         "경찰청"
-      ]
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "범죄피해자 보호·지원 서비스"
     },
     {
       "id": "gov24-132000000009",
@@ -2899,7 +3414,9 @@
       "tags": [
         "행정·안전",
         "경찰청"
-      ]
+      ],
+      "relevanceScore": 0.05,
+      "estimatedBenefitText": "참고인 여비 지급"
     },
     {
       "id": "gov24-134200000003",
@@ -2927,7 +3444,15 @@
       "tags": [
         "보육·교육",
         "교육부"
-      ]
+      ],
+      "occupationTarget": [
+        "student"
+      ],
+      "incomeCondition": [
+        "low"
+      ],
+      "relevanceScore": 0.6,
+      "estimatedBenefitText": "교육비 지원 (부교재비, 학용품비 등)"
     },
     {
       "id": "gov24-134200000006",
@@ -2955,7 +3480,13 @@
       "tags": [
         "보육·교육",
         "교육부"
-      ]
+      ],
+      "occupationTarget": [
+        "student"
+      ],
+      "targetSpecialty": "disability-severe",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "국립특수학교 및 특수학급 무료 지원"
     },
     {
       "id": "gov24-134200000007",
@@ -2983,7 +3514,12 @@
       "tags": [
         "보육·교육",
         "교육부"
-      ]
+      ],
+      "occupationTarget": [
+        "student"
+      ],
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "대학원 연구장학금"
     },
     {
       "id": "gov24-134200000008",
@@ -3011,7 +3547,12 @@
       "tags": [
         "보육·교육",
         "교육부"
-      ]
+      ],
+      "occupationTarget": [
+        "student"
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "글로벌 현장학습 프로그램 지원"
     },
     {
       "id": "gov24-134200000010",
@@ -3039,7 +3580,13 @@
       "tags": [
         "보육·교육",
         "교육부"
-      ]
+      ],
+      "occupationTarget": [
+        "student"
+      ],
+      "targetSpecialty": "disability-severe",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "장애학생 가족 국외체험 연수 지원"
     },
     {
       "id": "gov24-134200000011",
@@ -3068,7 +3615,16 @@
       "tags": [
         "보육·교육",
         "교육부"
-      ]
+      ],
+      "occupationTarget": [
+        "student"
+      ],
+      "incomeCondition": [
+        "low",
+        "middle-low"
+      ],
+      "relevanceScore": 0.35,
+      "estimatedBenefitText": "인문100년장학금 (연 300~400만원 수준)"
     },
     {
       "id": "gov24-134200000014",
@@ -3096,7 +3652,15 @@
       "tags": [
         "보육·교육",
         "교육부"
-      ]
+      ],
+      "occupationTarget": [
+        "student"
+      ],
+      "incomeCondition": [
+        "low"
+      ],
+      "relevanceScore": 0.25,
+      "estimatedBenefitText": "대학입학전형료 면제·감액"
     },
     {
       "id": "gov24-134200000045",
@@ -3125,7 +3689,12 @@
       "tags": [
         "보육·교육",
         "교육부"
-      ]
+      ],
+      "incomeCondition": [
+        "low"
+      ],
+      "relevanceScore": 0.5,
+      "estimatedBenefitText": "평생교육바우처 연 35만원"
     },
     {
       "id": "gov24-134200000046",
@@ -3154,7 +3723,12 @@
       "tags": [
         "보육·교육",
         "교육부"
-      ]
+      ],
+      "occupationTarget": [
+        "student"
+      ],
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "중소기업 취업연계 장학금"
     },
     {
       "id": "gov24-134200005001",
@@ -3182,7 +3756,12 @@
       "tags": [
         "보육·교육",
         "교육부"
-      ]
+      ],
+      "occupationTarget": [
+        "student"
+      ],
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "고졸 후학습자 장학금"
     },
     {
       "id": "gov24-134200005002",
@@ -3210,7 +3789,12 @@
       "tags": [
         "보육·교육",
         "교육부"
-      ]
+      ],
+      "occupationTarget": [
+        "student"
+      ],
+      "relevanceScore": 0.3,
+      "estimatedBenefitText": "국가장scholarship Ⅱ유형 (대학별 기준)"
     },
     {
       "id": "gov24-134200005007",
@@ -3238,7 +3822,14 @@
       "tags": [
         "보육·교육",
         "교육부"
-      ]
+      ],
+      "ageMin": 5,
+      "ageMax": 18,
+      "occupationTarget": [
+        "student"
+      ],
+      "relevanceScore": 0.8,
+      "estimatedBenefitText": "Wee클래스 무료 상담 지원"
     },
     {
       "id": "gov24-134200005012",
@@ -3267,7 +3858,11 @@
       "tags": [
         "보육·교육",
         "교육부"
-      ]
+      ],
+      "ageMin": 2,
+      "ageMax": 7,
+      "relevanceScore": 0.7,
+      "estimatedBenefitText": "가정양육수당 월 10~20만원"
     },
     {
       "id": "gov24-134200005031",
@@ -3295,7 +3890,11 @@
       "tags": [
         "보육·교육",
         "교육부"
-      ]
+      ],
+      "ageMin": 0,
+      "ageMax": 3,
+      "relevanceScore": 0.4,
+      "estimatedBenefitText": "시간제보육 지원 (월 정액)"
     },
     {
       "id": "gov24-134200005036",
@@ -3323,7 +3922,11 @@
       "tags": [
         "보육·교육",
         "교육부"
-      ]
+      ],
+      "ageMin": 0,
+      "ageMax": 5,
+      "relevanceScore": 0.75,
+      "estimatedBenefitText": "영유아보육료 월 30~50만원"
     },
     {
       "id": "gov24-134200005041",
@@ -3351,7 +3954,16 @@
       "tags": [
         "보육·교육",
         "교육부"
-      ]
+      ],
+      "occupationTarget": [
+        "student"
+      ],
+      "incomeCondition": [
+        "low",
+        "middle-low"
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "법학전문대학원 취약계층 장학금"
     },
     {
       "id": "gov24-134200005044",
@@ -3379,7 +3991,17 @@
       "tags": [
         "보육·교육",
         "교육부"
-      ]
+      ],
+      "ageMin": 5,
+      "ageMax": 18,
+      "occupationTarget": [
+        "student"
+      ],
+      "incomeCondition": [
+        "low"
+      ],
+      "relevanceScore": 0.65,
+      "estimatedBenefitText": "초·중·고 교육비 지원 (부교재비, 학용품 등)"
     },
     {
       "id": "gov24-134200005047",
@@ -3407,7 +4029,11 @@
       "tags": [
         "보육·교육",
         "교육부"
-      ]
+      ],
+      "ageMin": 4,
+      "ageMax": 5,
+      "relevanceScore": 0.3,
+      "estimatedBenefitText": "월 50,000원 유아교육비"
     },
     {
       "id": "gov24-135200000002",
@@ -3435,7 +4061,13 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 65,
+      "incomeCondition": [
+        "low"
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "틀니·임플란트 비용 지원 (7년마다, 임플란트 평생 2개)"
     },
     {
       "id": "gov24-135200000005",
@@ -3463,7 +4095,14 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "ageMax": 5,
+      "incomeCondition": [
+        "low",
+        "middle-low"
+      ],
+      "relevanceScore": 0.4,
+      "estimatedBenefitText": "영양식품 제공 (임산부·영유아)"
     },
     {
       "id": "gov24-135200000006",
@@ -3491,7 +4130,16 @@
       "tags": [
         "생활안정",
         "보건복지부"
-      ]
+      ],
+      "ageMax": 18,
+      "incomeCondition": [
+        "low"
+      ],
+      "householdCondition": [
+        "single-parent"
+      ],
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "생활보호비·교육비 지원"
     },
     {
       "id": "gov24-135200000008",
@@ -3519,7 +4167,9 @@
       "tags": [
         "보건·의료",
         "질병관리청"
-      ]
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "희귀질환 유전자 진단 비용 지원"
     },
     {
       "id": "gov24-135200000010",
@@ -3547,7 +4197,13 @@
       "tags": [
         "보육·교육",
         "보건복지부"
-      ]
+      ],
+      "ageMax": 18,
+      "incomeCondition": [
+        "low"
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "보호시설 운영 지원"
     },
     {
       "id": "gov24-135200000012",
@@ -3575,7 +4231,10 @@
       "tags": [
         "보호·돌봄",
         "보건복지부"
-      ]
+      ],
+      "ageMax": 18,
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "학대피해아동 쉼터 제공"
     },
     {
       "id": "gov24-135200000015",
@@ -3603,7 +4262,16 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 60,
+      "incomeCondition": [
+        "low"
+      ],
+      "householdCondition": [
+        "single-parent"
+      ],
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "안경·렌즈 제공"
     },
     {
       "id": "gov24-135200000017",
@@ -3631,7 +4299,13 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "targetSpecialty": [
+        "disability-severe",
+        "veteran"
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "보조기기 맞춤형 서비스 무료 제공"
     },
     {
       "id": "gov24-135200000019",
@@ -3659,7 +4333,9 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "입원환자 일상용품 지급"
     },
     {
       "id": "gov24-135200000080",
@@ -3687,7 +4363,14 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 60,
+      "incomeCondition": [
+        "low",
+        "middle-low"
+      ],
+      "relevanceScore": 0.6,
+      "estimatedBenefitText": "치매검진 및 진단검사 최대 15만원 지원"
     },
     {
       "id": "gov24-135200000081",
@@ -3715,7 +4398,9 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "relevanceScore": 0.7,
+      "estimatedBenefitText": "무료 금연클리닉 서비스"
     },
     {
       "id": "gov24-135200000082",
@@ -3743,7 +4428,9 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "relevanceScore": 0.5,
+      "estimatedBenefitText": "가정방문 건강관리 서비스 무료 제공"
     },
     {
       "id": "gov24-135200000083",
@@ -3771,7 +4458,9 @@
       "tags": [
         "보건·의료",
         "질병관리청"
-      ]
+      ],
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "결핵 접촉자 검진비 지원"
     },
     {
       "id": "gov24-135200000085",
@@ -3799,7 +4488,12 @@
       "tags": [
         "주거·자립",
         "보건복지부"
-      ]
+      ],
+      "targetSpecialty": [
+        "disability-severe"
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "공동생활가정 운영 지원"
     },
     {
       "id": "gov24-135200000086",
@@ -3827,7 +4521,13 @@
       "tags": [
         "보육·교육",
         "보건복지부"
-      ]
+      ],
+      "ageMax": 18,
+      "incomeCondition": [
+        "low"
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "시설 기능보강 지원"
     },
     {
       "id": "gov24-135200000087",
@@ -3855,7 +4555,10 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "ageMax": 18,
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "심리정서치료 및 재활 서비스 제공"
     },
     {
       "id": "gov24-135200000088",
@@ -3883,7 +4586,9 @@
       "tags": [
         "보육·교육",
         "보건복지부"
-      ]
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "사회서비스 종사자 보수교육 지원"
     },
     {
       "id": "gov24-135200000089",
@@ -3911,7 +4616,9 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "마약류 중독자 치료보호 지원"
     },
     {
       "id": "gov24-135200000090",
@@ -3939,7 +4646,12 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "targetSpecialty": [
+        "disability-severe"
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "무료 치과 진료 서비스"
     },
     {
       "id": "gov24-135200000091",
@@ -3967,7 +4679,9 @@
       "tags": [
         "보건·의료",
         "질병관리청"
-      ]
+      ],
+      "relevanceScore": 0.3,
+      "estimatedBenefitText": "격리치료비 전액 지원"
     },
     {
       "id": "gov24-135200000094",
@@ -3995,7 +4709,10 @@
       "tags": [
         "보육·교육",
         "보건복지부"
-      ]
+      ],
+      "targetSpecialty": "disability-severe",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "가족휴식 바우처 지원"
     },
     {
       "id": "gov24-135200000095",
@@ -4023,7 +4740,10 @@
       "tags": [
         "보호·돌봄",
         "보건복지부"
-      ]
+      ],
+      "targetSpecialty": "disability-severe",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "개인별지원계획 수립비 무료"
     },
     {
       "id": "gov24-135200000096",
@@ -4051,7 +4771,13 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "occupationTarget": [
+        "unemployed"
+      ],
+      "genderCondition": "female",
+      "relevanceScore": 0.25,
+      "estimatedBenefitText": "간호사 교육 및 취업 연계 무료"
     },
     {
       "id": "gov24-135200000097",
@@ -4079,7 +4805,9 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "relevanceScore": 0.85,
+      "estimatedBenefitText": "금연상담 무료 전화 서비스"
     },
     {
       "id": "gov24-135200000098",
@@ -4107,7 +4835,9 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "relevanceScore": 0.85,
+      "estimatedBenefitText": "온라인 금연상담 무료"
     },
     {
       "id": "gov24-135200000099",
@@ -4135,7 +4865,10 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "targetSpecialty": "military",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "금연치료 지원 무료"
     },
     {
       "id": "gov24-135200000101",
@@ -4163,7 +4896,10 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "incomeCondition": "low",
+      "relevanceScore": 0.65,
+      "estimatedBenefitText": "금연치료 본인부담금 지원"
     },
     {
       "id": "gov24-135200000102",
@@ -4191,7 +4927,11 @@
       "tags": [
         "주거·자립",
         "질병관리청"
-      ]
+      ],
+      "incomeCondition": "low",
+      "targetSpecialty": "hansen",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "월 30만원 생계비 지원"
     },
     {
       "id": "gov24-135200000103",
@@ -4219,7 +4959,10 @@
       "tags": [
         "행정·안전",
         "보건복지부"
-      ]
+      ],
+      "targetSpecialty": "disability-severe",
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "법률상담 및 소송비 지원"
     },
     {
       "id": "gov24-135200000112",
@@ -4247,7 +4990,9 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "relevanceScore": 0.6,
+      "estimatedBenefitText": "금연환경조성 지원 무료"
     },
     {
       "id": "gov24-135200000113",
@@ -4276,7 +5021,11 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 60,
+      "incomeCondition": "low",
+      "relevanceScore": 0.5,
+      "estimatedBenefitText": "무릎인공관절 수술비 지원"
     },
     {
       "id": "gov24-135200000114",
@@ -4304,7 +5053,10 @@
       "tags": [
         "임신·출산",
         "보건복지부"
-      ]
+      ],
+      "genderCondition": "female",
+      "relevanceScore": 0.4,
+      "estimatedBenefitText": "고위험 임산부 의료비 전액 지원"
     },
     {
       "id": "gov24-135200000115",
@@ -4332,7 +5084,9 @@
       "tags": [
         "보건·의료",
         "질병관리청"
-      ]
+      ],
+      "relevanceScore": 0.9,
+      "estimatedBenefitText": "인플루엔자 예방접종 무료"
     },
     {
       "id": "gov24-135200000116",
@@ -4360,7 +5114,13 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "ageMax": 18,
+      "occupationTarget": [
+        "student"
+      ],
+      "relevanceScore": 0.7,
+      "estimatedBenefitText": "학교 흡연예방 교육 무료"
     },
     {
       "id": "gov24-135200000120",
@@ -4389,7 +5149,11 @@
       "tags": [
         "보육·교육",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 0,
+      "ageMax": 8,
+      "relevanceScore": 0.95,
+      "estimatedBenefitText": "월 10만원 아동수당"
     },
     {
       "id": "gov24-135200000124",
@@ -4417,7 +5181,10 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 60,
+      "relevanceScore": 0.5,
+      "estimatedBenefitText": "치매상담 전화 무료"
     },
     {
       "id": "gov24-135200000125",
@@ -4446,7 +5213,11 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 60,
+      "incomeCondition": "middle",
+      "relevanceScore": 0.5,
+      "estimatedBenefitText": "치매치료약 비용 지원"
     },
     {
       "id": "gov24-135200000130",
@@ -4474,7 +5245,10 @@
       "tags": [
         "보호·돌봄",
         "보건복지부"
-      ]
+      ],
+      "targetSpecialty": "disability-severe",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "월 최대 약 100만원 활동지원"
     },
     {
       "id": "gov24-135200000132",
@@ -4502,7 +5276,14 @@
       "tags": [
         "보호·돌봄",
         "보건복지부"
-      ]
+      ],
+      "ageMax": 18,
+      "occupationTarget": [
+        "student"
+      ],
+      "targetSpecialty": "disability-severe",
+      "relevanceScore": 0.12,
+      "estimatedBenefitText": "방과후활동 지원비 월 최대 약 100만원"
     },
     {
       "id": "gov24-135200005001",
@@ -4530,7 +5311,12 @@
       "tags": [
         "생활안정",
         "보건복지부"
-      ]
+      ],
+      "incomeCondition": [
+        "low"
+      ],
+      "relevanceScore": 0.85,
+      "estimatedBenefitText": "월 최대 30만원 주거비"
     },
     {
       "id": "gov24-135200005002",
@@ -4558,7 +5344,18 @@
       "tags": [
         "생활안정",
         "보건복지부"
-      ]
+      ],
+      "incomeCondition": [
+        "low"
+      ],
+      "householdCondition": [
+        "family-with-children"
+      ],
+      "genderCondition": [
+        "female"
+      ],
+      "relevanceScore": 0.3,
+      "estimatedBenefitText": "해산비 최대 100만원"
     },
     {
       "id": "gov24-135200005003",
@@ -4586,7 +5383,12 @@
       "tags": [
         "생활안정",
         "보건복지부"
-      ]
+      ],
+      "incomeCondition": [
+        "low"
+      ],
+      "relevanceScore": 0.85,
+      "estimatedBenefitText": "월 최대 50만원 생계비"
     },
     {
       "id": "gov24-135200005004",
@@ -4615,7 +5417,12 @@
       "tags": [
         "생활안정",
         "보건복지부"
-      ]
+      ],
+      "incomeCondition": [
+        "low"
+      ],
+      "relevanceScore": 0.8,
+      "estimatedBenefitText": "난방비·전기요금 지원"
     },
     {
       "id": "gov24-135200005005",
@@ -4644,7 +5451,12 @@
       "tags": [
         "생활안정",
         "보건복지부"
-      ]
+      ],
+      "incomeCondition": [
+        "low"
+      ],
+      "relevanceScore": 0.85,
+      "estimatedBenefitText": "의료비 최대 300만원"
     },
     {
       "id": "gov24-135200005006",
@@ -4672,7 +5484,10 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 65,
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "요양시설 입소 지원"
     },
     {
       "id": "gov24-135200005010",
@@ -4700,7 +5515,15 @@
       "tags": [
         "주거·자립",
         "보건복지부"
-      ]
+      ],
+      "occupationTarget": [
+        "employed"
+      ],
+      "incomeCondition": [
+        "low"
+      ],
+      "relevanceScore": 0.35,
+      "estimatedBenefitText": "월 최대 40만원 자산형성"
     },
     {
       "id": "gov24-135200005011",
@@ -4729,7 +5552,12 @@
       "tags": [
         "임신·출산",
         "보건복지부"
-      ]
+      ],
+      "householdCondition": [
+        "family-with-children"
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "입양축하금 2000만원"
     },
     {
       "id": "gov24-135200005012",
@@ -4757,7 +5585,16 @@
       "tags": [
         "주거·자립",
         "보건복지부"
-      ]
+      ],
+      "occupationTarget": [
+        "employed"
+      ],
+      "incomeCondition": [
+        "low",
+        "middle-low"
+      ],
+      "relevanceScore": 0.4,
+      "estimatedBenefitText": "월 최대 50만원 자산형성"
     },
     {
       "id": "gov24-135200005013",
@@ -4785,7 +5622,17 @@
       "tags": [
         "주거·자립",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 19,
+      "ageMax": 34,
+      "occupationTarget": [
+        "employed"
+      ],
+      "incomeCondition": [
+        "middle-low"
+      ],
+      "relevanceScore": 0.6,
+      "estimatedBenefitText": "월 최대 100만원 자산형성"
     },
     {
       "id": "gov24-135200005015",
@@ -4814,7 +5661,11 @@
       "tags": [
         "임신·출산",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 0,
+      "ageMax": 1,
+      "relevanceScore": 0.3,
+      "estimatedBenefitText": "첫만남이용권 200만원 바우처"
     },
     {
       "id": "gov24-135200005016",
@@ -4842,7 +5693,11 @@
       "tags": [
         "보호·돌봄",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 0,
+      "ageMax": 18,
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "전문 가정위탁 보호비 지원"
     },
     {
       "id": "gov24-135200005017",
@@ -4870,7 +5725,14 @@
       "tags": [
         "생활안정",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 18,
+      "ageMax": 65,
+      "occupationTarget": [
+        "employed"
+      ],
+      "relevanceScore": 0.3,
+      "estimatedBenefitText": "질병으로 인한 소득손실 보전"
     },
     {
       "id": "gov24-135200005024",
@@ -4898,7 +5760,11 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 18,
+      "ageMax": 65,
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "금연 캠프 무료 참여"
     },
     {
       "id": "gov24-135200005026",
@@ -4926,7 +5792,10 @@
       "tags": [
         "생활안정",
         "보건복지부"
-      ]
+      ],
+      "ageMax": 65,
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "월 최대 50만원 긴급돌봄"
     },
     {
       "id": "gov24-135200005027",
@@ -4954,7 +5823,15 @@
       "tags": [
         "생활안정",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 13,
+      "ageMax": 64,
+      "householdCondition": [
+        "single",
+        "with-parents"
+      ],
+      "relevanceScore": 0.25,
+      "estimatedBenefitText": "월 최대 60만원 일상돌봄"
     },
     {
       "id": "gov24-135200005030",
@@ -4982,7 +5859,14 @@
       "tags": [
         "행정·안전",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 65,
+      "incomeCondition": [
+        "low",
+        "middle-low"
+      ],
+      "relevanceScore": 0.7,
+      "estimatedBenefitText": "월 최대 34만원 기초연금"
     },
     {
       "id": "gov24-135200005031",
@@ -5010,7 +5894,10 @@
       "tags": [
         "보호·돌봄",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 65,
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "요양비용 본인부담금 감경"
     },
     {
       "id": "gov24-135200005033",
@@ -5039,7 +5926,11 @@
       "tags": [
         "보육·교육",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 0,
+      "ageMax": 18,
+      "relevanceScore": 0.05,
+      "estimatedBenefitText": "경계선지능 심리검사비 지원"
     },
     {
       "id": "gov24-135200005034",
@@ -5067,7 +5958,13 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 60,
+      "incomeCondition": [
+        "low"
+      ],
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "안검진 및 개안수술 무료"
     },
     {
       "id": "gov24-135200005037",
@@ -5095,7 +5992,11 @@
       "tags": [
         "보호·돌봄",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 6,
+      "ageMax": 65,
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "발달장애인 긴급돌봄 서비스 제공"
     },
     {
       "id": "gov24-135200005038",
@@ -5123,7 +6024,11 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 0,
+      "ageMax": 15,
+      "relevanceScore": 0.25,
+      "estimatedBenefitText": "아동 입원진료비 지원"
     },
     {
       "id": "gov24-135200005039",
@@ -5151,7 +6056,10 @@
       "tags": [
         "보육·교육",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 18,
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "자립지원 전담기관 맞춤형 사례관리 및 생활지원"
     },
     {
       "id": "gov24-135200005043",
@@ -5179,7 +6087,15 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 60,
+      "incomeCondition": [
+        "low",
+        "middle-low",
+        "middle"
+      ],
+      "relevanceScore": 0.4,
+      "estimatedBenefitText": "치매검진 무료 제공"
     },
     {
       "id": "gov24-135200005045",
@@ -5207,7 +6123,9 @@
       "tags": [
         "생활안정",
         "보건복지부"
-      ]
+      ],
+      "relevanceScore": 0.65,
+      "estimatedBenefitText": "심리상담 지원 및 정신건강 서비스"
     },
     {
       "id": "gov24-135200005046",
@@ -5235,7 +6153,10 @@
       "tags": [
         "임신·출산",
         "보건복지부"
-      ]
+      ],
+      "genderCondition": "female",
+      "relevanceScore": 0.3,
+      "estimatedBenefitText": "임산부 외래진료비 본인부담률 경감"
     },
     {
       "id": "gov24-135200005048",
@@ -5263,7 +6184,10 @@
       "tags": [
         "임신·출산",
         "보건복지부"
-      ]
+      ],
+      "genderCondition": "female",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "위기임신 및 보호출산 지원비 및 서비스"
     },
     {
       "id": "gov24-135200005050",
@@ -5291,7 +6215,11 @@
       "tags": [
         "임신·출산",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 0,
+      "ageMax": 2,
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "2세 미만 영유아 입원진료비 면제"
     },
     {
       "id": "gov24-135200005051",
@@ -5319,7 +6247,14 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 3,
+      "ageMax": 15,
+      "incomeCondition": [
+        "low"
+      ],
+      "relevanceScore": 0.35,
+      "estimatedBenefitText": "불소도포 무료 서비스"
     },
     {
       "id": "gov24-135200005053",
@@ -5347,7 +6282,10 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 60,
+      "relevanceScore": 0.35,
+      "estimatedBenefitText": "배회감지기 무상보급"
     },
     {
       "id": "gov24-135200005055",
@@ -5376,7 +6314,10 @@
       "tags": [
         "보육·교육",
         "보건복지부"
-      ]
+      ],
+      "ageMax": 18,
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "가정위탁 아동양육보조금 월 지원"
     },
     {
       "id": "gov24-135200005058",
@@ -5404,7 +6345,9 @@
       "tags": [
         "보건·의료",
         "보건복지부"
-      ]
+      ],
+      "relevanceScore": 0.05,
+      "estimatedBenefitText": "난자·정자 냉동 지원"
     },
     {
       "id": "gov24-135200005059",
@@ -5433,7 +6376,16 @@
       "tags": [
         "고용·창업",
         "보건복지부"
-      ]
+      ],
+      "occupationTarget": [
+        "employed"
+      ],
+      "incomeCondition": [
+        "low",
+        "middle-low"
+      ],
+      "relevanceScore": 0.55,
+      "estimatedBenefitText": "사회보험료 일부 지원"
     },
     {
       "id": "gov24-135200005060",
@@ -5461,7 +6413,10 @@
       "tags": [
         "주거·자립",
         "보건복지부"
-      ]
+      ],
+      "ageMin": 18,
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "노숙인 시설입소 및 복지서비스 지원"
     },
     {
       "id": "gov24-137100000004",
@@ -5489,7 +6444,12 @@
       "tags": [
         "문화·환경",
         "문화체육관광부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "관광사업 융자 최대 30억원"
     },
     {
       "id": "gov24-137100000006",
@@ -5517,7 +6477,17 @@
       "tags": [
         "문화·환경",
         "문화체육관광부"
-      ]
+      ],
+      "ageMin": 5,
+      "ageMax": 18,
+      "occupationTarget": [
+        "student"
+      ],
+      "incomeCondition": [
+        "low"
+      ],
+      "relevanceScore": 0.45,
+      "estimatedBenefitText": "월 8~11만원 스포츠강좌이용권"
     },
     {
       "id": "gov24-137100000032",
@@ -5545,7 +6515,9 @@
       "tags": [
         "문화·환경",
         "문화체육관광부"
-      ]
+      ],
+      "relevanceScore": 0.5,
+      "estimatedBenefitText": "문화활동 치유프로그램 무료 제공"
     },
     {
       "id": "gov24-137100000033",
@@ -5573,7 +6545,10 @@
       "tags": [
         "문화·환경",
         "문화체육관광부"
-      ]
+      ],
+      "ageMin": 60,
+      "relevanceScore": 0.4,
+      "estimatedBenefitText": "어르신 생활체육 강좌비 지원"
     },
     {
       "id": "gov24-137100000034",
@@ -5601,7 +6576,10 @@
       "tags": [
         "문화·환경",
         "문화체육관광부"
-      ]
+      ],
+      "targetSpecialty": "disability-severe",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "장애체육인 생활지원금 지원"
     },
     {
       "id": "gov24-137100000035",
@@ -5630,7 +6608,10 @@
       "tags": [
         "문화·환경",
         "문화체육관광부"
-      ]
+      ],
+      "targetSpecialty": "disability-severe",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "장애체육인 장학금 지원"
     },
     {
       "id": "gov24-137100000173",
@@ -5658,7 +6639,9 @@
       "tags": [
         "문화·환경",
         "문화체육관광부"
-      ]
+      ],
+      "relevanceScore": 0.3,
+      "estimatedBenefitText": "무료 전화·온라인 상담 서비스"
     },
     {
       "id": "gov24-137100000217",
@@ -5686,7 +6669,11 @@
       "tags": [
         "문화·환경",
         "문화체육관광부"
-      ]
+      ],
+      "occupationTarget": [
+        "student"
+      ],
+      "relevanceScore": 0.15
     },
     {
       "id": "gov24-137100000234",
@@ -5714,7 +6701,9 @@
       "tags": [
         "문화·환경",
         "문화체육관광부"
-      ]
+      ],
+      "targetSpecialty": "disability-severe",
+      "relevanceScore": 0.15
     },
     {
       "id": "gov24-137100000235",
@@ -5743,7 +6732,9 @@
       "tags": [
         "문화·환경",
         "문화체육관광부"
-      ]
+      ],
+      "targetSpecialty": "disability-severe",
+      "relevanceScore": 0.15
     },
     {
       "id": "gov24-137100000236",
@@ -5772,7 +6763,13 @@
       "tags": [
         "문화·환경",
         "문화체육관광부"
-      ]
+      ],
+      "ageMin": 6,
+      "incomeCondition": [
+        "low"
+      ],
+      "relevanceScore": 0.5,
+      "estimatedBenefitText": "연 16만원 상당 문화예술 이용 바우처"
     },
     {
       "id": "gov24-137100000239",
@@ -5800,7 +6797,11 @@
       "tags": [
         "문화·환경",
         "문화체육관광부"
-      ]
+      ],
+      "ageMin": 19,
+      "ageMax": 20,
+      "relevanceScore": 0.35,
+      "estimatedBenefitText": "문화예술 이용 포인트 지원"
     },
     {
       "id": "gov24-138300000008",
@@ -5828,7 +6829,10 @@
       "tags": [
         "보육·교육",
         "성평등가족부"
-      ]
+      ],
+      "ageMax": 18,
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "인터넷 중독 치료 및 교육 프로그램"
     },
     {
       "id": "gov24-138300000009",
@@ -5856,7 +6860,11 @@
       "tags": [
         "보육·교육",
         "성평등가족부"
-      ]
+      ],
+      "genderCondition": "female",
+      "targetSpecialty": "foreign-national",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "결혼 전 문화·생활 적응교육 무료 지원"
     },
     {
       "id": "gov24-138300000011",
@@ -5884,7 +6892,9 @@
       "tags": [
         "보육·교육",
         "성평등가족부"
-      ]
+      ],
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "청소년 상담 및 심리 지원 서비스"
     },
     {
       "id": "gov24-138300000016",
@@ -5912,7 +6922,10 @@
       "tags": [
         "주거·자립",
         "성평등가족부"
-      ]
+      ],
+      "genderCondition": "female",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "가정폭력 피해자 우선 임대주택 입주"
     },
     {
       "id": "gov24-138300000017",
@@ -5940,7 +6953,12 @@
       "tags": [
         "주거·자립",
         "성평등가족부"
-      ]
+      ],
+      "householdCondition": [
+        "single-parent"
+      ],
+      "relevanceScore": 0.25,
+      "estimatedBenefitText": "임대주택 특별공급 기회"
     },
     {
       "id": "gov24-138300000020",
@@ -5968,7 +6986,11 @@
       "tags": [
         "보호·돌봄",
         "성평등가족부"
-      ]
+      ],
+      "genderCondition": "female",
+      "targetSpecialty": "foreign-national",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "폭력 피해 보호시설 및 지원 서비스"
     },
     {
       "id": "gov24-138300000021",
@@ -5996,7 +7018,10 @@
       "tags": [
         "보육·교육",
         "성평등가족부"
-      ]
+      ],
+      "targetSpecialty": "foreign-national",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "자녀 이중언어 교육 지원"
     },
     {
       "id": "gov24-138300000022",
@@ -6024,7 +7049,10 @@
       "tags": [
         "보호·돌봄",
         "성평등가족부"
-      ]
+      ],
+      "genderCondition": "female",
+      "relevanceScore": 0.05,
+      "estimatedBenefitText": "폭력 피해 예방 및 상담 지원"
     },
     {
       "id": "gov24-138300000023",
@@ -6052,7 +7080,9 @@
       "tags": [
         "보육·교육",
         "성평등가족부"
-      ]
+      ],
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "폭력예방교육 서비스"
     },
     {
       "id": "gov24-138300000030",
@@ -6080,7 +7110,10 @@
       "tags": [
         "보육·교육",
         "성평등가족부"
-      ]
+      ],
+      "ageMax": 18,
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "청소년 상담 서비스 무료 제공"
     },
     {
       "id": "gov24-138300000033",
@@ -6108,7 +7141,11 @@
       "tags": [
         "보건·의료",
         "성평등가족부"
-      ]
+      ],
+      "ageMin": 9,
+      "ageMax": 19,
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "건강검진 무료 지원"
     },
     {
       "id": "gov24-138300000038",
@@ -6136,7 +7173,9 @@
       "tags": [
         "보호·돌봄",
         "성평등가족부"
-      ]
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "디지털 성범죄 피해자 지원 서비스"
     },
     {
       "id": "gov24-138300000040",
@@ -6164,7 +7203,12 @@
       "tags": [
         "보육·교육",
         "성평등가족부"
-      ]
+      ],
+      "householdCondition": [
+        "single-parent"
+      ],
+      "relevanceScore": 0.25,
+      "estimatedBenefitText": "무료 법률 상담 및 소송 지원"
     },
     {
       "id": "gov24-138300000043",
@@ -6192,7 +7236,9 @@
       "tags": [
         "보호·돌봄",
         "성평등가족부"
-      ]
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "디지털 성범죄 피해 지원 서비스"
     },
     {
       "id": "gov24-138300000051",
@@ -6220,7 +7266,16 @@
       "tags": [
         "생활안정",
         "성평등가족부"
-      ]
+      ],
+      "ageMax": 24,
+      "incomeCondition": [
+        "low"
+      ],
+      "householdCondition": [
+        "family-with-children"
+      ],
+      "relevanceScore": 0.3,
+      "estimatedBenefitText": "월 아동양육비 지원"
     },
     {
       "id": "gov24-138300000052",
@@ -6249,7 +7304,16 @@
       "tags": [
         "생활안정",
         "성평등가족부"
-      ]
+      ],
+      "ageMax": 22,
+      "incomeCondition": [
+        "low"
+      ],
+      "householdCondition": [
+        "single-parent"
+      ],
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "자립정착금, 생활지원금, 교육지원금"
     },
     {
       "id": "gov24-138300000053",
@@ -6278,7 +7342,15 @@
       "tags": [
         "주거·자립",
         "성평등가족부"
-      ]
+      ],
+      "householdCondition": [
+        "single-parent"
+      ],
+      "genderCondition": [
+        "female"
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "자립지원금 월 최대 50만원"
     },
     {
       "id": "gov24-138300000054",
@@ -6306,7 +7378,14 @@
       "tags": [
         "보호·돌봄",
         "성평등가족부"
-      ]
+      ],
+      "ageMin": 9,
+      "ageMax": 24,
+      "occupationTarget": [
+        "student"
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "상담, 교육, 치료비 등 원스톱 지원"
     },
     {
       "id": "gov24-138300000055",
@@ -6334,7 +7413,15 @@
       "tags": [
         "고용·창업",
         "성평등가족부"
-      ]
+      ],
+      "occupationTarget": [
+        "unemployed"
+      ],
+      "genderCondition": [
+        "female"
+      ],
+      "relevanceScore": 0.5,
+      "estimatedBenefitText": "직업훈련, 취업지원 서비스"
     },
     {
       "id": "gov24-138300000056",
@@ -6362,7 +7449,10 @@
       "tags": [
         "보육·교육",
         "성평등가족부"
-      ]
+      ],
+      "targetSpecialty": "foreign-national",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "다문화가족 통합지원 서비스"
     },
     {
       "id": "gov24-138300000057",
@@ -6391,7 +7481,19 @@
       "tags": [
         "생활안정",
         "성평등가족부"
-      ]
+      ],
+      "ageMin": 7,
+      "ageMax": 18,
+      "occupationTarget": [
+        "student"
+      ],
+      "incomeCondition": [
+        "low",
+        "middle-low"
+      ],
+      "targetSpecialty": "foreign-national",
+      "relevanceScore": 0.12,
+      "estimatedBenefitText": "연 200만원 이내 교육활동비"
     },
     {
       "id": "gov24-138300000058",
@@ -6419,7 +7521,14 @@
       "tags": [
         "보육·교육",
         "성평등가족부"
-      ]
+      ],
+      "ageMax": 18,
+      "occupationTarget": [
+        "student"
+      ],
+      "targetSpecialty": "foreign-national",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "기초학습 지원"
     },
     {
       "id": "gov24-138300000059",
@@ -6447,7 +7556,15 @@
       "tags": [
         "생활안정",
         "성평등가족부"
-      ]
+      ],
+      "ageMin": 8,
+      "ageMax": 19,
+      "occupationTarget": [
+        "student"
+      ],
+      "targetSpecialty": "foreign-national",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "진로설계 상담 및 교육"
     },
     {
       "id": "gov24-138300000060",
@@ -6475,7 +7592,13 @@
       "tags": [
         "보육·교육",
         "성평등가족부"
-      ]
+      ],
+      "genderCondition": [
+        "female"
+      ],
+      "targetSpecialty": "foreign-national",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "역량강화 교육 및 훈련"
     },
     {
       "id": "gov24-138300000062",
@@ -6503,7 +7626,13 @@
       "tags": [
         "주거·자립",
         "성평등가족부"
-      ]
+      ],
+      "ageMax": 19,
+      "occupationTarget": [
+        "student"
+      ],
+      "relevanceScore": 0.05,
+      "estimatedBenefitText": "회복지원시설 운영"
     },
     {
       "id": "gov24-138300000063",
@@ -6531,7 +7660,10 @@
       "tags": [
         "주거·자립",
         "성평등가족부"
-      ]
+      ],
+      "ageMax": 24,
+      "relevanceScore": 0.08,
+      "estimatedBenefitText": "자립지원수당 월 최대 35만원"
     },
     {
       "id": "gov24-138300000065",
@@ -6560,7 +7692,16 @@
       "tags": [
         "생활안정",
         "성평등가족부"
-      ]
+      ],
+      "incomeCondition": [
+        "middle-low",
+        "middle"
+      ],
+      "householdCondition": [
+        "single-parent"
+      ],
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "월 최대 100만원 선지급"
     },
     {
       "id": "gov24-138300000066",
@@ -6588,7 +7729,13 @@
       "tags": [
         "보호·돌봄",
         "성평등가족부"
-      ]
+      ],
+      "ageMax": 19,
+      "householdCondition": [
+        "single-parent"
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "양육비 이행강제, 법률지원"
     },
     {
       "id": "gov24-138300000067",
@@ -6616,7 +7763,11 @@
       "tags": [
         "주거·자립",
         "성평등가족부"
-      ]
+      ],
+      "ageMin": 18,
+      "ageMax": 25,
+      "relevanceScore": 0.08,
+      "estimatedBenefitText": "월 자립지원수당"
     },
     {
       "id": "gov24-140000000002",
@@ -6644,7 +7795,10 @@
       "tags": [
         "문화·환경",
         "산림청"
-      ]
+      ],
+      "targetSpecialty": "veteran",
+      "relevanceScore": 0.05,
+      "estimatedBenefitText": "국립수목원 관람료 할인"
     },
     {
       "id": "gov24-140000000005",
@@ -6672,7 +7826,14 @@
       "tags": [
         "고용·창업",
         "산림청"
-      ]
+      ],
+      "ageMin": 18,
+      "ageMax": 65,
+      "occupationTarget": [
+        "unemployed"
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "산불예방진화 일자리 제공"
     },
     {
       "id": "gov24-140000000006",
@@ -6700,7 +7861,14 @@
       "tags": [
         "고용·창업",
         "산림청"
-      ]
+      ],
+      "ageMin": 18,
+      "ageMax": 65,
+      "occupationTarget": [
+        "unemployed"
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "산림재난대응 일자리 제공"
     },
     {
       "id": "gov24-140000000161",
@@ -6728,7 +7896,13 @@
       "tags": [
         "농림축산어업",
         "산림청"
-      ]
+      ],
+      "incomeCondition": [
+        "low"
+      ],
+      "targetSpecialty": "veteran",
+      "relevanceScore": 0.05,
+      "estimatedBenefitText": "품종보호 수수료 면제"
     },
     {
       "id": "gov24-140000000163",
@@ -6756,7 +7930,13 @@
       "tags": [
         "농림축산어업",
         "산림청"
-      ]
+      ],
+      "incomeCondition": [
+        "low"
+      ],
+      "targetSpecialty": "veteran",
+      "relevanceScore": 0.05,
+      "estimatedBenefitText": "종자 관련 수수료 면제"
     },
     {
       "id": "gov24-140000000164",
@@ -6784,7 +7964,13 @@
       "tags": [
         "문화·환경",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "agriculture",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "유휴토지 산림 전환 비용 및 융자 지원"
     },
     {
       "id": "gov24-140000000165",
@@ -6812,7 +7998,13 @@
       "tags": [
         "농림축산어업",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "agriculture",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "산림면적 300ha 이상 사업비 융자 및 보조"
     },
     {
       "id": "gov24-140000000166",
@@ -6840,7 +8032,13 @@
       "tags": [
         "농림축산어업",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "agriculture",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "산림사업 및 병해충 예방 사업비 융자"
     },
     {
       "id": "gov24-140000000167",
@@ -6868,7 +8066,14 @@
       "tags": [
         "농림축산어업",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed",
+        "student"
+      ],
+      "targetSpecialty": "agriculture",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "목재 전문인력 양성기관 교육훈련 비용 지원"
     },
     {
       "id": "gov24-140000000170",
@@ -6896,7 +8101,13 @@
       "tags": [
         "농림축산어업",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "agriculture",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "임업용 면세 유류 구입 지원"
     },
     {
       "id": "gov24-140000000171",
@@ -6924,7 +8135,10 @@
       "tags": [
         "문화·환경",
         "산림청"
-      ]
+      ],
+      "targetSpecialty": "veteran",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "국가정원 관람료 면제"
     },
     {
       "id": "gov24-140000000173",
@@ -6952,7 +8166,12 @@
       "tags": [
         "문화·환경",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "치유의 숲 조성사업비 융자"
     },
     {
       "id": "gov24-140000000174",
@@ -6980,7 +8199,13 @@
       "tags": [
         "농림축산어업",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "agriculture",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "산림탄소상쇄사업 지원금"
     },
     {
       "id": "gov24-140000000175",
@@ -7008,7 +8233,12 @@
       "tags": [
         "문화·환경",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "사립휴양시설 조성·보완·운영 사업비 융자"
     },
     {
       "id": "gov24-140000000176",
@@ -7036,7 +8266,13 @@
       "tags": [
         "문화·환경",
         "산림청"
-      ]
+      ],
+      "incomeCondition": [
+        "low",
+        "middle-low"
+      ],
+      "relevanceScore": 0.4,
+      "estimatedBenefitText": "산림복지서비스이용권(바우처) 지급"
     },
     {
       "id": "gov24-140000000177",
@@ -7064,7 +8300,9 @@
       "tags": [
         "문화·환경",
         "산림청"
-      ]
+      ],
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "산림복지소외자 대상 시설 무료 이용"
     },
     {
       "id": "gov24-140000000179",
@@ -7092,7 +8330,9 @@
       "tags": [
         "문화·환경",
         "산림청"
-      ]
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "숲사랑지도원 혜택 지원"
     },
     {
       "id": "gov24-140000000180",
@@ -7120,7 +8360,13 @@
       "tags": [
         "행정·안전",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "agriculture",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "자연재해 피해 복구 비용 지원"
     },
     {
       "id": "gov24-140000000181",
@@ -7148,7 +8394,17 @@
       "tags": [
         "농림축산어업",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "incomeCondition": [
+        "low",
+        "middle-low"
+      ],
+      "targetSpecialty": "agriculture",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "임업인 부채 대책 자금 지원"
     },
     {
       "id": "gov24-140000000185",
@@ -7176,7 +8432,14 @@
       "tags": [
         "농림축산어업",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed",
+        "unemployed"
+      ],
+      "targetSpecialty": "agriculture",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "귀산촌인 창업 및 주택 구입 대출 지원"
     },
     {
       "id": "gov24-140000000189",
@@ -7204,7 +8467,13 @@
       "tags": [
         "농림축산어업",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "agriculture",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "백두대간 산림소유자 소득감소분 지원"
     },
     {
       "id": "gov24-140000000191",
@@ -7232,7 +8501,13 @@
       "tags": [
         "농림축산어업",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "agriculture",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "숲가꾸기 사업 비용 지원"
     },
     {
       "id": "gov24-140000000192",
@@ -7260,7 +8535,13 @@
       "tags": [
         "문화·환경",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "agriculture",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "조림 사업 비용 지원"
     },
     {
       "id": "gov24-140000000194",
@@ -7289,7 +8570,12 @@
       "tags": [
         "행정·안전",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "unemployed"
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "목재이용명예감시원 일자리 제공"
     },
     {
       "id": "gov24-140000000201",
@@ -7317,7 +8603,13 @@
       "tags": [
         "농림축산어업",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "agriculture",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "임도 조성 및 개선사업 비용 지원"
     },
     {
       "id": "gov24-140000000202",
@@ -7345,7 +8637,13 @@
       "tags": [
         "농림축산어업",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "agriculture",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "임산물 수출 실적에 따른 지원"
     },
     {
       "id": "gov24-140000000204",
@@ -7373,7 +8671,13 @@
       "tags": [
         "고용·창업",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "unemployed"
+      ],
+      "targetSpecialty": "agriculture",
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "산사태현장예방 일자리 제공"
     },
     {
       "id": "gov24-140000000205",
@@ -7401,7 +8705,13 @@
       "tags": [
         "농림축산어업",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "agriculture",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "임산물 소비촉진 사업 지원금"
     },
     {
       "id": "gov24-140000000213",
@@ -7429,7 +8739,13 @@
       "tags": [
         "농림축산어업",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "agriculture",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "산림 사회적경제기업 지원"
     },
     {
       "id": "gov24-140000000214",
@@ -7457,7 +8773,9 @@
       "tags": [
         "농림축산어업",
         "산림청"
-      ]
+      ],
+      "relevanceScore": 0.5,
+      "estimatedBenefitText": "국립수목원 교육프로그램 무료 제공"
     },
     {
       "id": "gov24-140000000217",
@@ -7485,7 +8803,12 @@
       "tags": [
         "농림축산어업",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "employed"
+      ],
+      "relevanceScore": 0.3,
+      "estimatedBenefitText": "목재펠릿 보일러 설치 가정 사후관리 모니터링"
     },
     {
       "id": "gov24-140000000218",
@@ -7513,7 +8836,13 @@
       "tags": [
         "고용·창업",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "unemployed"
+      ],
+      "targetSpecialty": "agriculture",
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "산림보호지원단 일자리 제공"
     },
     {
       "id": "gov24-140000000222",
@@ -7541,7 +8870,12 @@
       "tags": [
         "농림축산어업",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.25,
+      "estimatedBenefitText": "민간어린이집 실내환경 개선 지원(국산목재)"
     },
     {
       "id": "gov24-140000000223",
@@ -7569,7 +8903,12 @@
       "tags": [
         "농림축산어업",
         "산림청"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "다중이용시설 실내환경 개선 지원(국산목재)"
     },
     {
       "id": "gov24-142000000001",
@@ -7597,7 +8936,13 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed",
+        "freelancer"
+      ],
+      "relevanceScore": 0.4,
+      "estimatedBenefitText": "1인 창조기업 지원센터 입주 지원"
     },
     {
       "id": "gov24-142000000007",
@@ -7625,7 +8970,12 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "student"
+      ],
+      "relevanceScore": 0.3,
+      "estimatedBenefitText": "중소기업 특성화고 인력양성 지원"
     },
     {
       "id": "gov24-142000000008",
@@ -7653,7 +9003,12 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "employed"
+      ],
+      "relevanceScore": 0.5,
+      "estimatedBenefitText": "중소기업 내일채움공제 가입(최대 연 1천만원)"
     },
     {
       "id": "gov24-142000000010",
@@ -7681,7 +9036,13 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "ageMin": 40,
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.3,
+      "estimatedBenefitText": "중장년 기술창업센터 입주 지원"
     },
     {
       "id": "gov24-142000000014",
@@ -7709,7 +9070,12 @@
       "tags": [
         "주거·자립",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "employed"
+      ],
+      "relevanceScore": 0.35,
+      "estimatedBenefitText": "중소기업장기근속자 주택우선공급"
     },
     {
       "id": "gov24-142000000029",
@@ -7737,7 +9103,12 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.25,
+      "estimatedBenefitText": "제품 공동A/S 지원"
     },
     {
       "id": "gov24-142000000032",
@@ -7765,7 +9136,12 @@
       "tags": [
         "보육·교육",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "student"
+      ],
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "직업계고-전문대학 연계 기술사관 양성"
     },
     {
       "id": "gov24-142000000034",
@@ -7793,7 +9169,12 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.35,
+      "estimatedBenefitText": "판로진출 지원"
     },
     {
       "id": "gov24-142000000038",
@@ -7821,7 +9202,12 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.4,
+      "estimatedBenefitText": "혁신 소상공인 창업지원금"
     },
     {
       "id": "gov24-142000000039",
@@ -7849,7 +9235,12 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.3,
+      "estimatedBenefitText": "협동화사업 자금 융자(정책금리)"
     },
     {
       "id": "gov24-142000000045",
@@ -7877,7 +9268,12 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.25,
+      "estimatedBenefitText": "전통시장 주차환경 개선 지원(국비 60%)"
     },
     {
       "id": "gov24-142000000061",
@@ -7905,7 +9301,12 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "기술보호 시스템 구축 지원"
     },
     {
       "id": "gov24-142000000062",
@@ -7934,7 +9335,12 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "기술애로 해결 기술파트너 지원"
     },
     {
       "id": "gov24-142000000063",
@@ -7962,7 +9368,12 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "뿌리기업 육성 지원"
     },
     {
       "id": "gov24-142000000072",
@@ -7990,7 +9401,12 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "소공인 판로개척 지원"
     },
     {
       "id": "gov24-142000000073",
@@ -8018,7 +9434,12 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "재창업기업 사업화 지원"
     },
     {
       "id": "gov24-142000000078",
@@ -8046,7 +9467,13 @@
       "tags": [
         "보육·교육",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "genderCondition": "female",
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "여성 벤처 활성화 지원"
     },
     {
       "id": "gov24-142000000084",
@@ -8074,7 +9501,12 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "employed"
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "인재육성형 중소기업 발굴 및 지원"
     },
     {
       "id": "gov24-142000000085",
@@ -8102,7 +9534,12 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "student"
+      ],
+      "relevanceScore": 0.3,
+      "estimatedBenefitText": "중소기업 인식개선 교육"
     },
     {
       "id": "gov24-142000000088",
@@ -8131,7 +9568,17 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed",
+        "unemployed"
+      ],
+      "incomeCondition": [
+        "low",
+        "middle-low"
+      ],
+      "relevanceScore": 0.25,
+      "estimatedBenefitText": "희망리턴패키지, 자영업자 고용보험료 지원"
     },
     {
       "id": "gov24-142000000089",
@@ -8159,7 +9606,12 @@
       "tags": [
         "행정·안전",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "온누리상품권 가맹점 등록 지원"
     },
     {
       "id": "gov24-142000000090",
@@ -8188,7 +9640,13 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "targetSpecialty": "disability-severe",
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "장애인 기업 시제품제작 지원"
     },
     {
       "id": "gov24-142000000098",
@@ -8216,7 +9674,12 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "수출 중소기업 융자 지원 최대 수억원"
     },
     {
       "id": "gov24-142000000099",
@@ -8244,7 +9707,14 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "ageMin": 18,
+      "ageMax": 39,
+      "occupationTarget": [
+        "unemployed"
+      ],
+      "relevanceScore": 0.5,
+      "estimatedBenefitText": "청년전용창업자금 최대 수억원 대출"
     },
     {
       "id": "gov24-142000000115",
@@ -8272,7 +9742,12 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "중소·벤처기업 M&A 활성화 지원"
     },
     {
       "id": "gov24-142000000116",
@@ -8300,7 +9775,12 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "대·중소 기업 동반진출 지원"
     },
     {
       "id": "gov24-142000000121",
@@ -8328,7 +9808,12 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "수출컨소시엄 지원 해외전시회 참여"
     },
     {
       "id": "gov24-142100000003",
@@ -8356,7 +9841,13 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "employed",
+        "self-employed"
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "공공연 연구인력 파견지원"
     },
     {
       "id": "gov24-142100000004",
@@ -8385,7 +9876,14 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "ageMin": 23,
+      "ageMax": 39,
+      "occupationTarget": [
+        "unemployed"
+      ],
+      "relevanceScore": 0.2,
+      "estimatedBenefitText": "신진연구인력 채용지원 급여 일부 지원"
     },
     {
       "id": "gov24-142100000005",
@@ -8414,7 +9912,12 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "employed"
+      ],
+      "relevanceScore": 0.1,
+      "estimatedBenefitText": "고경력 연구인력 채용지원"
     },
     {
       "id": "gov24-142100000007",
@@ -8442,7 +9945,14 @@
       "tags": [
         "고용·창업",
         "중소벤처기업부"
-      ]
+      ],
+      "occupationTarget": [
+        "self-employed"
+      ],
+      "relevanceScore": 0.15,
+      "estimatedBenefitText": "기술보증 지원 최대 수억원 보증"
     }
-  ]
+  ],
+  "enrichedAt": "2026-03-21T11:09:08.894Z",
+  "enrichmentVersion": "2.0-specialty"
 }

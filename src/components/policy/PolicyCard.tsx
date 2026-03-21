@@ -61,15 +61,24 @@ export default function PolicyCard({ policy, score, matchReasons, isFullMatch }:
           {policy.summary}
         </p>
 
-        {/* Row 4: amount or spacer */}
+        {/* Row 4: amount / estimated benefit / description */}
         <div className="mb-2 flex-shrink-0" style={{ minHeight: '2rem' }}>
           {policy.benefitAmount ? (
             <>
               <p className="text-[10px] text-[#888] uppercase tracking-wide leading-none mb-0.5">최대 지원 금액</p>
               <p className="text-lg font-extrabold text-[#1B6B4A] leading-tight">{formatAmount(policy.benefitAmount)}</p>
             </>
+          ) : policy.estimatedBenefitText ? (
+            <>
+              <p className="text-[10px] text-[#aaa] leading-none mb-0.5">예상 혜택</p>
+              <p className="text-sm font-semibold text-[#2A9D8F] leading-tight truncate">{policy.estimatedBenefitText}</p>
+            </>
           ) : (
-            <p className="text-xs text-[#888] truncate">{policy.benefitDescription.slice(0, 40)}</p>
+            <p className="text-xs text-[#888] line-clamp-2 leading-relaxed">
+              {policy.benefitDescription && policy.benefitDescription !== '지원 내용은 상세 페이지를 참고하세요.'
+                ? policy.benefitDescription.slice(0, 50)
+                : policy.summary.slice(0, 50)}
+            </p>
           )}
         </div>
 

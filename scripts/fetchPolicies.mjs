@@ -254,16 +254,33 @@ async function enrichWithClaude(policies, apiKey) {
       `[${idx}] ${p.title}\n${(p.description || p.summary || '').replace(/\s+/g, ' ').slice(0, 400)}`
     ).join('\n\n');
 
-    const prompt = `한국 정부 복지 정책 ${batch.length}개의 지원 대상 조건을 분석해서 JSON 배열만 응답하세요. 설명 없이 배열만.
+    const prompt = `한국 정부 복지 정책 ${batch.length}개를 분석해서 JSON 배열만 응답하세요. 설명 없이 배열만.
 
-각 항목 형식: {"ageMin":null또는숫자,"ageMax":null또는숫자,"occupationTarget":null또는배열,"incomeCondition":null또는배열,"householdCondition":null또는배열,"genderCondition":null또는배열}
+각 항목 형식:
+{"ageMin":null|숫자,"ageMax":null|숫자,"occupationTarget":null|배열,"incomeCondition":null|배열,"householdCondition":null|배열,"genderCondition":null|배열,"targetSpecialty":null|문자열,"relevanceScore":0.0~1.0,"estimatedBenefitText":null|문자열}
 
 값 옵션:
 - occupationTarget: "employed"재직자 "unemployed"미취업/구직자 "self-employed"자영업자 "student"학생 "freelancer"프리랜서
 - incomeCondition: "low"중위50%이하/기초/차상위 "middle-low"50~100% "middle"100~150% "high"150%초과 (이하 조건이면 해당 구간까지 모두 포함)
 - householdCondition: "single"1인가구 "with-parents"부모동거 "couple"부부 "family-with-children"자녀있는가구 "single-parent"한부모
 - genderCondition: "male"남성만 "female"여성만 (성별무관이면null)
-- 조건없음(누구나)이면 null
+- targetSpecialty: 아래 중 하나(해당하면 반드시 설정, 아니면 null)
+  "veteran" 국가유공자/보훈/참전유공자/전몰군경/순직군경/6.25/고엽제
+  "military" 현역군인/군무원/사관생도/부사관/장교/병역의무
+  "maritime" 원양어선/어업인/어민/수산업종사자/해기사/귀어귀촌
+  "agriculture" 농업인/농민/귀농/영농후계
+  "hansen" 한센인/나병환자
+  "foreign-national" 외국인근로자/결혼이민자/귀화외국인/이주민
+  "disability-severe" 1~2급 중증장애인 한정(일반 장애인 지원 아님)
+  "religion" 성직자/목회자 한정
+- relevanceScore: 서울 거주 20~40대 일반 시민(직장인/미취업) 기준으로 얼마나 관련있나
+  1.0 = 거의 모든 시민이 신청 가능 (청년 전세대출, 실업급여 등)
+  0.7 = 조건 맞으면 대부분 신청 가능 (저소득층 주거급여, 청년수당 등)
+  0.4 = 특정 상황에만 해당 (창업자, 한부모 등)
+  0.2 이하 = 극소수 대상 (농어업인, 군인 가족, 국가유공자 등)
+  → targetSpecialty가 설정된 경우 반드시 0.2 이하로 설정
+- estimatedBenefitText: 지원 금액/내용 간단 요약. 예: "월 최대 33만원 현금", "연 최대 150만원 교육비", "전세보증금 최대 1억원 대출", "무료 서비스 제공"
+  숫자나 내용이 전혀 없으면 null
 
 정책:
 ${policyText}`;
@@ -599,6 +616,9 @@ async function main() {
         if (cd.incomeCondition?.length  && !p.incomeCondition)  p.incomeCondition  = cd.incomeCondition;
         if (cd.householdCondition?.length && !p.householdCondition) p.householdCondition = cd.householdCondition;
         if (cd.genderCondition?.length  && !p.genderCondition)  p.genderCondition  = cd.genderCondition;
+        if (cd.targetSpecialty)             p.targetSpecialty = cd.targetSpecialty;
+        if (cd.relevanceScore != null)      p.relevanceScore  = cd.relevanceScore;
+        if (cd.estimatedBenefitText)        p.estimatedBenefitText = cd.estimatedBenefitText;
         enrichedCount++;
       });
       console.log(`  ✓ Claude enrichment 완료: ${enrichedCount}건 추가 처리`);

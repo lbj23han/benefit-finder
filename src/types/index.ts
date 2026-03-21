@@ -33,6 +33,12 @@ export interface Policy {
   /** true = URL manually verified to reach the correct page; false/undefined = pattern-constructed, may be stale */
   urlVerified?: boolean;
   genderCondition?: string[]; // ['male'] | ['female'] — omit for gender-neutral
+  /** Specialty target group — hard-blocks non-matching profiles */
+  targetSpecialty?: string; // 'veteran' | 'military' | 'maritime' | 'hansen' | 'foreign-national' | 'disability-severe' | 'agriculture' | 'religion'
+  /** 0–1: how applicable to a general urban Korean adult (from Claude enrichment) */
+  relevanceScore?: number;
+  /** Short AI-estimated benefit text when API didn't provide a numeric amount */
+  estimatedBenefitText?: string;
   tags: string[];
 }
 
