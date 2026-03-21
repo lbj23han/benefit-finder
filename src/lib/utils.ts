@@ -77,10 +77,11 @@ export function getIncomeLabel(level: string): string {
 
 export function getHouseholdLabel(type: string): string {
   const map: Record<string, string> = {
-    single: '1인 가구',
-    couple: '부부',
-    'family-with-children': '자녀가 있는 가구',
-    'single-parent': '한부모 가구',
+    single:                '1인 가구',
+    'with-parents':        '부모와 함께',
+    couple:                '부부',
+    'family-with-children': '자녀 있는 가구',
+    'single-parent':       '한부모 가구',
   };
   return map[type] ?? type;
 }

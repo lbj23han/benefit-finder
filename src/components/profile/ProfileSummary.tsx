@@ -5,10 +5,12 @@ interface ProfileSummaryProps {
   profile: UserProfile;
 }
 
-const ageGroupLabel = {
-  youth: '청년 (20~34세)',
-  prime: '중년 (35~49세)',
-  senior: '시니어 (50세+)',
+const ageGroupLabel: Record<string, string> = {
+  '20s':    '20대',
+  '30s':    '30대',
+  '40s':    '40대',
+  '50s':    '50대',
+  '60plus': '60대 이상',
 };
 
 export default function ProfileSummary({ profile }: ProfileSummaryProps) {
