@@ -23,12 +23,13 @@ export default function PolicyCard({ policy, score, matchReasons, isFullMatch }:
     if (isFullMatch) return (
       <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-[#E0F2EC] text-[#1B6B4A] whitespace-nowrap">✓ 신청 가능성 높음</span>
     );
-    if (score && score >= 50) return (
+    if (score && score >= 60) return (
       <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 whitespace-nowrap">◈ 조건 일치</span>
     );
-    if (score !== undefined) return (
-      <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 whitespace-nowrap">○ 분석 중</span>
+    if (score !== undefined && score >= 35) return (
+      <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 whitespace-nowrap">△ 조건 확인 필요</span>
     );
+    if (score !== undefined) return null; // 35점 미만은 라벨 표시 안 함
     return null;
   };
 

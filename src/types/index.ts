@@ -1,5 +1,6 @@
 export interface UserProfile {
   ageGroup: '20s' | '30s' | '40s' | '50s' | '60plus';
+  gender?: 'male' | 'female' | 'other';
   region: string; // 서울, 경기, 부산, etc.
   district?: string;
   occupation: 'employed' | 'self-employed' | 'student' | 'unemployed' | 'freelancer';
@@ -31,6 +32,7 @@ export interface Policy {
   detailUrl?: string;
   /** true = URL manually verified to reach the correct page; false/undefined = pattern-constructed, may be stale */
   urlVerified?: boolean;
+  genderCondition?: string[]; // ['male'] | ['female'] — omit for gender-neutral
   tags: string[];
 }
 

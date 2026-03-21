@@ -65,6 +65,36 @@ function eligibilityScore(policy: Policy, profile: UserProfile, age: number): nu
     return 0.05;
   }
 
+  // Category-implied household check
+  // 육아/보육 정책은 자녀가 있는 가구에만 해당
+  if (policy.category === 'childcare') {
+    const hasChildren =
+      profile.householdType === 'family-with-children' ||
+      profile.householdType === 'single-parent';
+    if (!hasChildren) return 0.05;
+  }
+
+  // 사업주 지원 정책은 자영업자/재직자만 해당
+  if (policy.category === 'business') {
+    if (profile.occupation !== 'self-employed' && profile.occupation !== 'employed') {
+      return 0.08;
+    }
+  }
+
+  // 제목 기반 하드 차단: 구조화 필드 없이 노출되는 명백한 부적합 케이스
+  const t = policy.title;
+  // 자녀 대상 정책 — 1인가구/부부 가구에 미해당
+  const CHILD_POLICY = /다문화.*자녀|자녀.*다문화|소년소녀\s*가(?:정|장)|방과\s*후\s*아동|아동\s*수당|영아\s*수당|입양\s*아동/;
+  if (CHILD_POLICY.test(t)) {
+    const hasChildren = profile.householdType === 'family-with-children' || profile.householdType === 'single-parent';
+    if (!hasChildren) return 0.05;
+  }
+  // 해양·어업 종사자 한정
+  const MARITIME = /해양사고|선원\s*(?:재해|복지|보험)|어선\s*원|해기사|수산업|어업\s*인/;
+  if (MARITIME.test(t) && profile.occupation !== 'self-employed') return 0.06;
+  // 소년소녀가장 (미성년 세대주)
+  if (/소년소녀\s*가(?:정|장)/.test(t)) return 0.05;
+
   let score = 1.0;
 
   // Age — binary gate
@@ -109,6 +139,19 @@ function eligibilityScore(policy: Policy, profile: UserProfile, age: number): nu
     }
   } else {
     score *= 0.92;
+  }
+
+  // Gender
+  if (profile.gender && profile.gender !== 'other') {
+    if (policy.genderCondition && policy.genderCondition.length > 0) {
+      score *= policy.genderCondition.includes(profile.gender) ? 1.0 : 0.1;
+    } else {
+      // 제목 패턴으로 성별 특화 정책 감지
+      const FEMALE_ONLY = /여성.*전용|임산부|산모|모성보호|여성.*창업|경력단절.*여성/;
+      const MALE_ONLY   = /병역.*지원|현역.*장병/;
+      if (FEMALE_ONLY.test(policy.title) && profile.gender !== 'female') score *= 0.12;
+      if (MALE_ONLY.test(policy.title)   && profile.gender !== 'male')   score *= 0.12;
+    }
   }
 
   return clamp(score);

@@ -9,14 +9,16 @@ import { UserProfile } from '@/types';
 import Link from 'next/link';
 
 const FIELD_LABELS: { key: FieldKey; icon: string; label: string }[] = [
-  { key: 'ageGroup', icon: '🎂', label: '나이대' },
-  { key: 'region', icon: '📍', label: '지역' },
-  { key: 'occupation', icon: '💼', label: '직업' },
-  { key: 'incomeLevel', icon: '💰', label: '소득 수준' },
-  { key: 'householdType', icon: '🏠', label: '가구 유형' },
+  { key: 'ageGroup',     icon: '🎂', label: '나이대' },
+  { key: 'gender',       icon: '👤', label: '성별' },
+  { key: 'region',       icon: '📍', label: '지역' },
+  { key: 'occupation',   icon: '💼', label: '직업' },
+  { key: 'incomeLevel',  icon: '💰', label: '소득 수준' },
+  { key: 'householdType',icon: '🏠', label: '가구 유형' },
 ];
 
-function getDisplayValue(key: FieldKey, value: string): string {
+function getDisplayValue(key: FieldKey, value: string | undefined): string {
+  if (!value) return '설정 안 함';
   const config = FIELD_CONFIG[key];
   return config.options.find((o) => o.value === value)?.label ?? value;
 }
@@ -85,7 +87,7 @@ export default function ProfilePage() {
                       <div>
                         <p className="text-xs text-[#888]">{label}</p>
                         <p className="text-sm font-semibold text-[#1a1a1a]">
-                          {getDisplayValue(key, profile[key] as string)}
+                          {getDisplayValue(key, profile[key] as string | undefined)}
                         </p>
                       </div>
                     </div>
@@ -179,7 +181,7 @@ export default function ProfilePage() {
       {activeField && profile && (
         <ProfileFieldModal
           field={activeField}
-          currentValue={profile[activeField] as string}
+          currentValue={(profile[activeField] as string | undefined) ?? ''}
           onSave={handleFieldSave}
           onClose={() => setActiveField(null)}
         />

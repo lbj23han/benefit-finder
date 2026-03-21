@@ -15,11 +15,11 @@ const OCCUPATIONS: { value: UserProfile['occupation']; label: string; icon: stri
   { value: 'freelancer', label: '프리랜서', icon: '💻', desc: '독립적으로 일하고 있어요' },
 ];
 
-const INCOME_LEVELS: { value: UserProfile['incomeLevel']; label: string; desc: string }[] = [
-  { value: 'low', label: '하위 50%', desc: '기준 중위소득 50% 이하' },
-  { value: 'middle-low', label: '중하위', desc: '기준 중위소득 50~100%' },
-  { value: 'middle', label: '중산층', desc: '기준 중위소득 100~150%' },
-  { value: 'high', label: '고소득', desc: '기준 중위소득 150% 이상' },
+const INCOME_LEVELS: { value: UserProfile['incomeLevel']; label: string; desc: string; example: string }[] = [
+  { value: 'low',        label: '기초/차상위', desc: '기준 중위소득 50% 이하',   example: '1인 가구 기준 월 약 119만원 이하' },
+  { value: 'middle-low', label: '중하위',      desc: '기준 중위소득 50~100%',   example: '1인 가구 기준 월 119~239만원' },
+  { value: 'middle',     label: '중산층',      desc: '기준 중위소득 100~150%',  example: '1인 가구 기준 월 239~359만원' },
+  { value: 'high',       label: '고소득',      desc: '기준 중위소득 150% 이상', example: '1인 가구 기준 월 359만원 초과' },
 ];
 
 const HOUSEHOLD_TYPES: { value: UserProfile['householdType']; label: string; icon: string }[] = [
@@ -86,12 +86,12 @@ export default function OnboardingPage() {
 
           <div className="mb-1">
             <p className="text-xs font-bold text-[#2A9D8F] uppercase tracking-wider mb-2">
-              {step === 1 && 'STEP 01 — 나이대'}
+              {step === 1 && 'STEP 01 — 기본 정보'}
               {step === 2 && 'STEP 02 — 지역 & 직업'}
               {step === 3 && 'STEP 03 — 소득 & 가구'}
             </p>
             <h2 className="text-2xl font-extrabold text-[#1a1a1a]">
-              {step === 1 && '나이대를 선택해 주세요'}
+              {step === 1 && '나이대와 성별을 알려주세요'}
               {step === 2 && '거주 지역과 직업을 알려주세요'}
               {step === 3 && '소득과 가구 유형을 선택해 주세요'}
             </h2>
@@ -125,36 +125,71 @@ export default function OnboardingPage() {
 }
 
 function Step1({ profile, setProfile }: { profile: Partial<UserProfile>; setProfile: (p: Partial<UserProfile>) => void }) {
-  const options: { value: UserProfile['ageGroup']; range: string; desc: string }[] = [
-    { value: '20s',    range: '20대',    desc: '만 20~29세' },
-    { value: '30s',    range: '30대',    desc: '만 30~39세' },
-    { value: '40s',    range: '40대',    desc: '만 40~49세' },
-    { value: '50s',    range: '50대',    desc: '만 50~59세' },
+  const ageOptions: { value: UserProfile['ageGroup']; range: string; desc: string }[] = [
+    { value: '20s',    range: '20대',     desc: '만 20~29세' },
+    { value: '30s',    range: '30대',     desc: '만 30~39세' },
+    { value: '40s',    range: '40대',     desc: '만 40~49세' },
+    { value: '50s',    range: '50대',     desc: '만 50~59세' },
     { value: '60plus', range: '60대 이상', desc: '만 60세 이상' },
   ];
 
+  const genderOptions: { value: UserProfile['gender']; label: string }[] = [
+    { value: 'male',   label: '남성' },
+    { value: 'female', label: '여성' },
+    { value: 'other',  label: '선택 안 함' },
+  ];
+
   return (
-    <div className="space-y-2 pb-4">
-      {options.map((opt) => {
-        const selected = profile.ageGroup === opt.value;
-        return (
-          <button
-            key={opt.value}
-            onClick={() => setProfile({ ...profile, ageGroup: opt.value })}
-            className={`w-full rounded-2xl px-5 py-4 text-left transition-all border-2 flex items-center justify-between ${
-              selected
-                ? 'bg-[#E0F2EC] border-[#1B6B4A]'
-                : 'bg-white border-gray-100 hover:border-[#2A9D8F]/30'
-            }`}
-          >
-            <div>
-              <p className={`text-lg font-extrabold ${selected ? 'text-[#1B6B4A]' : 'text-[#1a1a1a]'}`}>{opt.range}</p>
-              <p className="text-xs text-[#888] mt-0.5">{opt.desc}</p>
-            </div>
-            {selected && <span className="text-[#1B6B4A] text-xl">✓</span>}
-          </button>
-        );
-      })}
+    <div className="space-y-5 pb-4">
+      {/* Age */}
+      <div>
+        <p className="text-sm font-bold text-[#1a1a1a] mb-2">나이대</p>
+        <div className="space-y-2">
+          {ageOptions.map((opt) => {
+            const selected = profile.ageGroup === opt.value;
+            return (
+              <button
+                key={opt.value}
+                onClick={() => setProfile({ ...profile, ageGroup: opt.value })}
+                className={`w-full rounded-2xl px-5 py-4 text-left transition-all border-2 flex items-center justify-between ${
+                  selected
+                    ? 'bg-[#E0F2EC] border-[#1B6B4A]'
+                    : 'bg-white border-gray-100 hover:border-[#2A9D8F]/30'
+                }`}
+              >
+                <div>
+                  <p className={`text-lg font-extrabold ${selected ? 'text-[#1B6B4A]' : 'text-[#1a1a1a]'}`}>{opt.range}</p>
+                  <p className="text-xs text-[#888] mt-0.5">{opt.desc}</p>
+                </div>
+                {selected && <span className="text-[#1B6B4A] text-xl">✓</span>}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Gender */}
+      <div>
+        <p className="text-sm font-bold text-[#1a1a1a] mb-1">성별 <span className="text-xs font-normal text-[#aaa]">(선택)</span></p>
+        <div className="grid grid-cols-3 gap-2">
+          {genderOptions.map((opt) => {
+            const selected = profile.gender === opt.value;
+            return (
+              <button
+                key={opt.value}
+                onClick={() => setProfile({ ...profile, gender: opt.value })}
+                className={`py-3 rounded-xl text-sm font-semibold transition-all border-2 ${
+                  selected
+                    ? 'bg-[#E0F2EC] border-[#1B6B4A] text-[#1B6B4A]'
+                    : 'bg-white border-gray-100 text-[#555] hover:border-[#2A9D8F]/30'
+                }`}
+              >
+                {opt.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }
@@ -225,7 +260,7 @@ function Step3({ profile, setProfile }: { profile: Partial<UserProfile>; setProf
       {/* Income */}
       <div>
         <p className="text-sm font-bold text-[#1a1a1a] mb-1">소득 수준</p>
-        <p className="text-xs text-[#888] mb-3">기준 중위소득을 기준으로 선택해 주세요</p>
+        <p className="text-xs text-[#888] mb-3">잘 모르겠으면 아래 월 소득 기준을 참고하세요 (2025년, 세전 근로소득 기준)</p>
         <div className="space-y-2">
           {INCOME_LEVELS.map((inc) => {
             const selected = profile.incomeLevel === inc.value;
@@ -242,9 +277,10 @@ function Step3({ profile, setProfile }: { profile: Partial<UserProfile>; setProf
                 <div>
                   <p className={`font-bold text-sm ${selected ? 'text-[#1B6B4A]' : 'text-[#1a1a1a]'}`}>{inc.label}</p>
                   <p className="text-xs text-[#888]">{inc.desc}</p>
+                  <p className={`text-xs mt-0.5 ${selected ? 'text-[#2A9D8F]' : 'text-[#aaa]'}`}>{inc.example}</p>
                 </div>
                 {selected && (
-                  <div className="w-5 h-5 rounded-full bg-[#1B6B4A] flex items-center justify-center">
+                  <div className="w-5 h-5 rounded-full bg-[#1B6B4A] flex items-center justify-center flex-shrink-0 ml-2">
                     <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                     </svg>

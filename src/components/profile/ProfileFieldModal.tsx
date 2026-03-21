@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { UserProfile } from '@/types';
 
-type FieldKey = 'ageGroup' | 'region' | 'occupation' | 'incomeLevel' | 'householdType';
+type FieldKey = 'ageGroup' | 'gender' | 'region' | 'occupation' | 'incomeLevel' | 'householdType';
 
 interface Option {
   value: string;
@@ -12,6 +12,14 @@ interface Option {
 }
 
 const FIELD_CONFIG: Record<FieldKey, { title: string; options: Option[] }> = {
+  gender: {
+    title: '성별',
+    options: [
+      { value: 'male',   label: '남성' },
+      { value: 'female', label: '여성' },
+      { value: 'other',  label: '선택 안 함', description: '성별 무관 혜택을 모두 표시해요' },
+    ],
+  },
   ageGroup: {
     title: '나이대',
     options: [
@@ -57,10 +65,10 @@ const FIELD_CONFIG: Record<FieldKey, { title: string; options: Option[] }> = {
   incomeLevel: {
     title: '소득 수준',
     options: [
-      { value: 'low', label: '기초/차상위', description: '중위소득 50% 이하' },
-      { value: 'middle-low', label: '중위 이하', description: '중위소득 50~100%' },
-      { value: 'middle', label: '중위 이상', description: '중위소득 100~150%' },
-      { value: 'high', label: '고소득', description: '중위소득 150% 초과' },
+      { value: 'low',        label: '기초/차상위', description: '중위소득 50% 이하 · 1인 월 약 119만원 이하' },
+      { value: 'middle-low', label: '중위 이하',   description: '중위소득 50~100% · 1인 월 119~239만원' },
+      { value: 'middle',     label: '중위 이상',   description: '중위소득 100~150% · 1인 월 239~359만원' },
+      { value: 'high',       label: '고소득',      description: '중위소득 150% 초과 · 1인 월 359만원 초과' },
     ],
   },
   householdType: {
