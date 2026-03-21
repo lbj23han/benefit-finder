@@ -237,11 +237,12 @@ function eligibilityScore(policy: Policy, profile: UserProfile, age: number): nu
     // The early return at relevanceScore < 0.30 already filters out truly niche policies.
     // If a policy has a genuine condition match (occupation/income/household), we trust it.
 
-    // Floor: ONLY for policies with absolutely no structured conditions
-    // (truly universal policies must not be buried by stacked uncertainty multipliers)
+    // Floor: ONLY for policies with absolutely no structured conditions.
+    // Kept LOW (0.37/0.36) so targeted policies can outrank universal ones.
+    // The profile-specific boosts in getRecommendations() do the real lifting.
     if (!hasAnyCondition) {
-      if (policy.relevanceScore >= 0.80) score = Math.max(score, 0.44);
-      else if (policy.relevanceScore >= 0.65) score = Math.max(score, 0.38);
+      if (policy.relevanceScore >= 0.80) score = Math.max(score, 0.37);
+      else if (policy.relevanceScore >= 0.65) score = Math.max(score, 0.36);
     }
   }
 
@@ -338,6 +339,13 @@ export function getRecommendations(
   const age = getAgeFromGroup(profile.ageGroup);
   const isLowIncome = profile.incomeLevel === 'low' || profile.incomeLevel === 'middle-low';
 
+  // Pre-compute profile context flags for priority adjustments
+  const isYoungSingle =
+    (profile.ageGroup === '20s' || profile.ageGroup === '30s') &&
+    profile.householdType === 'single';
+  const isEmployed   = profile.occupation === 'employed';
+  const isSelfEmployed = profile.occupation === 'self-employed';
+
   return policies
     .map((policy): RecommendationResult => {
       const e = eligibilityScore(policy, profile, age);
@@ -351,8 +359,24 @@ export function getRecommendations(
         finalRaw = e * 0.5 + p * 0.3 + b * 0.2;
       }
 
-      // ── 직접 현금/주거 지원 우선 (저소득층) ────────────────────────────────
-      // 저소득층에게 당장 받을 수 있는 현금/바우처/주거 지원 최우선
+      // ── 프로필 맥락 기반 우선순위 조정 ─────────────────────────────────────
+      //
+      // "No-condition universal" 여부: 구조화된 조건이 하나도 없는 정책
+      // (인플루엔자 예방접종, 마음투자 지원 등 — 누구에게나 열려 있어 특정성이 낮음)
+      const incCondArr = normalizeArray(policy.incomeCondition as string | string[] | undefined);
+      const isUniversal =
+        policy.ageMin === undefined && policy.ageMax === undefined &&
+        !(normalizeArray(policy.occupationTarget)?.length) &&
+        !(incCondArr?.length) &&
+        !(normalizeArray(policy.householdCondition)?.length);
+
+      // [A] Universal 서비스 하향 (비저소득 프로필에서 인플루엔자·마음투자가 1위 뜨는 문제)
+      // 저소득층은 예외 — 보편 서비스도 실질적으로 중요
+      if (!isLowIncome && isUniversal && e < 0.60) {
+        finalRaw *= 0.72;
+      }
+
+      // [B] 저소득층 현금/주거 지원 최우선 ─────────────────────────────────
       if (isLowIncome && e >= 0.40) {
         if (policy.benefitType === 'cash' || policy.benefitType === 'voucher') {
           finalRaw *= 1.18;
@@ -360,10 +384,25 @@ export function getRecommendations(
         if (policy.category === 'housing') {
           finalRaw *= 1.12;
         }
-        // Deprioritize loans for low-income users — debt burden is a real risk
+        // 대출은 저소득층에게 부담 — 하향
         if (policy.benefitType === 'loan') {
           finalRaw *= 0.78;
         }
+      }
+
+      // [C] 청년 1인가구 → 주거 정책 우선 (서울·수도권 청년의 핵심 니즈)
+      if (isYoungSingle && policy.category === 'housing' && e >= 0.35) {
+        finalRaw *= 1.20;
+      }
+
+      // [D] 재직자 → 취업·저축·보험 프로그램 우선 (내일채움공제, 두루누리 등)
+      if (isEmployed && policy.category === 'employment' && e >= 0.35) {
+        finalRaw *= 1.12;
+      }
+
+      // [E] 자영업자 → 창업·소상공인 지원 우선
+      if (isSelfEmployed && (policy.category === 'business' || policy.category === 'employment') && e >= 0.35) {
+        finalRaw *= 1.12;
       }
 
       const score = Math.round(clamp(finalRaw) * 100);
