@@ -3,20 +3,42 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import AppShell from '@/components/layout/AppShell';
-import ProfileSummary from '@/components/profile/ProfileSummary';
-import { getProfile, clearProfile } from '@/lib/storage';
+import ProfileFieldModal, { FieldKey, FIELD_CONFIG } from '@/components/profile/ProfileFieldModal';
+import { getProfile, saveProfile, clearProfile } from '@/lib/storage';
 import { UserProfile } from '@/types';
 import Link from 'next/link';
+
+const FIELD_LABELS: { key: FieldKey; icon: string; label: string }[] = [
+  { key: 'ageGroup', icon: '🎂', label: '나이대' },
+  { key: 'region', icon: '📍', label: '지역' },
+  { key: 'occupation', icon: '💼', label: '직업' },
+  { key: 'incomeLevel', icon: '💰', label: '소득 수준' },
+  { key: 'householdType', icon: '🏠', label: '가구 유형' },
+];
+
+function getDisplayValue(key: FieldKey, value: string): string {
+  const config = FIELD_CONFIG[key];
+  return config.options.find((o) => o.value === value)?.label ?? value;
+}
 
 export default function ProfilePage() {
   const router = useRouter();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loaded, setLoaded] = useState(false);
+  const [activeField, setActiveField] = useState<FieldKey | null>(null);
 
   useEffect(() => {
     setProfile(getProfile());
     setLoaded(true);
   }, []);
+
+  const handleFieldSave = (field: FieldKey, value: string) => {
+    if (!profile) return;
+    const updated = { ...profile, [field]: value };
+    saveProfile(updated);
+    setProfile(updated);
+    setActiveField(null);
+  };
 
   const handleClear = () => {
     if (confirm('프로필을 초기화하면 처음부터 다시 설정해야 해요. 계속할까요?')) {
@@ -45,48 +67,64 @@ export default function ProfilePage() {
         <div className="px-4 py-5 space-y-4 lg:max-w-2xl lg:px-6">
           {profile ? (
             <>
-              <ProfileSummary profile={profile} />
-
-              <div className="bg-white rounded-2xl border border-gray-100 p-4">
-                <h3 className="text-sm font-semibold text-[#1a1a1a] mb-3">액션</h3>
-                <div className="space-y-2">
-                  <Link
-                    href="/onboarding"
-                    className="flex items-center justify-between w-full p-3 rounded-xl hover:bg-[#F4F8F6] transition-colors"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="text-lg">✏️</span>
-                      <span className="text-sm font-medium text-[#1a1a1a]">프로필 수정하기</span>
-                    </div>
-                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
-                  <Link
-                    href="/results"
-                    className="flex items-center justify-between w-full p-3 rounded-xl hover:bg-[#F4F8F6] transition-colors"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="text-lg">🔍</span>
-                      <span className="text-sm font-medium text-[#1a1a1a]">맞춤 혜택 다시 보기</span>
-                    </div>
-                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
+              {/* Per-field edit rows */}
+              <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+                <div className="px-4 py-3 border-b border-gray-50">
+                  <h3 className="text-sm font-semibold text-[#1a1a1a]">내 조건</h3>
+                </div>
+                {FIELD_LABELS.map(({ key, icon, label }, i) => (
                   <button
-                    onClick={handleClear}
-                    className="flex items-center justify-between w-full p-3 rounded-xl hover:bg-red-50 transition-colors"
+                    key={key}
+                    onClick={() => setActiveField(key)}
+                    className={`w-full flex items-center justify-between px-4 py-3.5 hover:bg-[#F4F8F6] transition-colors text-left ${
+                      i < FIELD_LABELS.length - 1 ? 'border-b border-gray-50' : ''
+                    }`}
                   >
                     <div className="flex items-center gap-3">
-                      <span className="text-lg">🗑️</span>
-                      <span className="text-sm font-medium text-red-500">프로필 초기화</span>
+                      <span className="text-base">{icon}</span>
+                      <div>
+                        <p className="text-xs text-[#888]">{label}</p>
+                        <p className="text-sm font-semibold text-[#1a1a1a]">
+                          {getDisplayValue(key, profile[key] as string)}
+                        </p>
+                      </div>
                     </div>
-                    <svg className="w-4 h-4 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-gray-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                   </button>
+                ))}
+              </div>
+
+              {/* Actions */}
+              <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+                <div className="px-4 py-3 border-b border-gray-50">
+                  <h3 className="text-sm font-semibold text-[#1a1a1a]">액션</h3>
                 </div>
+                <Link
+                  href="/results"
+                  className="flex items-center justify-between px-4 py-3.5 border-b border-gray-50 hover:bg-[#F4F8F6] transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-base">🔍</span>
+                    <span className="text-sm font-medium text-[#1a1a1a]">맞춤 혜택 다시 보기</span>
+                  </div>
+                  <svg className="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+                <button
+                  onClick={handleClear}
+                  className="w-full flex items-center justify-between px-4 py-3.5 hover:bg-red-50 transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-base">🗑️</span>
+                    <span className="text-sm font-medium text-red-500">프로필 초기화</span>
+                  </div>
+                  <svg className="w-4 h-4 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
               </div>
             </>
           ) : (
@@ -129,6 +167,16 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
+
+      {/* Per-field modal */}
+      {activeField && profile && (
+        <ProfileFieldModal
+          field={activeField}
+          currentValue={profile[activeField] as string}
+          onSave={handleFieldSave}
+          onClose={() => setActiveField(null)}
+        />
+      )}
     </AppShell>
   );
 }

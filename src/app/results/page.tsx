@@ -26,7 +26,7 @@ function ResultsContent() {
     activeOnly: false,
     keyword: '',
   });
-  const [sort, setSort] = useState<SortOption>('recommended');
+  const [sort, setSort] = useState<SortOption>('amount');
 
   useEffect(() => {
     const p = getProfile();
@@ -72,7 +72,7 @@ function ResultsContent() {
 
   const resetFilter = () => {
     setFilter({ category: null, activeOnly: false, keyword: '' });
-    setSort('recommended');
+    setSort('amount');
   };
 
   if (!profileLoaded || (loading && policies.length === 0)) {

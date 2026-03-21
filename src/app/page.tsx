@@ -1,22 +1,23 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import AppShell from '@/components/layout/AppShell';
-import PolicyCard from '@/components/policy/PolicyCard';
-import FreshnessBar from '@/components/common/FreshnessBar';
-import { getProfile } from '@/lib/storage';
-import { getRecommendations } from '@/lib/recommendation';
-import { usePolicies } from '@/hooks/usePolicies';
-import { UserProfile, RecommendationResult } from '@/types';
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import AppShell from "@/components/layout/AppShell";
+import PolicyCard from "@/components/policy/PolicyCard";
+import FreshnessBar from "@/components/common/FreshnessBar";
+import { getProfile } from "@/lib/storage";
+import { getRecommendations } from "@/lib/recommendation";
+import { usePolicies } from "@/hooks/usePolicies";
+import { UserProfile, RecommendationResult } from "@/types";
 
 export default function HomePage() {
   const router = useRouter();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [results, setResults] = useState<RecommendationResult[]>([]);
   const [profileLoaded, setProfileLoaded] = useState(false);
-  const { policies, fetchedAt, source, loading, isStale, error, refresh } = usePolicies();
+  const { policies, fetchedAt, source, loading, isStale, error, refresh } =
+    usePolicies();
 
   useEffect(() => {
     const p = getProfile();
@@ -47,7 +48,9 @@ export default function HomePage() {
       <div className="flex flex-col">
         {/* Header — logo only on mobile; hidden on desktop (sidebar shows it) */}
         <header className="flex items-center px-5 pt-12 pb-4 bg-white lg:hidden">
-          <span className="text-xl font-extrabold text-[#1B6B4A]">혜택줍줍</span>
+          <span className="text-xl font-extrabold text-[#1B6B4A]">
+            혜택줍줍
+          </span>
         </header>
         {/* Desktop page title */}
         <header className="hidden lg:flex items-center px-8 pt-10 pb-4 bg-white border-b border-gray-50">
@@ -60,16 +63,22 @@ export default function HomePage() {
             <div className="absolute top-4 right-4 w-32 h-32 rounded-full bg-white/20" />
             <div className="absolute bottom-0 left-8 w-20 h-20 rounded-full bg-white/10" />
           </div>
-          <h1 className="text-3xl lg:text-4xl font-black text-white leading-tight mb-1">지금 받을 수 있는</h1>
-          <h1 className="text-3xl lg:text-4xl font-black text-white leading-tight mb-6">숨은 혜택</h1>
+          <h1 className="text-3xl lg:text-4xl font-black text-white leading-tight mb-1">
+            지금 받을 수 있는
+          </h1>
+          <h1 className="text-3xl lg:text-4xl font-black text-white leading-tight mb-6">
+            숨은 혜택
+          </h1>
 
           {/* Search card */}
           <div
             className="bg-white rounded-2xl shadow-lg p-4 flex items-center gap-3 cursor-pointer lg:max-w-lg"
-            onClick={() => router.push('/results')}
+            onClick={() => router.push("/results")}
           >
             <span className="text-2xl">🔍</span>
-            <span className="flex-1 text-[#888] text-sm">맞춤 혜택을 찾아볼까요?</span>
+            <span className="flex-1 text-[#888] text-sm">
+              맞춤 혜택을 찾아볼까요?
+            </span>
             <span className="text-[#1B6B4A] font-bold text-xl">→</span>
           </div>
         </div>
@@ -86,28 +95,39 @@ export default function HomePage() {
         {/* API error notice */}
         {error && (
           <div className="mx-4 mt-3 px-4 py-3 bg-red-50 rounded-xl border border-red-100">
-            <p className="text-xs text-red-600">⚠ {error} 샘플 데이터를 표시합니다.</p>
+            <p className="text-xs text-red-600">
+              ⚠ {error} 샘플 데이터를 표시합니다.
+            </p>
           </div>
         )}
 
         {/* Stats row */}
         <div className="bg-white px-5 py-3 flex items-center gap-4 border-b border-gray-50">
           <div className="text-center">
-            <p className="text-xl font-extrabold text-[#1B6B4A]">{results.filter((r) => r.isFullMatch).length}</p>
+            <p className="text-xl font-extrabold text-[#1B6B4A]">
+              {results.filter((r) => r.isFullMatch).length}
+            </p>
             <p className="text-[10px] text-[#888]">완전 매칭</p>
           </div>
           <div className="w-px h-8 bg-gray-100" />
           <div className="text-center">
-            <p className="text-xl font-extrabold text-[#1B6B4A]">{results.filter((r) => r.score >= 50).length}</p>
+            <p className="text-xl font-extrabold text-[#1B6B4A]">
+              {results.filter((r) => r.score >= 50).length}
+            </p>
             <p className="text-[10px] text-[#888]">조건 일치</p>
           </div>
           <div className="w-px h-8 bg-gray-100" />
           <div className="text-center">
-            <p className="text-xl font-extrabold text-[#1B6B4A]">{results.length}</p>
+            <p className="text-xl font-extrabold text-[#1B6B4A]">
+              {results.length}
+            </p>
             <p className="text-[10px] text-[#888]">전체 혜택</p>
           </div>
           <div className="ml-auto">
-            <Link href="/profile" className="text-xs text-[#2A9D8F] font-medium">
+            <Link
+              href="/profile"
+              className="text-xs text-[#2A9D8F] font-medium"
+            >
               프로필 수정 →
             </Link>
           </div>
@@ -117,18 +137,36 @@ export default function HomePage() {
         <div className="px-5 py-4 bg-white border-b border-gray-50">
           <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide">
             {[
-              { icon: '🏠', label: '주거', href: '/results?category=housing' },
-              { icon: '💼', label: '취업', href: '/results?category=employment' },
-              { icon: '🎓', label: '교육', href: '/results?category=education' },
-              { icon: '👶', label: '보육', href: '/results?category=childcare' },
-              { icon: '🤝', label: '복지', href: '/results?category=welfare' },
-              { icon: '🚀', label: '창업', href: '/results?category=business' },
+              { icon: "🏠", label: "주거", href: "/results?category=housing" },
+              {
+                icon: "💼",
+                label: "취업",
+                href: "/results?category=employment",
+              },
+              {
+                icon: "🎓",
+                label: "교육",
+                href: "/results?category=education",
+              },
+              {
+                icon: "👶",
+                label: "보육",
+                href: "/results?category=childcare",
+              },
+              { icon: "🤝", label: "복지", href: "/results?category=welfare" },
+              { icon: "🚀", label: "창업", href: "/results?category=business" },
             ].map((cat) => (
-              <Link key={cat.label} href={cat.href} className="flex-shrink-0 flex flex-col items-center gap-1">
+              <Link
+                key={cat.label}
+                href={cat.href}
+                className="flex-shrink-0 flex flex-col items-center gap-1"
+              >
                 <div className="w-12 h-12 rounded-2xl bg-[#E0F2EC] flex items-center justify-center text-xl">
                   {cat.icon}
                 </div>
-                <span className="text-[10px] text-[#555] font-medium">{cat.label}</span>
+                <span className="text-[10px] text-[#555] font-medium">
+                  {cat.label}
+                </span>
               </Link>
             ))}
           </div>
@@ -137,8 +175,12 @@ export default function HomePage() {
         {/* Recommended cards */}
         <div className="px-4 pt-4 pb-4 lg:px-6">
           <div className="flex items-center justify-between px-1 mb-3">
-            <h2 className="font-bold text-[#1a1a1a] text-base">내 맞춤 혜택 TOP 5</h2>
-            <Link href="/results" className="text-xs text-[#2A9D8F]">전체보기</Link>
+            <h2 className="font-bold text-[#1a1a1a] text-base">
+              내 맞춤 혜택 TOP 5
+            </h2>
+            <Link href="/results" className="text-xs text-[#2A9D8F]">
+              전체보기
+            </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
             {results.slice(0, 6).map((r) => (
@@ -174,8 +216,10 @@ function SplashScreen() {
         <div className="text-6xl mb-4">🎁</div>
         <h1 className="text-4xl font-black text-white mb-2">혜택줍줍</h1>
         <p className="text-white/80 text-lg leading-relaxed">
-          나에게 맞는<br />
-          <span className="font-bold text-white">정부 지원 혜택</span>을 찾아드려요
+          나에게 맞는
+          <br />
+          <span className="font-bold text-white">정부 지원 혜택</span>을
+          찾아드려요
         </p>
       </div>
 
@@ -183,15 +227,21 @@ function SplashScreen() {
         <div className="bg-white/10 rounded-2xl p-4 flex items-center gap-3">
           <span className="text-2xl">📋</span>
           <div>
-            <p className="text-white font-semibold text-sm">간단한 질문 3가지</p>
-            <p className="text-white/70 text-xs">나이, 지역, 직업만 알면 돼요</p>
+            <p className="text-white font-semibold text-sm">
+              간단한 질문 3가지
+            </p>
+            <p className="text-white/70 text-xs">
+              나이, 지역, 직업만 알면 돼요
+            </p>
           </div>
         </div>
         <div className="bg-white/10 rounded-2xl p-4 flex items-center gap-3">
           <span className="text-2xl">🔍</span>
           <div>
             <p className="text-white font-semibold text-sm">맞춤 혜택 추천</p>
-            <p className="text-white/70 text-xs">조건에 맞는 혜택만 골라드려요</p>
+            <p className="text-white/70 text-xs">
+              조건에 맞는 혜택만 골라드려요
+            </p>
           </div>
         </div>
         <div className="bg-white/10 rounded-2xl p-4 flex items-center gap-3">
@@ -210,7 +260,9 @@ function SplashScreen() {
         >
           시작하기 →
         </Link>
-        <p className="text-center text-white/50 text-xs mt-3">30초면 완료돼요</p>
+        <p className="text-center text-white/50 text-xs mt-3">
+          10초면 완료돼요
+        </p>
       </div>
     </div>
   );
