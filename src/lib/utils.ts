@@ -42,16 +42,17 @@ export function getCategoryColor(category: Policy['category']): string {
 }
 
 export function getCategoryIcon(category: Policy['category']): React.ReactNode {
+  const props = { size: 12, style: { display: 'inline', flexShrink: 0 } };
   const map: Record<Policy['category'], React.ReactNode> = {
-    housing:    React.createElement(Home,          { size: 12 }),
-    employment: React.createElement(Briefcase,     { size: 12 }),
-    youth:      React.createElement(Sprout,        { size: 12 }),
-    education:  React.createElement(GraduationCap, { size: 12 }),
-    childcare:  React.createElement(Baby,          { size: 12 }),
-    welfare:    React.createElement(Heart,         { size: 12 }),
-    business:   React.createElement(Rocket,        { size: 12 }),
+    housing:    React.createElement(Home,          props),
+    employment: React.createElement(Briefcase,     props),
+    youth:      React.createElement(Sprout,        props),
+    education:  React.createElement(GraduationCap, props),
+    childcare:  React.createElement(Baby,          props),
+    welfare:    React.createElement(Heart,         props),
+    business:   React.createElement(Rocket,        props),
   };
-  return map[category] ?? React.createElement(ClipboardList, { size: 12 });
+  return map[category] ?? React.createElement(ClipboardList, props);
 }
 
 /** Maps emoji icon strings (used in eligibility data) to Lucide icons */

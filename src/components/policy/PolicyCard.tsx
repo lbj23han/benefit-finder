@@ -20,17 +20,18 @@ export default function PolicyCard({ policy, score, matchReasons, isFullMatch }:
   const isUrgent = days !== null && days >= 0 && days <= 7;
   const isExpired = days !== null && days < 0;
 
+  const BADGE = 'inline-flex items-center gap-1 h-5 text-xs font-semibold px-2 rounded-full whitespace-nowrap leading-none';
+
   const statusBadge = () => {
     if (isFullMatch) return (
-      <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-[#E0F2EC] text-[#1B6B4A] whitespace-nowrap"><Check size={10} /> 신청 가능성 높음</span>
+      <span className={`${BADGE} bg-[#E0F2EC] text-[#1B6B4A]`}><Check size={10} strokeWidth={3} /> 신청 가능성 높음</span>
     );
     if (score && score >= 60) return (
-      <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 whitespace-nowrap">◈ 조건 일치</span>
+      <span className={`${BADGE} bg-blue-100 text-blue-700`}>◈ 조건 일치</span>
     );
     if (score !== undefined && score >= 35) return (
-      <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 whitespace-nowrap">△ 조건 확인 필요</span>
+      <span className={`${BADGE} bg-gray-100 text-gray-500`}>△ 조건 확인 필요</span>
     );
-    if (score !== undefined) return null; // 35점 미만은 라벨 표시 안 함
     return null;
   };
 
@@ -40,12 +41,12 @@ export default function PolicyCard({ policy, score, matchReasons, isFullMatch }:
       <div className="bg-white rounded-2xl shadow-sm border border-gray-50 p-4 hover:shadow-md transition-shadow h-[210px] flex flex-col overflow-hidden">
 
         {/* Row 1: category + status badge + bookmark */}
-        <div className="flex items-center justify-between mb-2 min-h-[24px]">
+        <div className="flex items-center justify-between mb-2 h-5">
           <div className="flex items-center gap-1.5 min-w-0 overflow-hidden">
-            <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full whitespace-nowrap flex-shrink-0 ${getCategoryColor(policy.category)}`}>
+            <span className={`${BADGE} flex-shrink-0 ${getCategoryColor(policy.category)}`}>
               {getCategoryIcon(policy.category)} {getCategoryLabel(policy.category)}
             </span>
-            <span className="flex-shrink-0">{statusBadge()}</span>
+            <span className="flex-shrink-0 flex items-center">{statusBadge()}</span>
           </div>
           <span className="flex-shrink-0 ml-1">
             <BookmarkButton policyId={policy.id} />
@@ -85,27 +86,27 @@ export default function PolicyCard({ policy, score, matchReasons, isFullMatch }:
 
         {/* Row 5: footer — always at bottom */}
         <div className="flex items-center justify-between mt-auto overflow-hidden">
-          <div className="flex items-center gap-1.5 overflow-hidden min-w-0">
-            <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 whitespace-nowrap flex-shrink-0">
+          <div className="flex items-center gap-1.5 overflow-hidden min-w-0 h-5">
+            <span className="inline-flex items-center h-5 text-xs px-2 rounded-full bg-gray-100 text-gray-500 whitespace-nowrap flex-shrink-0 leading-none">
               {getRegionLabel(policy.region)}
             </span>
             {isUrgent && (
-              <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-600 font-semibold whitespace-nowrap flex-shrink-0">
+              <span className="inline-flex items-center gap-1 h-5 text-xs px-2 rounded-full bg-red-100 text-red-600 font-semibold whitespace-nowrap flex-shrink-0 leading-none">
                 <Clock size={10} /> {days}일 남음
               </span>
             )}
             {isExpired && (
-              <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-400 whitespace-nowrap flex-shrink-0">
+              <span className="inline-flex items-center h-5 text-xs px-2 rounded-full bg-gray-100 text-gray-400 whitespace-nowrap flex-shrink-0 leading-none">
                 마감됨
               </span>
             )}
             {!isUrgent && !isExpired && policy.isAlwaysOpen && (
-              <span className="text-xs px-2 py-0.5 rounded-full bg-green-50 text-green-600 whitespace-nowrap flex-shrink-0">
+              <span className="inline-flex items-center h-5 text-xs px-2 rounded-full bg-green-50 text-green-600 whitespace-nowrap flex-shrink-0 leading-none">
                 상시접수
               </span>
             )}
             {matchReasons && matchReasons[0] && (
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#F4F8F6] text-[#1B6B4A] truncate max-w-[100px]">
+              <span className="inline-flex items-center h-5 text-[10px] px-2 rounded-full bg-[#F4F8F6] text-[#1B6B4A] truncate max-w-[100px] leading-none">
                 {matchReasons[0]}
               </span>
             )}
