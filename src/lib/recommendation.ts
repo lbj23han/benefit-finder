@@ -46,6 +46,11 @@ const BIZ_ONLY        = /소상공인|전통시장.*(?:지원|개선|사업)|재
 // Vocational high school workforce programs — not for general college students (age > 22)
 const VOCATIONAL_SCHOOL = /특성화고\s*인력양성|직업계고.*인력|중소기업\s*인식개선\s*교육/;
 
+// High-value universal employment programs — broadly accessible regardless of occupation.
+// These are often tagged occupationTarget:['unemployed'] only but are in fact open to
+// employed / self-employed / students as well (retraining, upskilling, job-seeking support).
+const UNIVERSAL_EMPLOYMENT = /국민내일배움카드|국민취업지원제도|청년도전지원사업|구직자.*취업역량강화|청년.*일경험\s*지원|청년성장프로젝트|구직자.*도약보장 패키지|K-디지털\s*트레이닝|직업능력개발수당|광역구직활동비/;
+
 // ─── Title-based implicit age inference ───────────────────────────────────────
 function inferAgeRangeFromTitle(title: string): { min?: number; max?: number } {
   if (/치매|노인|어르신|경로당|고령자|노년|노령|실버\s*(?:산업|용품)/.test(title)) return { min: 65 };
@@ -172,8 +177,11 @@ function eligibilityScore(policy: Policy, profile: UserProfile, age: number): nu
   // ── Occupation ────────────────────────────────────────────────────────────
   const occMatch = occupationTarget?.includes(profile.occupation) ?? false;
   const occFreelancerProxy = occupationTarget?.includes('unemployed') && profile.occupation === 'freelancer';
+  const isUniversalEmployment = UNIVERSAL_EMPLOYMENT.test(t);
 
-  if (occupationTarget && occupationTarget.length > 0) {
+  // 범용 고용 프로그램(국민내일배움카드 등)은 occupationTarget이 ['unemployed']로만
+  // 잘못 태깅돼 있어도 실제로는 재직자·자영업자·학생 모두 신청 가능 → 직업 조건 무시
+  if (occupationTarget && occupationTarget.length > 0 && !isUniversalEmployment) {
     if (occMatch) {
       score *= 1.0;
     } else if (occFreelancerProxy) {
@@ -182,10 +190,10 @@ function eligibilityScore(policy: Policy, profile: UserProfile, age: number): nu
       score *= 0.10;
     }
   } else {
-    // no occupation condition — general policy
+    // no occupation condition (or universal program) — general policy
     const isEmploymentCat = policy.category === 'employment';
     if (isEmploymentCat && profile.occupation === 'unemployed') {
-      score *= 0.82; // employment category likely relevant to job-seekers
+      score *= 0.82;
     } else {
       score *= 0.72;
     }
@@ -433,6 +441,12 @@ export function getRecommendations(
       // [E] 자영업자 → 창업·소상공인 지원 우선
       if (isSelfEmployed && (policy.category === 'business' || policy.category === 'employment') && e >= 0.35) {
         finalRaw *= 1.12;
+      }
+
+      // [G] 고범용 고용 지원 프로그램 — 직업 무관하게 상단에 위치
+      // 국민내일배움카드, 국민취업지원제도 등은 대부분의 경제활동인구에게 실질적으로 유효
+      if (UNIVERSAL_EMPLOYMENT.test(policy.title) && e >= 0.20) {
+        finalRaw *= 1.40;
       }
 
       // [F] 구/시/군 세부 지역 매칭 → 해당 지역 특화 정책 우선
