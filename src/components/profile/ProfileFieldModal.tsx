@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { UserProfile } from '@/types';
 
-type FieldKey = 'ageGroup' | 'gender' | 'region' | 'district' | 'occupation' | 'incomeLevel' | 'householdType';
+type FieldKey = 'ageGroup' | 'gender' | 'region' | 'district' | 'occupation' | 'incomeLevel' | 'householdType' | 'hasDisability' | 'isMigrantFamily';
 
 interface Option {
   value: string;
@@ -84,6 +84,20 @@ const FIELD_CONFIG: Record<FieldKey, { title: string; options: Option[] }> = {
   district: {
     title: '세부 지역 (구/시/군)',
     options: [], // dynamically overridden via overrideOptions prop
+  },
+  hasDisability: {
+    title: '복지카드 · 장애 등록',
+    options: [
+      { value: '',    label: '해당 없음', description: '장애 등록이 없는 경우' },
+      { value: 'yes', label: '등록 장애인', description: '장애인복지카드를 보유하고 있어요' },
+    ],
+  },
+  isMigrantFamily: {
+    title: '다문화가족 · 결혼이민',
+    options: [
+      { value: '',    label: '해당 없음' },
+      { value: 'yes', label: '다문화가족 · 결혼이민자', description: '결혼이민자이거나 다문화가족인 경우' },
+    ],
   },
 };
 

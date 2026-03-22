@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Cake, User, MapPin, Building2, Briefcase, Wallet, Home, Search, Trash2, AlertTriangle } from 'lucide-react';
+import { Cake, User, MapPin, Building2, Briefcase, Wallet, Home, Search, Trash2, AlertTriangle, SlidersHorizontal, HeartHandshake } from 'lucide-react';
 import AppShell from '@/components/layout/AppShell';
 import ProfileFieldModal, { FieldKey, FIELD_CONFIG } from '@/components/profile/ProfileFieldModal';
 import { DISTRICTS } from '@/constants/districts';
@@ -22,8 +22,17 @@ const FIELD_LABELS: { key: FieldKey; icon: React.ReactNode; label: string }[] = 
   { key: 'householdType', icon: <Home       size={18} className={ICON_CLASS} />, label: '가구 유형' },
 ];
 
+const DETAIL_FIELD_LABELS: { key: FieldKey; icon: React.ReactNode; label: string }[] = [
+  { key: 'hasDisability',   icon: <SlidersHorizontal size={18} className={ICON_CLASS} />, label: '복지카드 · 장애 등록' },
+  { key: 'isMigrantFamily', icon: <HeartHandshake    size={18} className={ICON_CLASS} />, label: '다문화가족 · 결혼이민' },
+];
+
 function getDisplayValue(key: FieldKey, value: string | undefined): string {
-  if (!value) return key === 'district' ? '전체 (선택 안 함)' : '설정 안 함';
+  if (!value) {
+    if (key === 'district') return '전체 (선택 안 함)';
+    if (key === 'hasDisability' || key === 'isMigrantFamily') return '해당 없음';
+    return '설정 안 함';
+  }
   if (key === 'district') return value;
   const config = FIELD_CONFIG[key];
   return config.options.find((o) => o.value === value)?.label ?? value;
@@ -88,6 +97,36 @@ export default function ProfilePage() {
                     onClick={() => setActiveField(key)}
                     className={`w-full flex items-center justify-between px-4 py-3.5 hover:bg-[#F4F8F6] transition-colors text-left ${
                       i < FIELD_LABELS.length - 1 ? 'border-b border-gray-50' : ''
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="flex items-center justify-center w-5">{icon}</span>
+                      <div>
+                        <p className="text-xs text-[#888]">{label}</p>
+                        <p className="text-sm font-semibold text-[#1a1a1a]">
+                          {getDisplayValue(key, profile[key] as string | undefined)}
+                        </p>
+                      </div>
+                    </div>
+                    <svg className="w-4 h-4 text-gray-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                ))}
+              </div>
+
+              {/* 상세 조건 선택 */}
+              <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+                <div className="px-4 py-3 border-b border-gray-50">
+                  <h3 className="text-sm font-semibold text-[#1a1a1a]">상세 조건 선택</h3>
+                  <p className="text-xs text-[#aaa] mt-0.5">해당 항목이 있으면 더 많은 지원을 찾아드려요</p>
+                </div>
+                {DETAIL_FIELD_LABELS.map(({ key, icon, label }, i) => (
+                  <button
+                    key={key}
+                    onClick={() => setActiveField(key)}
+                    className={`w-full flex items-center justify-between px-4 py-3.5 hover:bg-[#F4F8F6] transition-colors text-left ${
+                      i < DETAIL_FIELD_LABELS.length - 1 ? 'border-b border-gray-50' : ''
                     }`}
                   >
                     <div className="flex items-center gap-3">

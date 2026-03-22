@@ -29,7 +29,7 @@ function isActive(policy: Policy): boolean {
 // These patterns identify policies for extremely narrow populations.
 // Return 0.03–0.06 to push irrelevant results to the absolute bottom.
 
-const VETERAN         = /국가유공자|보훈|참전유공자|전몰군경|순직(?:군인|경찰|소방)|6\.25|육이오|호국|고엽제|특수임무유공자|의사상자(?:자녀|가족)/;
+const VETERAN         = /국가유공자|독립유공자|보훈|참전유공자|전몰군경|순직(?:군인|경찰|소방)|6[.·]25|육이오|호국|고엽제|특수임무유공자|의사상자(?:자녀|가족)|무공(?:훈장|영예)|제대군인/;
 const MILITARY        = /현역\s*(?:군인|병사|장병|복무)|군무원|병역의무\s*이행|군복무\s*중|방위병|사관생도|부사관|장교\s*(?:복무|임관)|육해공군\s*(?:복무|지원)/;
 const MARITIME_WORKER = /원양어선|어업인|어민|귀어\s*귀촌|어촌\s*정착|수산업\s*종사|해기사|어선\s*원|수산물\s*생산|연근해/;
 const AGRICULTURE     = /농업인|농민|농가\s*(?:지원|소득|경영)|영농\s*후계|귀농\s*(?:지원|정착)|농지\s*임대|농업경영체/;
@@ -52,6 +52,10 @@ function inferAgeRangeFromTitle(title: string): { min?: number; max?: number } {
   if (/틀니|임플란트|의치|보청기|노안|백내장|황반변성/.test(title)) return { min: 60 };
   if (/영유아|누리과정|유아학비|유치원/.test(title)) return { max: 6 };
   if (/방과\s*후\s*아동|아동돌봄|어린이\s*(?!집\s*지원)/.test(title)) return { max: 12 };
+  if (/초등학생/.test(title)) return { max: 14 };
+  if (/중학생/.test(title)) return { min: 12, max: 16 };
+  if (/고등학생/.test(title)) return { min: 15, max: 19 };
+  if (/대학생|전입\s*대학/.test(title)) return { min: 18, max: 30 };
   if (/아동\s*수당|영아\s*수당|입양\s*아동/.test(title)) return { max: 18 };
   if (/청소년\s*(?!부모)/.test(title)) return { min: 13, max: 24 };
   if (/중장년|장년층/.test(title)) return { min: 40, max: 64 };
@@ -91,6 +95,11 @@ function eligibilityScore(policy: Policy, profile: UserProfile, age: number): nu
     if (s.includes('disability-severe')) return 0.05;
   }
 
+  // sourceOrg 기반 hard block — title/desc에 키워드 없이 기관명으로만 판별 가능한 경우
+  if (/국가보훈(부|처)/.test(policy.sourceOrg)) return 0.04;
+  if (/해양수산부/.test(policy.sourceOrg))      return 0.04; // 어선/어업/선원 업계 대상
+  if (/병무청/.test(policy.sourceOrg))          return 0.04; // 병역의무 대상자 전용
+
   if (VETERAN.test(full))          return 0.04;
   if (MILITARY.test(full))         return 0.04;
   if (MARITIME_WORKER.test(full))  return 0.04;
@@ -119,9 +128,17 @@ function eligibilityScore(policy: Policy, profile: UserProfile, age: number): nu
     if (isPolicyDistrictSpecific && !policy.region.some(r => r.includes(profile.district!))) return 0.05;
   }
 
+  // ── [C-0] 상세 조건 선택 기반 specialty 블록 ─────────────────────────────
+  // 장애인 전용 정책 — 장애 등록을 설정하지 않은 경우 차단
+  if (/장애인/.test(t) && profile.hasDisability !== 'yes') return 0.05;
+  // 다문화가족/결혼이민자 전용 정책 — 해당 없는 경우 차단
+  if (/다문화가족|결혼이민자|이주여성/.test(t) && profile.isMigrantFamily !== 'yes') return 0.05;
+
   // ── [C] Child / family blocks ─────────────────────────────────────────────
   if (policy.category === 'childcare' && !hasChildren) return 0.05;
   if (CHILD_SPECIFIC.test(full) && !hasChildren)       return 0.05;
+  // 소년소녀가정 = 아동이 가장인 세대 (부모 없음). 일반 자녀있는 가구(부모)와 무관
+  if (/소년소녀\s*가(?:정|장)/.test(full) && age > 24) return 0.05;
   if (COUPLE_INCOME.test(full) && isSingle)            return 0.06;
   if (BIZ_ONLY.test(full) && profile.occupation !== 'self-employed') return 0.07;
 

@@ -6,6 +6,9 @@ export interface UserProfile {
   occupation: 'employed' | 'self-employed' | 'student' | 'unemployed' | 'freelancer';
   incomeLevel: 'low' | 'middle-low' | 'middle' | 'high';
   householdType: 'single' | 'with-parents' | 'couple' | 'family-with-children' | 'single-parent';
+  // 상세 조건 선택 (선택사항, 미설정 = 해당 없음)
+  hasDisability?: 'yes';    // 복지카드 · 장애 등록
+  isMigrantFamily?: 'yes';  // 다문화가족 · 결혼이민
 }
 
 export interface Policy {
