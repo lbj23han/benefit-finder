@@ -3,6 +3,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import {
+  Search, ArrowRight, AlertTriangle,
+  Home, Briefcase, GraduationCap, Baby, Heart, Rocket,
+  Gift, ClipboardList, Wallet,
+} from "lucide-react";
 import AppShell from "@/components/layout/AppShell";
 import PolicyCard from "@/components/policy/PolicyCard";
 import FreshnessBar from "@/components/common/FreshnessBar";
@@ -59,7 +64,7 @@ export default function HomePage() {
 
         {/* Hero */}
         <div className="relative bg-gradient-to-br from-[#1B6B4A] to-[#2A9D8F] px-5 pt-6 pb-10 lg:px-8 lg:pt-8 lg:pb-12 overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 opacity-10 pointer-events-none">
             <div className="absolute top-4 right-4 w-32 h-32 rounded-full bg-white/20" />
             <div className="absolute bottom-0 left-8 w-20 h-20 rounded-full bg-white/10" />
           </div>
@@ -75,11 +80,11 @@ export default function HomePage() {
             className="bg-white rounded-2xl shadow-lg p-4 flex items-center gap-3 cursor-pointer lg:max-w-lg"
             onClick={() => router.push("/results")}
           >
-            <span className="text-2xl">🔍</span>
+            <Search size={22} className="text-[#1B6B4A] flex-shrink-0" />
             <span className="flex-1 text-[#888] text-sm">
               맞춤 혜택을 찾아볼까요?
             </span>
-            <span className="text-[#1B6B4A] font-bold text-xl">→</span>
+            <ArrowRight size={18} className="text-[#1B6B4A]" />
           </div>
         </div>
 
@@ -95,8 +100,8 @@ export default function HomePage() {
         {/* API error notice */}
         {error && (
           <div className="mx-4 mt-3 px-4 py-3 bg-red-50 rounded-xl border border-red-100">
-            <p className="text-xs text-red-600">
-              ⚠ {error} 샘플 데이터를 표시합니다.
+            <p className="text-xs text-red-600 flex items-center gap-1">
+              <AlertTriangle size={12} /> {error} 샘플 데이터를 표시합니다.
             </p>
           </div>
         )}
@@ -137,31 +142,19 @@ export default function HomePage() {
         <div className="px-5 py-4 bg-white border-b border-gray-50">
           <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide">
             {[
-              { icon: "🏠", label: "주거", href: "/results?category=housing" },
-              {
-                icon: "💼",
-                label: "취업",
-                href: "/results?category=employment",
-              },
-              {
-                icon: "🎓",
-                label: "교육",
-                href: "/results?category=education",
-              },
-              {
-                icon: "👶",
-                label: "보육",
-                href: "/results?category=childcare",
-              },
-              { icon: "🤝", label: "복지", href: "/results?category=welfare" },
-              { icon: "🚀", label: "창업", href: "/results?category=business" },
+              { icon: <Home size={22} className="text-[#1B6B4A]" />,          label: "주거", href: "/results?category=housing" },
+              { icon: <Briefcase size={22} className="text-[#1B6B4A]" />,      label: "취업", href: "/results?category=employment" },
+              { icon: <GraduationCap size={22} className="text-[#1B6B4A]" />,  label: "교육", href: "/results?category=education" },
+              { icon: <Baby size={22} className="text-[#1B6B4A]" />,           label: "보육", href: "/results?category=childcare" },
+              { icon: <Heart size={22} className="text-[#1B6B4A]" />,          label: "복지", href: "/results?category=welfare" },
+              { icon: <Rocket size={22} className="text-[#1B6B4A]" />,         label: "창업", href: "/results?category=business" },
             ].map((cat) => (
               <Link
                 key={cat.label}
                 href={cat.href}
                 className="flex-shrink-0 flex flex-col items-center gap-1"
               >
-                <div className="w-12 h-12 rounded-2xl bg-[#E0F2EC] flex items-center justify-center text-xl">
+                <div className="w-12 h-12 rounded-2xl bg-[#E0F2EC] flex items-center justify-center">
                   {cat.icon}
                 </div>
                 <span className="text-[10px] text-[#555] font-medium">
@@ -204,7 +197,7 @@ function SplashScreen() {
   return (
     <div className="min-h-dvh bg-gradient-to-br from-[#1B6B4A] to-[#2A9D8F] flex flex-col items-center justify-center px-6">
       <div className="text-center mb-10">
-        <div className="text-6xl mb-4">🎁</div>
+        <div className="mb-4 text-white"><Gift size={64} /></div>
         <h1 className="text-4xl font-black text-white mb-2">혜택줍줍</h1>
         <p className="text-white/80 text-lg leading-relaxed">
           나에게 맞는
@@ -216,7 +209,7 @@ function SplashScreen() {
 
       <div className="w-full max-w-sm space-y-3">
         <div className="bg-white/10 rounded-2xl p-4 flex items-center gap-3">
-          <span className="text-2xl">📋</span>
+          <ClipboardList size={24} className="text-white flex-shrink-0" />
           <div>
             <p className="text-white font-semibold text-sm">
               간단한 질문 3가지
@@ -227,7 +220,7 @@ function SplashScreen() {
           </div>
         </div>
         <div className="bg-white/10 rounded-2xl p-4 flex items-center gap-3">
-          <span className="text-2xl">🔍</span>
+          <Search size={24} className="text-white flex-shrink-0" />
           <div>
             <p className="text-white font-semibold text-sm">맞춤 혜택 추천</p>
             <p className="text-white/70 text-xs">
@@ -236,7 +229,7 @@ function SplashScreen() {
           </div>
         </div>
         <div className="bg-white/10 rounded-2xl p-4 flex items-center gap-3">
-          <span className="text-2xl">💰</span>
+          <Wallet size={24} className="text-white flex-shrink-0" />
           <div>
             <p className="text-white font-semibold text-sm">숨은 혜택 발굴</p>
             <p className="text-white/70 text-xs">몰랐던 지원금을 찾아드려요</p>

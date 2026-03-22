@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { AlertTriangle } from 'lucide-react';
 import AppShell from '@/components/layout/AppShell';
 
 export const metadata: Metadata = {
@@ -46,7 +47,7 @@ export default function TermsPage() {
 
           <Section title="제3조 (면책 조항)">
             <div className="bg-amber-50 rounded-xl p-4 border border-amber-100">
-              <p className="font-bold text-amber-800 mb-2">⚠ 중요 고지</p>
+              <p className="font-bold text-amber-800 mb-2 flex items-center gap-1"><AlertTriangle size={14} /> 중요 고지</p>
               <ul className="list-disc pl-5 space-y-2 text-amber-800">
                 <li>
                   서비스에서 제공하는 혜택 정보는 <strong>참고용</strong>이며, 실제 수혜 자격·금액·기간은 해당 기관의 공식 안내를 따릅니다.

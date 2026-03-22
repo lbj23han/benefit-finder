@@ -6,7 +6,8 @@ import Link from 'next/link';
 import AppShell from '@/components/layout/AppShell';
 import BookmarkButton from '@/components/common/BookmarkButton';
 import { activePolicies as policies } from '@/data/index';
-import { formatAmount, getCategoryLabel, getCategoryIcon } from '@/lib/utils';
+import { Info, Clock, Frown } from 'lucide-react';
+import { formatAmount, getCategoryLabel, getCategoryIcon, getEligibilityIcon } from '@/lib/utils';
 import { getDaysUntilDeadline } from '@/lib/recommendation';
 import { getBestUrl } from '@/lib/deeplink';
 
@@ -24,7 +25,7 @@ export default function PolicyDetailPage({
     return (
       <AppShell>
         <div className="flex flex-col items-center justify-center min-h-screen px-6 text-center">
-          <div className="text-5xl mb-4">😔</div>
+          <div className="mb-4 text-[#888]"><Frown size={56} /></div>
           <h2 className="text-xl font-bold text-[#1a1a1a] mb-2">혜택을 찾을 수 없어요</h2>
           <p className="text-sm text-[#888] mb-6">삭제됐거나 잘못된 링크예요</p>
           <Link href="/results" className="bg-[#1B6B4A] text-white font-bold py-3 px-8 rounded-xl">
@@ -111,7 +112,7 @@ export default function PolicyDetailPage({
                 <p className="text-sm font-bold text-green-600">상시 접수</p>
               ) : (
                 <p className={`text-sm font-bold ${isUrgent ? 'text-red-600' : 'text-[#1a1a1a]'}`}>
-                  {isUrgent ? `⏰ ${days}일 남음` : policy.applicationEnd ? `~${policy.applicationEnd}` : '미정'}
+                  {isUrgent ? <span className="flex items-center gap-1"><Clock size={12} />{days}일 남음</span> : policy.applicationEnd ? `~${policy.applicationEnd}` : '미정'}
                 </p>
               )}
             </div>
@@ -134,7 +135,7 @@ export default function PolicyDetailPage({
             <div className="space-y-2">
               {policy.eligibility.map((rule, i) => (
                 <div key={i} className="bg-white rounded-2xl p-4 border border-gray-100 flex gap-3 items-start">
-                  <span className="text-xl">{rule.icon}</span>
+                  {getEligibilityIcon(rule.icon)}
                   <div>
                     <p className="text-sm font-bold text-[#1a1a1a]">{rule.label}</p>
                     <p className="text-xs text-[#888] mt-0.5">{rule.description}</p>
@@ -147,7 +148,7 @@ export default function PolicyDetailPage({
           {/* Notes */}
           <div className="bg-blue-50 rounded-2xl p-4">
             <div className="flex items-start gap-2">
-              <span className="text-blue-500">ℹ️</span>
+              <Info size={14} className="text-blue-500 flex-shrink-0 mt-0.5" />
               <div>
                 <p className="text-xs font-bold text-blue-700 mb-1">참고 사항</p>
                 <p className="text-xs text-blue-600 leading-relaxed">

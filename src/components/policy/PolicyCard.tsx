@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { Check, Clock } from 'lucide-react';
 import { Policy } from '@/types';
 import { formatAmount, getCategoryLabel, getCategoryColor, getCategoryIcon, getRegionLabel } from '@/lib/utils';
 import { getDaysUntilDeadline } from '@/lib/recommendation';
@@ -21,7 +22,7 @@ export default function PolicyCard({ policy, score, matchReasons, isFullMatch }:
 
   const statusBadge = () => {
     if (isFullMatch) return (
-      <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-[#E0F2EC] text-[#1B6B4A] whitespace-nowrap">✓ 신청 가능성 높음</span>
+      <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-[#E0F2EC] text-[#1B6B4A] whitespace-nowrap"><Check size={10} /> 신청 가능성 높음</span>
     );
     if (score && score >= 60) return (
       <span className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 whitespace-nowrap">◈ 조건 일치</span>
@@ -89,8 +90,8 @@ export default function PolicyCard({ policy, score, matchReasons, isFullMatch }:
               {getRegionLabel(policy.region)}
             </span>
             {isUrgent && (
-              <span className="text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-600 font-semibold whitespace-nowrap flex-shrink-0">
-                ⏰ {days}일 남음
+              <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-red-100 text-red-600 font-semibold whitespace-nowrap flex-shrink-0">
+                <Clock size={10} /> {days}일 남음
               </span>
             )}
             {isExpired && (

@@ -1,3 +1,8 @@
+import React from 'react';
+import {
+  Home, Briefcase, Sprout, GraduationCap, Baby, Heart, Rocket, ClipboardList,
+  Cake, MapPin, Wallet, Clock, AlertTriangle,
+} from 'lucide-react';
 import { Policy } from '@/types';
 
 export function formatAmount(amount: number): string {
@@ -36,17 +41,35 @@ export function getCategoryColor(category: Policy['category']): string {
   return map[category] ?? 'bg-gray-100 text-gray-700';
 }
 
-export function getCategoryIcon(category: Policy['category']): string {
-  const map: Record<Policy['category'], string> = {
-    housing: '🏠',
-    employment: '💼',
-    youth: '🌱',
-    education: '🎓',
-    childcare: '👶',
-    welfare: '🤝',
-    business: '🚀',
+export function getCategoryIcon(category: Policy['category']): React.ReactNode {
+  const map: Record<Policy['category'], React.ReactNode> = {
+    housing:    React.createElement(Home,          { size: 12 }),
+    employment: React.createElement(Briefcase,     { size: 12 }),
+    youth:      React.createElement(Sprout,        { size: 12 }),
+    education:  React.createElement(GraduationCap, { size: 12 }),
+    childcare:  React.createElement(Baby,          { size: 12 }),
+    welfare:    React.createElement(Heart,         { size: 12 }),
+    business:   React.createElement(Rocket,        { size: 12 }),
   };
-  return map[category] ?? '📋';
+  return map[category] ?? React.createElement(ClipboardList, { size: 12 });
+}
+
+/** Maps emoji icon strings (used in eligibility data) to Lucide icons */
+export function getEligibilityIcon(icon: string): React.ReactNode {
+  const emojiMap: Record<string, React.ReactNode> = {
+    '🎂': React.createElement(Cake,          { size: 20, className: 'text-[#1B6B4A] flex-shrink-0 mt-0.5' }),
+    '💼': React.createElement(Briefcase,     { size: 20, className: 'text-[#1B6B4A] flex-shrink-0 mt-0.5' }),
+    '💰': React.createElement(Wallet,        { size: 20, className: 'text-[#1B6B4A] flex-shrink-0 mt-0.5' }),
+    '📍': React.createElement(MapPin,        { size: 20, className: 'text-[#1B6B4A] flex-shrink-0 mt-0.5' }),
+    '🏠': React.createElement(Home,          { size: 20, className: 'text-[#1B6B4A] flex-shrink-0 mt-0.5' }),
+    '👶': React.createElement(Baby,          { size: 20, className: 'text-[#1B6B4A] flex-shrink-0 mt-0.5' }),
+    '🚀': React.createElement(Rocket,        { size: 20, className: 'text-[#1B6B4A] flex-shrink-0 mt-0.5' }),
+    '🎓': React.createElement(GraduationCap, { size: 20, className: 'text-[#1B6B4A] flex-shrink-0 mt-0.5' }),
+    '⏰': React.createElement(Clock,         { size: 20, className: 'text-[#1B6B4A] flex-shrink-0 mt-0.5' }),
+    '🏪': React.createElement(ClipboardList, { size: 20, className: 'text-[#1B6B4A] flex-shrink-0 mt-0.5' }),
+    '👨‍👩‍👧': React.createElement(Heart,      { size: 20, className: 'text-[#1B6B4A] flex-shrink-0 mt-0.5' }),
+  };
+  return emojiMap[icon] ?? React.createElement(AlertTriangle, { size: 20, className: 'text-[#1B6B4A] flex-shrink-0 mt-0.5' });
 }
 
 export function getRegionLabel(regions: string[]): string {

@@ -1,5 +1,7 @@
 'use client';
 
+import { AlertTriangle } from 'lucide-react';
+
 interface FreshnessBarProps {
   fetchedAt: Date | null;
   source: 'api' | 'mock' | null;
@@ -36,7 +38,7 @@ export default function FreshnessBar({
   if (isStale) {
     return (
       <div className="flex items-center gap-2 px-5 py-2 bg-amber-50 border-b border-amber-100">
-        <span className="text-amber-500 text-sm flex-shrink-0">⚠</span>
+        <AlertTriangle size={14} className="text-amber-500 flex-shrink-0" />
         <span className="text-xs text-amber-700 flex-1">데이터가 오래됐어요</span>
         <button
           onClick={onRefresh}

@@ -1,18 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Briefcase, Store, GraduationCap, Search, Laptop2, User, Home, Users, UserCheck, Lock } from 'lucide-react';
 import { UserProfile } from '@/types';
 import { saveProfile } from '@/lib/storage';
+import { DISTRICTS } from '@/constants/districts';
 
 const REGIONS = ['서울', '경기', '인천', '부산', '대구', '광주', '대전', '울산', '세종', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주'];
 
-const OCCUPATIONS: { value: UserProfile['occupation']; label: string; icon: string; desc: string }[] = [
-  { value: 'employed', label: '직장인', icon: '💼', desc: '회사에 다니고 있어요' },
-  { value: 'self-employed', label: '자영업자', icon: '🏪', desc: '내 사업을 하고 있어요' },
-  { value: 'student', label: '학생', icon: '🎓', desc: '학교에 다니고 있어요' },
-  { value: 'unemployed', label: '미취업', icon: '🔍', desc: '현재 구직 중이에요' },
-  { value: 'freelancer', label: '프리랜서', icon: '💻', desc: '독립적으로 일하고 있어요' },
+const OCCUPATIONS: { value: UserProfile['occupation']; label: string; icon: React.ReactNode; desc: string }[] = [
+  { value: 'employed',      label: '직장인',   icon: <Briefcase    size={24} />, desc: '회사에 다니고 있어요' },
+  { value: 'self-employed', label: '자영업자', icon: <Store        size={24} />, desc: '내 사업을 하고 있어요' },
+  { value: 'student',       label: '학생',     icon: <GraduationCap size={24} />, desc: '학교에 다니고 있어요' },
+  { value: 'unemployed',    label: '미취업',   icon: <Search       size={24} />, desc: '현재 구직 중이에요' },
+  { value: 'freelancer',    label: '프리랜서', icon: <Laptop2      size={24} />, desc: '독립적으로 일하고 있어요' },
 ];
 
 const INCOME_LEVELS: { value: UserProfile['incomeLevel']; label: string; desc: string; example: string }[] = [
@@ -22,12 +24,12 @@ const INCOME_LEVELS: { value: UserProfile['incomeLevel']; label: string; desc: s
   { value: 'high',       label: '고소득',      desc: '기준 중위소득 150% 이상', example: '1인 가구 기준 월 359만원 초과' },
 ];
 
-const HOUSEHOLD_TYPES: { value: UserProfile['householdType']; label: string; icon: string }[] = [
-  { value: 'single',               label: '1인 가구',      icon: '🙋' },
-  { value: 'with-parents',         label: '부모와 함께',    icon: '🏠' },
-  { value: 'couple',               label: '부부 가구',      icon: '👫' },
-  { value: 'family-with-children', label: '자녀 있는 가구', icon: '👨‍👩‍👧' },
-  { value: 'single-parent',        label: '한부모 가구',    icon: '👩‍👧' },
+const HOUSEHOLD_TYPES: { value: UserProfile['householdType']; label: string; icon: React.ReactNode }[] = [
+  { value: 'single',               label: '1인 가구',      icon: <User       size={28} /> },
+  { value: 'with-parents',         label: '부모와 함께',    icon: <Home       size={28} /> },
+  { value: 'couple',               label: '부부 가구',      icon: <Users      size={28} /> },
+  { value: 'family-with-children', label: '자녀 있는 가구', icon: <Users      size={28} /> },
+  { value: 'single-parent',        label: '한부모 가구',    icon: <UserCheck  size={28} /> },
 ];
 
 export default function OnboardingPage() {
@@ -195,6 +197,8 @@ function Step1({ profile, setProfile }: { profile: Partial<UserProfile>; setProf
 }
 
 function Step2({ profile, setProfile }: { profile: Partial<UserProfile>; setProfile: (p: Partial<UserProfile>) => void }) {
+  const districtList = profile.region ? (DISTRICTS[profile.region] ?? []) : [];
+
   return (
     <div className="space-y-5 pb-4">
       {/* Region */}
@@ -204,7 +208,7 @@ function Step2({ profile, setProfile }: { profile: Partial<UserProfile>; setProf
           {REGIONS.map((r) => (
             <button
               key={r}
-              onClick={() => setProfile({ ...profile, region: r })}
+              onClick={() => setProfile({ ...profile, region: r, district: undefined })}
               className={`py-2.5 rounded-xl text-sm font-semibold transition-all ${
                 profile.region === r
                   ? 'bg-[#1B6B4A] text-white shadow-sm'
@@ -216,6 +220,42 @@ function Step2({ profile, setProfile }: { profile: Partial<UserProfile>; setProf
           ))}
         </div>
       </div>
+
+      {/* District — shown only after region selected */}
+      {districtList.length > 0 && (
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <p className="text-sm font-bold text-[#1a1a1a]">세부 지역</p>
+            <span className="text-xs text-[#aaa] font-normal">(선택 안 하면 전체)</span>
+          </div>
+          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+            {/* 전체 chip */}
+            <button
+              onClick={() => setProfile({ ...profile, district: undefined })}
+              className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold transition-all border ${
+                !profile.district
+                  ? 'bg-[#1B6B4A] text-white border-transparent'
+                  : 'bg-white text-[#555] border-gray-200'
+              }`}
+            >
+              전체
+            </button>
+            {districtList.map((d) => (
+              <button
+                key={d}
+                onClick={() => setProfile({ ...profile, district: d })}
+                className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold transition-all border ${
+                  profile.district === d
+                    ? 'bg-[#1B6B4A] text-white border-transparent'
+                    : 'bg-white text-[#555] border-gray-200'
+                }`}
+              >
+                {d}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Occupation */}
       <div>
@@ -320,7 +360,7 @@ function Step3({ profile, setProfile }: { profile: Partial<UserProfile>; setProf
 
       {/* Privacy notice */}
       <div className="bg-blue-50 rounded-2xl p-4 flex gap-3">
-        <span className="text-blue-500 text-lg mt-0.5">🔒</span>
+        <Lock size={16} className="text-blue-500 flex-shrink-0 mt-0.5" />
         <p className="text-xs text-blue-700 leading-relaxed">
           입력하신 정보는 혜택 추천에만 사용되며, 기기 내에만 저장됩니다. 개인정보는 수집·저장되지 않아요.
         </p>

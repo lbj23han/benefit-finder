@@ -3,6 +3,7 @@
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { AlertTriangle, Search } from 'lucide-react';
 import AppShell from '@/components/layout/AppShell';
 import PolicyCard from '@/components/policy/PolicyCard';
 import FilterBar from '@/components/policy/FilterBar';
@@ -104,7 +105,7 @@ function ResultsContent() {
 
       {error && (
         <div className="mx-4 mt-3 px-4 py-3 bg-red-50 rounded-xl border border-red-100">
-          <p className="text-xs text-red-600">⚠ {error} 샘플 데이터를 표시합니다.</p>
+          <p className="text-xs text-red-600 flex items-center gap-1"><AlertTriangle size={12} /> {error} 샘플 데이터를 표시합니다.</p>
         </div>
       )}
 
@@ -130,7 +131,7 @@ function ResultsContent() {
       <div className="flex-1 px-4 py-4 lg:px-6">
         {sorted.length === 0 ? (
           <EmptyState
-            emoji="🔍"
+            icon={<Search size={48} />}
             title="조건에 맞는 혜택이 없어요"
             description="필터를 조정하거나 검색어를 바꿔보세요"
             action={

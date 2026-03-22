@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Bookmark } from 'lucide-react';
 import AppShell from '@/components/layout/AppShell';
 import PolicyCard from '@/components/policy/PolicyCard';
 import EmptyState from '@/components/common/EmptyState';
@@ -46,7 +47,7 @@ export default function SavedPage() {
         <div className="px-4 py-4 lg:px-6">
           {saved.length === 0 ? (
             <EmptyState
-              emoji="🔖"
+              icon={<Bookmark size={48} />}
               title="저장한 혜택이 없어요"
               description="혜택 카드의 북마크 아이콘을 눌러 저장해 보세요"
               action={

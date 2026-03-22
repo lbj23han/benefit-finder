@@ -1,24 +1,30 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Cake, User, MapPin, Building2, Briefcase, Wallet, Home, Search, Trash2, AlertTriangle } from 'lucide-react';
 import AppShell from '@/components/layout/AppShell';
 import ProfileFieldModal, { FieldKey, FIELD_CONFIG } from '@/components/profile/ProfileFieldModal';
+import { DISTRICTS } from '@/constants/districts';
 import { getProfile, saveProfile, clearProfile } from '@/lib/storage';
 import { UserProfile } from '@/types';
 import Link from 'next/link';
 
-const FIELD_LABELS: { key: FieldKey; icon: string; label: string }[] = [
-  { key: 'ageGroup',     icon: '🎂', label: '나이대' },
-  { key: 'gender',       icon: '👤', label: '성별' },
-  { key: 'region',       icon: '📍', label: '지역' },
-  { key: 'occupation',   icon: '💼', label: '직업' },
-  { key: 'incomeLevel',  icon: '💰', label: '소득 수준' },
-  { key: 'householdType',icon: '🏠', label: '가구 유형' },
+const ICON_CLASS = 'text-[#1B6B4A]';
+
+const FIELD_LABELS: { key: FieldKey; icon: React.ReactNode; label: string }[] = [
+  { key: 'ageGroup',      icon: <Cake       size={18} className={ICON_CLASS} />, label: '나이대' },
+  { key: 'gender',        icon: <User       size={18} className={ICON_CLASS} />, label: '성별' },
+  { key: 'region',        icon: <MapPin     size={18} className={ICON_CLASS} />, label: '지역' },
+  { key: 'district',      icon: <Building2  size={18} className={ICON_CLASS} />, label: '세부 지역' },
+  { key: 'occupation',    icon: <Briefcase  size={18} className={ICON_CLASS} />, label: '직업' },
+  { key: 'incomeLevel',   icon: <Wallet     size={18} className={ICON_CLASS} />, label: '소득 수준' },
+  { key: 'householdType', icon: <Home       size={18} className={ICON_CLASS} />, label: '가구 유형' },
 ];
 
 function getDisplayValue(key: FieldKey, value: string | undefined): string {
-  if (!value) return '설정 안 함';
+  if (!value) return key === 'district' ? '전체 (선택 안 함)' : '설정 안 함';
+  if (key === 'district') return value;
   const config = FIELD_CONFIG[key];
   return config.options.find((o) => o.value === value)?.label ?? value;
 }
@@ -36,7 +42,9 @@ export default function ProfilePage() {
 
   const handleFieldSave = (field: FieldKey, value: string) => {
     if (!profile) return;
-    const updated = { ...profile, [field]: value };
+    const updated = { ...profile, [field]: value || undefined };
+    // Region change → clear district (구/시/군이 달라짐)
+    if (field === 'region') updated.district = undefined;
     saveProfile(updated);
     setProfile(updated);
     setActiveField(null);
@@ -83,7 +91,7 @@ export default function ProfilePage() {
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <span className="text-base">{icon}</span>
+                      <span className="flex items-center justify-center w-5">{icon}</span>
                       <div>
                         <p className="text-xs text-[#888]">{label}</p>
                         <p className="text-sm font-semibold text-[#1a1a1a]">
@@ -108,7 +116,7 @@ export default function ProfilePage() {
                   className="flex items-center justify-between px-4 py-3.5 border-b border-gray-50 hover:bg-[#F4F8F6] transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-base">🔍</span>
+                    <Search size={18} className="text-[#1B6B4A]" />
                     <span className="text-sm font-medium text-[#1a1a1a]">맞춤 혜택 다시 보기</span>
                   </div>
                   <svg className="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -120,7 +128,7 @@ export default function ProfilePage() {
                   className="w-full flex items-center justify-between px-4 py-3.5 hover:bg-red-50 transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-base">🗑️</span>
+                    <Trash2 size={18} className="text-red-400" />
                     <span className="text-sm font-medium text-red-500">프로필 초기화</span>
                   </div>
                   <svg className="w-4 h-4 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -131,7 +139,7 @@ export default function ProfilePage() {
             </>
           ) : (
             <div className="flex flex-col items-center py-12 text-center">
-              <div className="text-5xl mb-4">👤</div>
+              <div className="mb-4 text-[#1B6B4A] opacity-30"><User size={64} /></div>
               <h3 className="text-lg font-bold text-[#1a1a1a] mb-2">프로필이 없어요</h3>
               <p className="text-sm text-[#888] mb-6">프로필을 설정하면 맞춤 혜택을 추천받을 수 있어요</p>
               <Link
@@ -163,8 +171,9 @@ export default function ProfilePage() {
           </div>
 
           <div className="bg-amber-50 rounded-2xl p-4">
-            <p className="text-xs text-amber-700 leading-relaxed">
-              ⚠️ 본 앱에서 제공하는 정보는 참고용이며, 실제 혜택 수혜 여부는 해당 기관에서 직접 확인하시기 바랍니다.
+            <p className="text-xs text-amber-700 leading-relaxed flex gap-1.5">
+              <AlertTriangle size={13} className="flex-shrink-0 mt-0.5" />
+              본 앱에서 제공하는 정보는 참고용이며, 실제 혜택 수혜 여부는 해당 기관에서 직접 확인하시기 바랍니다.
             </p>
           </div>
 
@@ -184,6 +193,14 @@ export default function ProfilePage() {
           currentValue={(profile[activeField] as string | undefined) ?? ''}
           onSave={handleFieldSave}
           onClose={() => setActiveField(null)}
+          overrideOptions={
+            activeField === 'district'
+              ? [
+                  { value: '', label: '전체 (선택 안 함)', description: '구/시/군 무관하게 전체 혜택을 봐요' },
+                  ...(DISTRICTS[profile.region] ?? []).map((d) => ({ value: d, label: d })),
+                ]
+              : undefined
+          }
         />
       )}
     </AppShell>
