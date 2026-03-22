@@ -110,6 +110,15 @@ function eligibilityScore(policy: Policy, profile: UserProfile, age: number): nu
   // ── [B] Region ────────────────────────────────────────────────────────────
   if (!policy.region.includes('전국') && !policy.region.some(r => r.includes(profile.region))) return 0.05;
 
+  // ── [B2] District hard block ──────────────────────────────────────────────
+  // If user set a district AND the policy is district-specific (has 구/시/군),
+  // only show it when it matches the user's district.
+  // City-wide policies (e.g. region=['서울']) pass through regardless.
+  if (profile.district && !policy.region.includes('전국')) {
+    const isPolicyDistrictSpecific = policy.region.some(r => /[구시군]\s*$/.test(r.trim()));
+    if (isPolicyDistrictSpecific && !policy.region.some(r => r.includes(profile.district!))) return 0.05;
+  }
+
   // ── [C] Child / family blocks ─────────────────────────────────────────────
   if (policy.category === 'childcare' && !hasChildren) return 0.05;
   if (CHILD_SPECIFIC.test(full) && !hasChildren)       return 0.05;

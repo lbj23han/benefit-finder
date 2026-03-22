@@ -42,7 +42,7 @@ export default function PolicyCard({ policy, score, matchReasons, isFullMatch }:
         {/* Row 1: category + status badge + bookmark */}
         <div className="flex items-center justify-between mb-2 min-h-[24px]">
           <div className="flex items-center gap-1.5 min-w-0 overflow-hidden">
-            <span className={`text-xs font-semibold px-2 py-0.5 rounded-full whitespace-nowrap flex-shrink-0 ${getCategoryColor(policy.category)}`}>
+            <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-full whitespace-nowrap flex-shrink-0 ${getCategoryColor(policy.category)}`}>
               {getCategoryIcon(policy.category)} {getCategoryLabel(policy.category)}
             </span>
             <span className="flex-shrink-0">{statusBadge()}</span>
