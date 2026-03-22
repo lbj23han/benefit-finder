@@ -108,7 +108,7 @@ function eligibilityScore(policy: Policy, profile: UserProfile, age: number): nu
   if (VOCATIONAL_SCHOOL.test(t) && age > 22) return 0.05;
 
   // ── [B] Region ────────────────────────────────────────────────────────────
-  if (!policy.region.includes('전국') && !policy.region.includes(profile.region)) return 0.05;
+  if (!policy.region.includes('전국') && !policy.region.some(r => r.includes(profile.region))) return 0.05;
 
   // ── [C] Child / family blocks ─────────────────────────────────────────────
   if (policy.category === 'childcare' && !hasChildren) return 0.05;
@@ -311,7 +311,11 @@ function buildReasons(
     return reasons;
   }
 
-  if (policy.region.includes(profile.region)) reasons.push('거주 지역 일치');
+  if (profile.district && policy.region.some((r) => r.includes(profile.district!))) {
+    reasons.push(`${profile.district} 지역 특화 혜택`);
+  } else if (policy.region.some(r => r.includes(profile.region))) {
+    reasons.push('거주 지역 일치');
+  }
   if ((policy.ageMin !== undefined || policy.ageMax !== undefined) && e > 0.5)
     reasons.push('연령 조건 부합');
   if (policy.occupationTarget?.includes(profile.occupation)) reasons.push('직업 조건 일치');
@@ -403,6 +407,15 @@ export function getRecommendations(
       // [E] 자영업자 → 창업·소상공인 지원 우선
       if (isSelfEmployed && (policy.category === 'business' || policy.category === 'employment') && e >= 0.35) {
         finalRaw *= 1.12;
+      }
+
+      // [F] 구/시/군 세부 지역 매칭 → 해당 지역 특화 정책 우선
+      // 미매칭이어도 패널티 없음 — 지역 데이터가 없는 정책이 많기 때문
+      if (profile.district && e >= 0.25) {
+        const matchesDistrict = policy.region.some((r) =>
+          r.includes(profile.district!)
+        );
+        if (matchesDistrict) finalRaw *= 1.18;
       }
 
       const score = Math.round(clamp(finalRaw) * 100);

@@ -26,8 +26,19 @@ const API_KEY = process.env.DATA_GO_KR_KEY;
 // ─── Endpoint URLs ──────────────────────────────────────────────────────────
 
 const V001_LIST   = 'https://apis.data.go.kr/B554287/NationalWelfareInformationsV001/NationalWelfarelistV001';
+const V2_LIST     = 'https://apis.data.go.kr/B554287/NationalWelfareInformationsV2/NationalWelfarelistV2';
 const LCGV_LIST   = 'https://apis.data.go.kr/B554287/LocalGovernmentWelfareInformations/LcgvWelfarelist';
 const GOV24_LIST  = 'https://api.odcloud.kr/api/gov24/v3/serviceList';
+
+// ─── Specialty blocklist ─────────────────────────────────────────────────────
+// Policies targeting only niche groups that general users can't access.
+// Applied at fetch time (before Claude enrichment) and after enrichment.
+
+const SPECIALTY_BLOCK_PATTERNS = /원양어선|어업인|어민|귀어귀촌|해기사|어선원|수산업|양식업|농업인|농민|귀농|영농|축산|임업인|국가유공자|보훈|참전유공자|고엽제|전몰군경|순직군경|6\.25|한센인|나병|현역군인|군무원|사관생도|병역의무|성직자|목회자|선교사|종교인|북한이탈주민(?!\s*폭력)|외국인\s*근로자|결혼이민자|귀화외국인|이주민|무국적|노인복지시설|사회복지법인|사회복지시설/;
+
+function isSpecialtyBlocked(title = '', description = '') {
+  return SPECIALTY_BLOCK_PATTERNS.test(title) || SPECIALTY_BLOCK_PATTERNS.test(description.slice(0, 100));
+}
 
 // ─── Generic helpers ────────────────────────────────────────────────────────
 
@@ -43,6 +54,49 @@ async function fetchJSON(url, options = {}, timeoutMs = 15000) {
     clearTimeout(timer);
     throw err;
   }
+}
+
+async function fetchText(url, options = {}, timeoutMs = 15000) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, { ...options, signal: ctrl.signal });
+    clearTimeout(timer);
+    if (!res.ok) throw new Error(`HTTP ${res.status} from ${url}`);
+    return await res.text();
+  } catch (err) {
+    clearTimeout(timer);
+    throw err;
+  }
+}
+
+// ─── Simple XML parser for 복지로 servList format ───────────────────────────
+// Handles repeated tags (lifeNmArray, intrsThemaNmArray) as arrays.
+
+function parseServXML(xml) {
+  const totalCount = parseInt(/<totalCount>(\d+)<\/totalCount>/.exec(xml)?.[1] ?? '0', 10);
+  const resultCode  = /<resultCode>(\d+)<\/resultCode>/.exec(xml)?.[1];
+  if (resultCode !== '0') {
+    const msg = /<resultMessage>([^<]*)<\/resultMessage>/.exec(xml)?.[1] ?? 'unknown';
+    return { totalCount: 0, items: [], error: msg };
+  }
+
+  const items = [];
+  for (const [, block] of xml.matchAll(/<servList>([\s\S]*?)<\/servList>/g)) {
+    const item = {};
+    for (const [, tag, val] of block.matchAll(/<([A-Za-z]\w*)>([^<]*)<\/\1>/g)) {
+      const v = val.trim();
+      if (!v) continue;
+      if (/Array$/i.test(tag)) {
+        if (!item[tag]) item[tag] = [];
+        item[tag].push(v);
+      } else {
+        item[tag] = v;
+      }
+    }
+    items.push(item);
+  }
+  return { totalCount, items };
 }
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
@@ -246,12 +300,16 @@ async function callClaudeAPI(prompt, apiKey) {
 
 async function enrichWithClaude(policies, apiKey) {
   const BATCH = 20;
+  // 10k output tokens/min limit — each batch ~600 tokens → max ~16 batches/min → 4s gap is safe
+  const BATCH_DELAY_MS = 4500;
+  const MAX_RETRIES = 3;
   const resultMap = new Map();
 
   for (let i = 0; i < policies.length; i += BATCH) {
+    const batchNum = Math.floor(i / BATCH) + 1;
     const batch = policies.slice(i, i + BATCH);
     const policyText = batch.map((p, idx) =>
-      `[${idx}] ${p.title}\n${(p.description || p.summary || '').replace(/\s+/g, ' ').slice(0, 400)}`
+      `[${idx}] ${p.title}\n${(p.description || p.summary || '').replace(/\s+/g, ' ').slice(0, 300)}`
     ).join('\n\n');
 
     const prompt = `한국 정부 복지 정책 ${batch.length}개를 분석해서 JSON 배열만 응답하세요. 설명 없이 배열만.
@@ -285,19 +343,32 @@ async function enrichWithClaude(policies, apiKey) {
 정책:
 ${policyText}`;
 
-    try {
-      const text = await callClaudeAPI(prompt, apiKey);
-      const match = text.match(/\[[\s\S]*\]/);
-      if (match) {
-        const parsed = JSON.parse(match[0]);
-        batch.forEach((p, idx) => {
-          if (parsed[idx]) resultMap.set(p.id, parsed[idx]);
-        });
+    let success = false;
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+      try {
+        const text = await callClaudeAPI(prompt, apiKey);
+        const match = text.match(/\[[\s\S]*\]/);
+        if (match) {
+          const parsed = JSON.parse(match[0]);
+          batch.forEach((p, idx) => {
+            if (parsed[idx]) resultMap.set(p.id, parsed[idx]);
+          });
+        }
+        success = true;
+        break;
+      } catch (err) {
+        const is429 = err.message.includes('429');
+        if (is429 && attempt < MAX_RETRIES) {
+          const backoff = attempt * 12000; // 12s, 24s
+          console.warn(`  ⚠ Claude batch ${batchNum} rate limit — ${backoff / 1000}s 후 재시도 (${attempt}/${MAX_RETRIES})`);
+          await sleep(backoff);
+        } else {
+          console.warn(`  ⚠ Claude batch ${batchNum} 실패: ${err.message.slice(0, 120)}`);
+          break;
+        }
       }
-    } catch (err) {
-      console.warn(`  ⚠ Claude batch ${Math.floor(i / BATCH) + 1} 실패: ${err.message}`);
     }
-    await sleep(300);
+    if (success && i + BATCH < policies.length) await sleep(BATCH_DELAY_MS);
   }
   return resultMap;
 }
@@ -309,6 +380,35 @@ function bokjiroUrl(servId) {
 }
 
 // ─── Normalizer: 복지로 V001 / LCGV (same servList shape) ───────────────────
+
+/** 기관명에서 시도+시군구 추출. 못 찾으면 ['전국'] 반환 */
+function inferRegionFromOrg(orgName) {
+  if (!orgName) return null;
+  const METRO = {
+    '서울특별시': '서울', '경기도': '경기', '부산광역시': '부산',
+    '대구광역시': '대구', '인천광역시': '인천', '광주광역시': '광주',
+    '대전광역시': '대전', '울산광역시': '울산', '세종특별자치시': '세종',
+    '강원특별자치도': '강원', '강원도': '강원', '충청북도': '충북',
+    '충청남도': '충남', '전라북도': '전북', '전북특별자치도': '전북',
+    '전라남도': '전남', '경상북도': '경북', '경상남도': '경남',
+    '제주특별자치도': '제주',
+    // 단축형도 포함 (일부 기관명이 이미 단축형)
+    '서울': '서울', '경기': '경기', '인천': '인천', '부산': '부산',
+    '대구': '대구', '광주': '광주', '대전': '대전', '울산': '울산',
+    '세종': '세종', '강원': '강원', '충북': '충북', '충남': '충남',
+    '전북': '전북', '전남': '전남', '경북': '경북', '경남': '경남', '제주': '제주',
+  };
+  let region = null;
+  // 긴 이름부터 매칭 (충남이 충청남도보다 먼저 걸리는 오류 방지)
+  for (const [full, short] of Object.entries(METRO).sort((a, b) => b[0].length - a[0].length)) {
+    if (orgName.includes(full)) { region = short; break; }
+  }
+  if (!region) return null;
+  // 시군구 추출: '서울특별시 마포구' → '마포구'
+  const districtMatch = orgName.match(/([가-힣]+[구시군])\s*$/);
+  if (districtMatch) return [region, districtMatch[1]];
+  return [region];
+}
 
 function normalizeServItem(item) {
   const lifeNames = (item.lifeNmArray ?? []).map(n =>
@@ -324,10 +424,26 @@ function normalizeServItem(item) {
   const benefitText = item.sprtCn ?? item.alwServCn ?? '';
   const amount = extractAmount(benefitText);
 
-  const rawRegion = `${item.ctpvNm ?? ''} ${item.sggNm ?? ''}`.trim();
-  const region = rawRegion && rawRegion !== '전국'
+  const REGION_NORM = {
+    '서울특별시': '서울', '경기도': '경기', '부산광역시': '부산',
+    '대구광역시': '대구', '인천광역시': '인천', '광주광역시': '광주',
+    '대전광역시': '대전', '울산광역시': '울산', '세종특별자치시': '세종',
+    '강원특별자치도': '강원', '강원도': '강원', '충청북도': '충북',
+    '충청남도': '충남', '전라북도': '전북', '전북특별자치도': '전북',
+    '전라남도': '전남', '경상북도': '경북', '경상남도': '경남',
+    '제주특별자치도': '제주',
+  };
+  const ctpvNorm = REGION_NORM[item.ctpvNm?.trim()] ?? item.ctpvNm?.trim() ?? '';
+  const sggNorm = item.sggNm?.trim() ?? '';
+  const rawRegion = sggNorm ? `${ctpvNorm} ${sggNorm}` : ctpvNorm;
+  let region = rawRegion && rawRegion !== '전국'
     ? rawRegion.split(/[,/]/).map(s => s.trim()).filter(Boolean)
-    : ['전국'];
+    : null;
+  // ctpvNm 비었으면 sourceOrg 기관명으로 fallback
+  if (!region) {
+    const orgName = (item.jurMnofNm ?? item.bizChrDeptNm ?? item.servPlnNm ?? '').trim();
+    region = inferRegionFromOrg(orgName) ?? ['전국'];
+  }
 
   const eligibility = [];
   if (ageRange.ageMin !== undefined) {
@@ -415,7 +531,7 @@ function normalizeGov24Item(item) {
     summary: summary || title,
     description: targetText || summary || title,
     category: toCategory(`${title} ${item['서비스분야'] ?? ''}`),
-    region: ['전국'],
+    region: inferRegionFromOrg(orgName) ?? ['전국'],
     eligibility,
     ...(enriched.ageMin !== undefined ? { ageMin: enriched.ageMin } : {}),
     ...(enriched.ageMax !== undefined ? { ageMax: enriched.ageMax } : {}),
@@ -441,38 +557,43 @@ function normalizeGov24Item(item) {
 
 // ─── API fetch functions ─────────────────────────────────────────────────────
 
-async function fetchV001Pages() {
+async function fetchBokjiroPages(baseUrl, label) {
   const items = [];
   let page = 1;
-  const maxPages = 5; // up to 500 items
+  const maxPages = 15; // up to 1,500 items
 
   while (page <= maxPages) {
     const params = new URLSearchParams({
       serviceKey: API_KEY,
-      callTp:     'json',
       pageNo:     String(page),
       numOfRows:  '100',
     });
-    const json = await fetchJSON(`${V001_LIST}?${params}`);
+    let xml;
+    try {
+      xml = await fetchText(`${baseUrl}?${params}`);
+    } catch (err) {
+      console.warn(`  ⚠ ${label} 페이지 ${page} 실패: ${err.message}`);
+      break;
+    }
 
-    // V001 response: { resultCode, totalCount, pageNo, numOfRows, servList: [...] }
-    const servList = json?.servList ?? json?.body?.items?.item ?? [];
-    const list = Array.isArray(servList) ? servList : [servList];
-    if (list.length === 0) break;
-    items.push(...list);
-
-    const total = parseInt(json?.totalCount ?? '0', 10);
-    if (items.length >= total || items.length >= 500) break;
+    const { totalCount, items: pageItems, error } = parseServXML(xml);
+    if (pageItems.length === 0) {
+      if (page === 1) console.warn(`  ⚠ ${label} 0건 반환: ${error ?? 'empty'}`);
+      break;
+    }
+    items.push(...pageItems);
+    if (items.length >= totalCount || items.length >= 1500) break;
     page++;
     await sleep(300);
   }
+  console.log(`  ✓ ${label}: ${items.length}건 수집`);
   return items;
 }
 
 async function fetchLcgvPages() {
   const items = [];
   let page = 1;
-  const maxPages = 3; // up to 300 local items
+  const maxPages = 46; // 4,561 items / 100 per page
 
   while (page <= maxPages) {
     const params = new URLSearchParams({
@@ -480,23 +601,32 @@ async function fetchLcgvPages() {
       pageNo:     String(page),
       numOfRows:  '100',
     });
-    const json = await fetchJSON(`${LCGV_LIST}?${params}`);
-    const list = json?.servList ?? [];
-    if (!Array.isArray(list) || list.length === 0) break;
-    items.push(...list);
+    let xml;
+    try {
+      xml = await fetchText(`${LCGV_LIST}?${params}`);
+    } catch (err) {
+      console.warn(`  ⚠ LCGV 페이지 ${page} 실패: ${err.message}`);
+      break;
+    }
 
-    const total = parseInt(json?.totalCount ?? '0', 10);
-    if (items.length >= total || items.length >= 300) break;
+    const { totalCount, items: pageItems, error } = parseServXML(xml);
+    if (pageItems.length === 0) {
+      if (page === 1) console.warn(`  ⚠ LCGV 0건 반환: ${error ?? 'empty'}`);
+      break;
+    }
+    items.push(...pageItems);
+    if (items.length >= totalCount) break;
     page++;
     await sleep(300);
   }
+  console.log(`  ✓ LCGV: ${items.length}건 수집`);
   return items;
 }
 
 async function fetchGov24Pages() {
   const items = [];
   let page = 1;
-  const maxPages = 3;
+  const maxPages = 15; // up to 1,500 items
 
   while (page <= maxPages) {
     const params = new URLSearchParams({
@@ -513,10 +643,11 @@ async function fetchGov24Pages() {
     items.push(...list);
 
     const total = parseInt(json?.totalCount ?? '0', 10);
-    if (items.length >= total || items.length >= 300) break;
+    if (items.length >= total || items.length >= 1500) break;
     page++;
     await sleep(300);
   }
+  console.log(`  ✓ Gov24: ${items.length}건 수집`);
   return items;
 }
 
@@ -547,41 +678,55 @@ async function main() {
 
   // 1. 복지로 국가복지정보 V001
   try {
-    console.log('→ [1/3] 복지로 국가복지정보 V001...');
-    const items = await fetchV001Pages();
+    console.log('→ [1/4] 복지로 국가복지정보 V001...');
+    const items = await fetchBokjiroPages(V001_LIST, 'V001');
     const normalized = items
       .filter(it => it.servNm && it.servId)
+      .filter(it => !isSpecialtyBlocked(it.servNm, it.tgtrDtlCn ?? ''))
       .map(it => { try { return normalizeServItem(it); } catch { return null; } })
       .filter(Boolean);
-    console.log(`  ✓ ${normalized.length}건`);
     allPolicies.push(...normalized);
   } catch (err) {
     console.error(`  ✗ V001 실패: ${err.message}`);
   }
 
-  // 2. 복지로 지자체복지정보
+  // 2. 복지로 국가복지정보 V2 (V001 보완)
   try {
-    console.log('→ [2/3] 복지로 지자체복지정보...');
+    console.log('→ [2/4] 복지로 국가복지정보 V2...');
+    const items = await fetchBokjiroPages(V2_LIST, 'V2');
+    const normalized = items
+      .filter(it => it.servNm && it.servId)
+      .filter(it => !isSpecialtyBlocked(it.servNm, it.tgtrDtlCn ?? ''))
+      .map(it => { try { return normalizeServItem(it); } catch { return null; } })
+      .filter(Boolean);
+    allPolicies.push(...normalized);
+  } catch (err) {
+    console.error(`  ✗ V2 실패: ${err.message}`);
+  }
+
+  // 3. 복지로 지자체복지정보
+  try {
+    console.log('→ [3/4] 복지로 지자체복지정보...');
     const items = await fetchLcgvPages();
     const normalized = items
       .filter(it => it.servNm && it.servId)
+      .filter(it => !isSpecialtyBlocked(it.servNm, it.tgtrDtlCn ?? ''))
       .map(it => { try { return normalizeServItem(it); } catch { return null; } })
       .filter(Boolean);
-    console.log(`  ✓ ${normalized.length}건`);
     allPolicies.push(...normalized);
   } catch (err) {
     console.error(`  ✗ LCGV 실패: ${err.message}`);
   }
 
-  // 3. 정부24
+  // 4. 정부24
   try {
-    console.log('→ [3/3] 정부24 서비스목록...');
+    console.log('→ [4/4] 정부24 서비스목록...');
     const items = await fetchGov24Pages();
     const normalized = items
       .filter(it => it['서비스명'] || it.serviceName)
+      .filter(it => !isSpecialtyBlocked(it['서비스명'] ?? '', it['선정기준'] ?? it['지원대상'] ?? ''))
       .map(it => { try { return normalizeGov24Item(it); } catch { return null; } })
       .filter(Boolean);
-    console.log(`  ✓ ${normalized.length}건`);
     allPolicies.push(...normalized);
   } catch (err) {
     console.error(`  ✗ Gov24 실패: ${err.message}`);
@@ -634,16 +779,30 @@ async function main() {
     console.log('  ℹ ANTHROPIC_API_KEY 미설정 — Claude enrichment 스킵');
   }
 
+  // Post-enrichment specialty filter — catches anything Claude flagged
+  const SPECIALTY_BLOCK = new Set(['maritime', 'agriculture', 'veteran', 'military', 'hansen', 'religion']);
+  const beforeSpecFilter = deduped.length;
+  const filtered = deduped.filter(p => {
+    if (!p.targetSpecialty) return true;
+    // Claude occasionally returns an array instead of a comma-separated string
+    const specStr = Array.isArray(p.targetSpecialty)
+      ? p.targetSpecialty.join(',')
+      : String(p.targetSpecialty);
+    const specs = specStr.split(',').map(s => s.trim());
+    return !specs.some(s => SPECIALTY_BLOCK.has(s));
+  });
+  console.log(`→ specialty 후처리 필터: ${beforeSpecFilter - filtered.length}건 제거, 최종 ${filtered.length}건`);
+
   const output = {
     fetchedAt: new Date().toISOString(),
     source: 'bokjiro-api',
-    count: deduped.length,
-    policies: deduped,
+    count: filtered.length,
+    policies: filtered,
   };
 
   writeFileSync(OUT_PATH, JSON.stringify(output, null, 2), 'utf-8');
   console.log(`✓ ${OUT_PATH} 에 저장됨`);
-  console.log(`  총 ${deduped.length}건 / fetchedAt: ${output.fetchedAt}`);
+  console.log(`  총 ${filtered.length}건 / fetchedAt: ${output.fetchedAt}`);
 }
 
 main().catch(err => {
