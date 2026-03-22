@@ -10,7 +10,9 @@
 
 **혜택줍줍**은 나이·지역·직업·소득·가구 유형을 입력하면 받을 수 있는 정부 지원 혜택을 자동으로 추천해주는 프론트엔드 PWA입니다.
 
-정책 데이터는 **복지로 공식 API (data.go.kr)** 에서 매일 자동으로 수집·갱신되며, **Claude AI (Haiku)**가 각 정책의 대상 특성·지원 금액·일반 관련도를 분석해 추천 품질을 높입니다.
+정책 데이터는 **복지로 공식 API · 정부24 API (data.go.kr)** 에서 매일 자동으로 수집·갱신되며, **Claude AI (Haiku)**가 각 정책의 대상 특성·지원 금액·일반 관련도를 분석해 추천 품질을 높입니다.
+
+현재 **4,539개 정책** 수록 (전국 459건 + 서울 875건 + 경기 524건 + 전국 17개 시도 전체)
 
 ---
 
@@ -19,12 +21,13 @@
 | 기능 | 설명 |
 |------|------|
 | 맞춤 추천 | 나이·지역·직업·소득·가구 유형 기반 3-요소 점수화 알고리즘 |
+| 세부 지역 필터 | 시·도 + 구/시/군 2단계 지역 필터링. 종로구 설정 시 타 구 정책 하드블록 |
 | AI 보강 | Claude Haiku가 정책별 `targetSpecialty` · `relevanceScore` · `estimatedBenefitText` 추출 |
 | 강력한 필터링 | 군인·농업인·원양어선 등 특수 대상 하드블록, 프로필 맥락 기반 우선순위 조정 |
 | 정책 상세 | 자격 요건, 혜택 금액(또는 AI 예상 혜택), 공식 사이트 직링크 |
 | 북마크 | 관심 정책 로컬 저장 및 저장 목록 페이지 |
-| 검색·필터·정렬 | 키워드 검색, 카테고리 필터(+ 인라인 초기화 칩), 금액순/마감순 정렬 |
-| 자동 데이터 갱신 | GitHub Actions + 복지로 API → 매일 새벽 자동 업데이트 |
+| 검색·필터·정렬 | 키워드 검색, 카테고리 필터, 금액순/마감순 정렬 |
+| 자동 데이터 갱신 | GitHub Actions + 복지로/정부24 API → 매일 새벽 자동 업데이트 |
 | PWA | 설치 가능, 오프라인 대응, 모바일 최적화 |
 | 반응형 | 모바일 / 태블릿 / 데스크탑 전 구간 지원 |
 
@@ -35,9 +38,10 @@
 - **Framework**: Next.js 16 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS v4
+- **Icons**: Lucide React (크로스 플랫폼 SVG 아이콘)
 - **State**: React hooks + localStorage
 - **AI 보강**: Claude Haiku (claude-haiku-4-5) — 빌드 타임 배치 처리
-- **Data Pipeline**: GitHub Actions + 복지로 Open API (data.go.kr)
+- **Data Pipeline**: GitHub Actions + 복지로 Open API + 정부24 API (data.go.kr)
 - **Deployment**: Vercel
 
 ---
@@ -48,18 +52,63 @@
 매일 새벽 2시 KST
   └─ GitHub Actions (.github/workflows/update-policies.yml)
        ├─ scripts/fetchPolicies.mjs 실행
-       │    ├─ 복지로 API 호출 (NationalWelfareInformationsV2)
-       │    ├─ 정책 데이터 정규화 (Policy 타입으로 변환)
-       │    ├─ Claude Haiku 배치 보강 (20개씩)
-       │    │    ├─ targetSpecialty  (veteran/military/maritime/agriculture 등)
+       │    ├─ [1/4] 복지로 V001 API (국가복지정보)
+       │    ├─ [2/4] 복지로 V2 API (국가복지정보 V2)
+       │    ├─ [3/4] 복지로 LCGV API (지자체복지정보, 4,500건+)
+       │    │         └─ ctpvNm/sggNm → 시도+구시군 정규화
+       │    │              (서울특별시 → 서울 / 마포구 → 마포구)
+       │    ├─ [4/4] 정부24 API (serviceList, 1,500건)
+       │    │         └─ 소관기관명 기반 지역 추론
+       │    │              (서울특별시 마포구 → ['서울', '마포구'])
+       │    ├─ 중복 제거 (id 기준)
+       │    ├─ Claude Haiku 배치 보강 (20개씩, 4.5초 간격)
+       │    │    ├─ targetSpecialty  (veteran/military/maritime 등)
        │    │    ├─ relevanceScore   (0~1, 일반 시민 기준 관련도)
        │    │    └─ estimatedBenefitText (예: "월 최대 33만원")
+       │    ├─ 특수 대상 정책 후처리 필터링
        │    └─ src/data/policies.generated.json 저장
        └─ 변경사항 git commit & push
             └─ Vercel 자동 감지 → 재빌드 (약 2분)
 ```
 
 API 호출 실패 시 기존 데이터 보존, 앱은 항상 정상 동작합니다.
+
+---
+
+## 지역 필터링 설계
+
+### 2단계 지역 구조
+
+```
+profile.region = '서울'           → 시/도 단위 (필수)
+profile.district = '종로구'       → 구/시/군 단위 (선택)
+```
+
+### 하드블록 규칙
+
+| 조건 | 동작 |
+|------|------|
+| policy.region = ['전국'] | 항상 통과 |
+| policy.region에 profile.region 미포함 | 블록 (score 0.05) |
+| district 설정 + 정책이 구 단위 특정 + 구 불일치 | 블록 (score 0.05) |
+| district 설정 + 정책이 시 전체 (['서울']) | 통과 (구 무관 표시) |
+
+### 구 단위 감지 기준
+
+`policy.region` 내 문자열이 `[구시군]$` 패턴으로 끝나면 구 단위 정책으로 판단.
+- `['서울 마포구']` → 구 단위 → district 하드블록 적용
+- `['서울']` → 시 단위 → district 블록 없음 (전체 서울 노출)
+
+### 지역 이름 정규화
+
+LCGV API가 반환하는 전체 지역명을 프로필 약칭으로 변환:
+
+| API 반환값 | 정규화 결과 |
+|-----------|------------|
+| 서울특별시 | 서울 |
+| 강원특별자치도 / 강원도 | 강원 |
+| 전라북도 / 전북특별자치도 | 전북 |
+| 제주특별자치도 | 제주 |
 
 ---
 
@@ -79,7 +128,8 @@ API 호출 실패 시 기존 데이터 보존, 앱은 항상 정상 동작합니
 
 | 조건 | 일치 | 불일치 |
 |------|------|--------|
-| 지역 | 1.0 | 즉시 0.05 반환 |
+| 지역 | 통과 | 즉시 0.05 반환 |
+| 구/시/군 (district 설정 시) | 통과 or +18% | 즉시 0.05 반환 |
 | 나이 (명시) | 1.0 | 즉시 0.05 반환 |
 | 나이 (추론) | ×0.88 | 즉시 0.05 반환 |
 | 나이 (미상) | ×0.65 | — |
@@ -87,11 +137,7 @@ API 호출 실패 시 기존 데이터 보존, 앱은 항상 정상 동작합니
 | 소득 | ×1.0 | ×0.10 |
 | 가구 유형 | ×1.0 | ×0.28 |
 
-**relevanceScore 조정**
-- 강한 조건 매칭이 없을 때: `rel < 0.40` → ×0.40, `rel < 0.60` → ×0.78
-- 조건 전혀 없는 보편 정책: `rel ≥ 0.80` → floor 0.37, `rel ≥ 0.65` → floor 0.36
-
-**적격성 게이트**: e < 0.35 → 최종 점수 대폭 감산 (사실상 하위 묻힘)
+**적격성 게이트**: e < 0.35 → 최종 점수 대폭 감산
 
 ### 2. 실용성 점수 (practicalityScore)
 
@@ -107,13 +153,14 @@ API 호출 실패 시 기존 데이터 보존, 앱은 항상 정상 동작합니
 
 | 조건 | 조정 |
 |------|------|
-| 비저소득 + 조건 없는 보편 서비스 | ×0.72 (인플루엔자·마음투자가 1위 되는 현상 방지) |
+| 비저소득 + 조건 없는 보편 서비스 | ×0.72 |
 | 저소득 + 현금/바우처 (e ≥ 0.40) | ×1.18 |
 | 저소득 + 주거 카테고리 (e ≥ 0.40) | ×1.12 |
-| 저소득 + 대출 (e ≥ 0.40) | ×0.78 (부채 부담 고려) |
-| 30대 이하 1인가구 + 주거 카테고리 | ×1.20 |
+| 저소득 + 대출 (e ≥ 0.40) | ×0.78 |
+| 30대 이하 1인가구 + 주거 | ×1.20 |
 | 재직자 + 취업 카테고리 | ×1.12 |
-| 자영업자 + 창업·취업 카테고리 | ×1.12 |
+| 자영업자 + 창업·취업 | ×1.12 |
+| district 일치 (e ≥ 0.25) | ×1.18 |
 
 **isFullMatch**: e ≥ 0.60 AND 최종 점수 ≥ 65 → "신청 가능성 높음" 배지
 
@@ -155,18 +202,15 @@ cp .env.local.example .env.local
 # 데이터 수동 갱신 (복지로 API + Claude 보강)
 npm run fetch:policies
 
-# 기존 정책 전체 재보강 (Claude enrichment만 재실행)
-node scripts/reenrichPolicies.mjs
+# 기존 데이터 지역 패치 (Claude 재실행 없이)
+node scripts/patchRegions.mjs
 ```
 
 > 복지로 API 키 발급: data.go.kr → 로그인 → 마이페이지 → 인증키
-> 신청 API: 복지로 국가복지정보 서비스 (NationalWelfareInformationsV2)
 
 ---
 
 ## GitHub Actions 설정
-
-자동 갱신을 활성화하려면 레포지토리 Secret을 2개 등록하세요.
 
 ```
 GitHub repo → Settings → Secrets and variables → Actions → New secret
@@ -174,8 +218,6 @@ GitHub repo → Settings → Secrets and variables → Actions → New secret
 이름: DATA_GO_KR_KEY      값: 복지로 서비스키
 이름: ANTHROPIC_API_KEY   값: Claude API 키
 ```
-
-등록 후 매일 자동 실행되며, GitHub Actions 탭에서 수동으로도 실행 가능합니다.
 
 ---
 
@@ -185,33 +227,35 @@ GitHub repo → Settings → Secrets and variables → Actions → New secret
 src/
   app/
     page.tsx               # 홈 (맞춤 TOP 5 + 카테고리 단축)
-    results/page.tsx        # 전체 추천 목록 + 필터
-    saved/page.tsx          # 북마크 목록
-    profile/page.tsx        # 프로필 수정
-    policy/[id]/page.tsx    # 정책 상세
-    onboarding/page.tsx     # 최초 프로필 입력
+    results/page.tsx       # 전체 추천 목록 + 필터
+    saved/page.tsx         # 북마크 목록
+    profile/page.tsx       # 프로필 수정 (필드별 모달 편집)
+    policy/[id]/page.tsx   # 정책 상세
+    onboarding/page.tsx    # 최초 프로필 입력 (3단계)
   components/
-    layout/                 # AppShell, BottomNav (모바일) / 사이드바 (데스크탑)
-    policy/                 # PolicyCard, FilterBar
-    profile/                # ProfileSummary, ProfileFieldModal
-    common/                 # BookmarkButton, EmptyState, FreshnessBar, SearchInput
+    layout/                # AppShell, BottomNav (모바일) / 사이드바 (데스크탑)
+    policy/                # PolicyCard, FilterBar
+    profile/               # ProfileFieldModal (지역·구 동적 옵션 포함)
+    common/                # BookmarkButton, EmptyState, FreshnessBar, SearchInput
+  constants/
+    districts.ts           # 시/도 → 구/시/군 목록 (전국 17개 시도)
   data/
-    policies.generated.json # GitHub Actions 자동 생성 (300개+)
-    policies.ts             # 수작업 폴백 데이터
+    policies.generated.json # GitHub Actions 자동 생성 (4,539건)
+    policies.ts            # 수작업 폴백 데이터
   hooks/
-    usePolicies.ts          # 데이터 로드 훅 (30분 폴링 + 탭 포커스 갱신)
+    usePolicies.ts         # 데이터 로드 훅 (30분 폴링 + 탭 포커스 갱신)
   lib/
-    recommendation.ts       # 추천 점수 알고리즘 (핵심 로직)
-    policyCache.ts          # API 캐시 관리
-    storage.ts              # localStorage (프로필 + 북마크)
-    utils.ts                # 포맷·레이블 유틸
+    recommendation.ts      # 추천 점수 알고리즘 (핵심 로직)
+    policyCache.ts         # API 캐시 관리
+    storage.ts             # localStorage (프로필 + 북마크)
+    utils.ts               # 포맷·레이블·아이콘 유틸
   types/
-    index.ts                # Policy, UserProfile, RecommendationResult 등
+    index.ts               # Policy, UserProfile, RecommendationResult 등
 scripts/
-  fetchPolicies.mjs         # 데이터 수집 + Claude 보강 스크립트
-  reenrichPolicies.mjs      # 기존 정책 Claude 재보강 스크립트
+  fetchPolicies.mjs        # 데이터 수집 + Claude 보강 스크립트
+  patchRegions.mjs         # 기존 데이터 지역 패치 스크립트
 .github/workflows/
-  update-policies.yml       # 자동 갱신 워크플로우
+  update-policies.yml      # 자동 갱신 워크플로우
 ```
 
 ---
