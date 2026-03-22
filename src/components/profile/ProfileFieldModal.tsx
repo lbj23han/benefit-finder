@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { UserProfile } from '@/types';
 
-type FieldKey = 'ageGroup' | 'gender' | 'region' | 'occupation' | 'incomeLevel' | 'householdType';
+type FieldKey = 'ageGroup' | 'gender' | 'region' | 'district' | 'occupation' | 'incomeLevel' | 'householdType';
 
 interface Option {
   value: string;
@@ -81,6 +81,10 @@ const FIELD_CONFIG: Record<FieldKey, { title: string; options: Option[] }> = {
       { value: 'single-parent',        label: '한부모 가구',     description: '혼자 자녀를 키워요' },
     ],
   },
+  district: {
+    title: '세부 지역 (구/시/군)',
+    options: [], // dynamically overridden via overrideOptions prop
+  },
 };
 
 interface ProfileFieldModalProps {
@@ -88,10 +92,12 @@ interface ProfileFieldModalProps {
   currentValue: string;
   onSave: (field: FieldKey, value: string) => void;
   onClose: () => void;
+  overrideOptions?: Option[];
 }
 
-export default function ProfileFieldModal({ field, currentValue, onSave, onClose }: ProfileFieldModalProps) {
+export default function ProfileFieldModal({ field, currentValue, onSave, onClose, overrideOptions }: ProfileFieldModalProps) {
   const config = FIELD_CONFIG[field];
+  const options = overrideOptions ?? config.options;
   const overlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -113,7 +119,7 @@ export default function ProfileFieldModal({ field, currentValue, onSave, onClose
         <h2 className="text-lg font-extrabold text-[#1a1a1a] mb-4">{config.title} 선택</h2>
 
         <div className="space-y-2">
-          {config.options.map((opt) => (
+          {options.map((opt) => (
             <button
               key={opt.value}
               onClick={() => onSave(field, opt.value)}
