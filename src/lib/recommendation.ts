@@ -148,12 +148,16 @@ function eligibilityScore(policy: Policy, profile: UserProfile, age: number): nu
   // ── [B] Region ────────────────────────────────────────────────────────────
   if (!policy.region.includes('전국') && !policy.region.some(r => r.includes(profile.region))) return 0.05;
 
-  // ── [B1] 암묵적 지역 추론 (title + sourceOrg + desc) ─────────────────────
+  // ── [B1] 암묵적 지역 추론 (title + sourceOrg + desc + benefitDescription) ─
   // '전국'으로 잘못 표기된 지역 정책 차단.
-  // 제목 → 주관기관 → 설명 앞부분 순서로 지역명 검출.
+  // 제목 → 주관기관 → 설명/혜택설명 순서로 지역명 검출.
+  // "관내/도내" 키워드가 있으면 지역 특화 정책이지만 어느 지역인지 모르는 경우 → 낮은 점수.
   if (policy.region.includes('전국')) {
-    const impliedRegion = inferPolicyRegion(t, policy.sourceOrg ?? '', desc.slice(0, 200));
+    const benefitDesc = (policy.benefitDescription || '').slice(0, 300);
+    const combinedDesc = `${desc.slice(0, 200)} ${benefitDesc}`;
+    const impliedRegion = inferPolicyRegion(t, policy.sourceOrg ?? '', combinedDesc);
     if (impliedRegion && impliedRegion !== profile.region) return 0.05;
+    if (!impliedRegion && /관내|도내|시내|군내|구내/.test(combinedDesc)) return 0.15;
   }
 
   // ── [B2] District hard block ──────────────────────────────────────────────
@@ -425,7 +429,7 @@ const TITLE_REGION_BLOCKS: [RegExp, string][] = [
   [/부산진구|해운대구|사하구|금정구|영도구|사상구|연제구|수영구|동래구|기장군|강서구.*부산|부산.*강서구/, '부산'],
   [/대구(?:광역시)?/, '대구'],
   // 대구 구 단위
-  [/달서구|달성군|수성구|중구.*대구|동구.*대구|서구.*대구|북구.*대구|남구.*대구/, '대구'],
+  [/달서(?:구|청년)|달성군|수성구|중구.*대구|동구.*대구|서구.*대구|북구.*대구|남구.*대구/, '대구'],
   [/인천(?:광역시)?/, '인천'],
   // 인천 구 단위 (남동구·부평구 등이 '전국' 정책 제목/주관기관에 포함되는 경우)
   [/남동구|남동형|부평구|계양구|연수구|미추홀구|서구.*인천|인천.*서구|동구.*인천|중구.*인천/, '인천'],
