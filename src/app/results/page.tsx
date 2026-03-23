@@ -40,7 +40,7 @@ function ResultsContent() {
     if (profile) {
       setResults(getRecommendations(policies, profile));
     } else {
-      setResults(policies.map((policy) => ({ policy, score: 0, matchReasons: [], isFullMatch: false })));
+      setResults(policies.map((policy) => ({ policy, score: 0, matchReasons: [], isFullMatch: false, regionMatched: true })));
     }
   }, [profile, policies, profileLoaded]);
 
