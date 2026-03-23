@@ -39,7 +39,7 @@ const EMPLOYER_FACING  = /채용지원|고경력.*채용|신진연구인력|기�
 const SPECIALIST       = /박사급\s*(?:연구|채용)|연구원\s*채용|전문연구요원|특수목적\s*대학원|유휴\s*(?:간호사|의사|약사|의료인)|면허\s*재취업|의료인\s*재취업/;
 
 // ─── Child policy patterns ────────────────────────────────────────────────────
-const CHILD_SPECIFIC = /다문화.*자녀|자녀.*다문화|소년소녀\s*가(?:정|장)|방과\s*후\s*아동|아동\s*수당|영아\s*수당|입양\s*아동|영유아\s*돌봄|육아\s*휴직\s*급여|출산\s*(?:장려금|축하금|바우처)|산모.*신생아|임산부\s*(?:지원|건강)|다자녀\s*가(?:구|정)|자녀\s*장려금|자녀\s*(?:수당|보조금)|양육\s*지원\s*금|양육비\s*(?:선지급|이행|채권)/;
+const CHILD_SPECIFIC = /다문화.*자녀|자녀.*다문화|소년소녀\s*가(?:정|장)|방과\s*후\s*아동|아동\s*수당|영아\s*수당|입양\s*아동|영유아\s*돌봄|육아\s*휴직\s*급여|출산\s*(?:장려금|축하금|바우처)|산모.*신생아|산후\s*조리|임산부\s*(?:지원|건강)|다자녀\s*가(?:구|정)|자녀\s*장려금|자녀\s*(?:수당|보조금)|양육\s*지원\s*금|양육비\s*(?:선지급|이행|채권)/;
 const COUPLE_INCOME   = /부부합산|세대합산|배우자\s*소득|공동명의\s*(?:자산|재산)|맞벌이\s*(?:지원|우대)/;
 const BIZ_ONLY        = /소상공인|전통시장.*(?:지원|개선|사업)|재래시장.*지원|사업자\s*(?:지원|등록)\s*(?:보조|혜택)|법인세\s*감면|사업\s*운영\s*지원/;
 
@@ -123,6 +123,14 @@ function eligibilityScore(policy: Policy, profile: UserProfile, age: number): nu
 
   // ── [B] Region ────────────────────────────────────────────────────────────
   if (!policy.region.includes('전국') && !policy.region.some(r => r.includes(profile.region))) return 0.05;
+
+  // ── [B1] Title-based region inference ────────────────────────────────────
+  // 온통청년 등 일부 API가 지역 정책을 '전국'으로 잘못 표기하는 경우 보정.
+  // 제목에 타 지역명이 명시돼 있고 사용자 지역과 다르면 차단.
+  if (policy.region.includes('전국')) {
+    const impliedRegion = inferRegionFromTitle(t);
+    if (impliedRegion && impliedRegion !== profile.region) return 0.05;
+  }
 
   // ── [B2] District hard block ──────────────────────────────────────────────
   // If user set a district AND the policy is district-specific (has 구/시/군),
@@ -369,6 +377,37 @@ function buildReasons(
   return reasons.slice(0, 3);
 }
 
+// ─── Title-based region inference ─────────────────────────────────────────────
+// 온통청년 등 일부 API가 지역 정책을 '전국'으로 잘못 표기하는 경우 보정.
+// 제목에 특정 지역명이 명시돼 있으면 해당 지역 정책으로 간주.
+
+const TITLE_REGION_BLOCKS: [RegExp, string][] = [
+  [/전북|전라북도|전북특별자치도/, '전북'],
+  [/전남|전라남도/, '전남'],
+  [/경북|경상북도/, '경북'],
+  [/경남|경상남도/, '경남'],
+  [/충북|충청북도/, '충북'],
+  [/충남|충청남도/, '충남'],
+  [/강원도?(?!\s*대학)/, '강원'],
+  [/제주(?:도|특별자치도)?/, '제주'],
+  [/대전(?:광역시)?/, '대전'],
+  [/울산(?:광역시)?/, '울산'],
+  [/세종(?:특별자치시)?/, '세종'],
+  [/광주(?:광역시)/, '광주'],   // '광주'만 있으면 경기 광주시와 혼동 — 광역시 한정
+  [/부산(?:광역시)?/, '부산'],
+  [/대구(?:광역시)?/, '대구'],
+  [/인천(?:광역시)?/, '인천'],
+  [/경기(?:도)?(?=\s*(?:청년|도|스타트업|결혼|군복무|일자리|창업|기후|참여))/, '경기'],
+];
+
+/** 정책 제목에서 암묵적 지역을 추출. 없으면 undefined. */
+function inferRegionFromTitle(title: string): string | undefined {
+  for (const [re, region] of TITLE_REGION_BLOCKS) {
+    if (re.test(title)) return region;
+  }
+  return undefined;
+}
+
 // ─── Public API ───────────────────────────────────────────────────────────────
 //
 // Final Score = Eligibility×0.5 + Practicality×0.3 + Benefit×0.2
@@ -393,6 +432,12 @@ export function getRecommendations(
   const isSelfEmployed = profile.occupation === 'self-employed';
 
   return policies
+    // 마감된 정책 제거 (isAlwaysOpen이 아니고 applicationEnd가 오늘 이전)
+    .filter(policy => {
+      if (policy.isAlwaysOpen) return true;
+      if (policy.applicationEnd && new Date(policy.applicationEnd) < new Date()) return false;
+      return true;
+    })
     .map((policy): RecommendationResult => {
       const e = eligibilityScore(policy, profile, age);
       const p = practicalityScore(policy);

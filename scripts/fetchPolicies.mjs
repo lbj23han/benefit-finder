@@ -750,6 +750,33 @@ function youthEarnToIncome(earnCd = '', earnEtcCn = '', addCond = '') {
   return [...levels];
 }
 
+// 온통청년 정책 제목에서 지역명 감지 → region 배열 반환
+function youthDetectRegion(title = '') {
+  const REGIONS = [
+    [/전북|전라북도|전북특별자치도/, '전북'],
+    [/전남|전라남도/, '전남'],
+    [/경북|경상북도/, '경북'],
+    [/경남|경상남도/, '경남'],
+    [/충북|충청북도/, '충북'],
+    [/충남|충청남도/, '충남'],
+    [/강원도?/, '강원'],
+    [/제주(?:도|특별자치도)?/, '제주'],
+    [/대전(?:광역시)?/, '대전'],
+    [/울산(?:광역시)?/, '울산'],
+    [/세종(?:특별자치시)?/, '세종'],
+    [/광주광역시/, '광주'],
+    [/부산(?:광역시)?/, '부산'],
+    [/대구(?:광역시)?/, '대구'],
+    [/인천(?:광역시)?/, '인천'],
+    [/경기(?:도)?/, '경기'],
+    [/서울(?:특별시)?/, '서울'],
+  ];
+  for (const [re, region] of REGIONS) {
+    if (re.test(title)) return [region];
+  }
+  return ['전국'];
+}
+
 // 온통청년 lclsfNm → category 매핑
 function youthCategoryFromLclsf(lclsfNm = '', title = '') {
   if (/일자리/.test(lclsfNm))           return 'employment';
@@ -806,8 +833,8 @@ function normalizeYouthItem(item) {
   const applyUrl  = item.aplyUrlAddr || undefined;
   const detailUrl = item.refUrlAddr1 || item.refUrlAddr2 || undefined;
 
-  // 지역 — 온통청년은 기본적으로 전국 청년 정책
-  const region = ['전국'];
+  // 지역 — 제목에서 지역명 감지, 없으면 전국
+  const region = youthDetectRegion(title);
 
   return {
     id,
