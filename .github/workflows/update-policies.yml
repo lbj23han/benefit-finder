@@ -38,6 +38,7 @@ jobs:
         env:
           DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          YOUTH_CENTER_KEY: ${{ secrets.YOUTH_CENTER_KEY }}
         run: node scripts/fetchPolicies.mjs
 
       - name: Check for changes
