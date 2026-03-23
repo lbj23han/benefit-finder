@@ -35,7 +35,7 @@ const MARITIME_WORKER = /원양어선|어업인|어민|귀어\s*귀촌|어촌\s*
 const AGRICULTURE     = /농업인|농민|농가\s*(?:지원|소득|경영)|영농\s*후계|귀농\s*(?:지원|정착)|농지\s*임대|농업경영체/;
 const FOREIGN_NATIONAL = /외국인\s*(?:등록|근로자|유학생)|귀화\s*(?:외국인|자)|이주\s*(?:여성|민|노동자)|결혼이민자(?!\s*가족)/;
 const MARITIME_SAFETY  = /해양사고|선원\s*(?:재해|복지|보험)|어선\s*보험|해양\s*안전\s*기금/;
-const EMPLOYER_FACING  = /채용지원|고경력.*채용|신진연구인력|기술인력|연구인력|산업전문인력|고용보조금|인력\s*채용\s*지원|근로자\s*채용/;
+const EMPLOYER_FACING  = /채용지원|고경력.*채용|신진연구인력|기술인력|연구인력|산업전문인력|고용보조금|인력\s*채용\s*지원|근로자\s*채용|장애인을\s*고용|장애인\s*고용\s*(?:장려|지원|사업주)/;
 const SPECIALIST       = /박사급\s*(?:연구|채용)|연구원\s*채용|전문연구요원|특수목적\s*대학원|유휴\s*(?:간호사|의사|약사|의료인)|면허\s*재취업|의료인\s*재취업/;
 
 // ─── Child policy patterns ────────────────────────────────────────────────────
@@ -136,6 +136,14 @@ function eligibilityScore(policy: Policy, profile: UserProfile, age: number): nu
   // ── [C-0] 상세 조건 선택 기반 specialty 블록 ─────────────────────────────
   // 장애인 전용 정책 — 장애 등록을 설정하지 않은 경우 차단
   if (/장애인/.test(t) && profile.hasDisability !== 'yes') return 0.05;
+  // 장애인 전용인데 title엔 키워드 없이 description에만 있는 경우 + 보조공학기기·근로지원인
+  if (profile.hasDisability !== 'yes') {
+    if (/보조공학기기|근로지원인/.test(t)) return 0.05;
+    const descStart = desc.slice(0, 150);
+    if (/재가\s*장애인|장애인\s*가(?:정|구|족)|중증\s*장애인\s*(?:근로자|공무원)/.test(descStart)) return 0.05;
+  }
+  // 한부모 정책 — 한부모 가구가 아닌 경우 차단 (한부모가족, 한부모가정, 한부모법률 등 모두 포함)
+  if (/한부모/.test(t) && profile.householdType !== 'single-parent') return 0.05;
   // 다문화가족/결혼이민자 전용 정책 — 해당 없는 경우 차단
   if (/다문화가족|결혼이민자|이주여성/.test(t) && profile.isMigrantFamily !== 'yes') return 0.05;
 
