@@ -665,34 +665,34 @@ async function fetchYouthCenterPages() {
     return [];
   }
   const items = [];
-  let pageIndex = 1;
+  let pageNum = 1;
   const pageSize = 100;
   const maxPages = 20; // 최대 2,000건
 
-  while (pageIndex <= maxPages) {
+  while (pageNum <= maxPages) {
     const params = new URLSearchParams({
-      openApiVlak: YOUTH_CENTER_KEY,
-      pageIndex:   String(pageIndex),
-      pageSize:    String(pageSize),
-      display:     'json',
+      apiKeyNm: YOUTH_CENTER_KEY,
+      pageNum:  String(pageNum),
+      pageSize: String(pageSize),
+      rtnType:  'json',
     });
     let json;
     try {
       json = await fetchJSON(`${YOUTH_CENTER_URL}?${params}`, {}, 20000);
     } catch (err) {
-      console.warn(`  ⚠ 온통청년 페이지 ${pageIndex} 실패: ${err.message}`);
+      console.warn(`  ⚠ 온통청년 페이지 ${pageNum} 실패: ${err.message}`);
       break;
     }
 
     const result = json?.result ?? json;
-    const list = result?.youthPolicyList ?? result?.list ?? [];
+    const list = result?.youthPolicyList ?? [];
     if (!Array.isArray(list) || list.length === 0) break;
 
     items.push(...list);
 
-    const total = parseInt(result?.totCnt ?? result?.totalCount ?? '0', 10);
+    const total = parseInt(result?.pagging?.totCount ?? '0', 10);
     if (items.length >= total || items.length >= 2000) break;
-    pageIndex++;
+    pageNum++;
     await sleep(300);
   }
 
@@ -700,73 +700,76 @@ async function fetchYouthCenterPages() {
   return items;
 }
 
-// 온통청년 empmSttsCd → occupationTarget 매핑
-// 재직자(01), 자영업자(02), 프리랜서(03), 일용직근로자(04), 미취업자(05),
-// 비경제활동인구(06), 졸업예정자(07), 해당없음(08)
-function youthEmpmToOccupation(codes = '') {
+// 온통청년 jobCd → occupationTarget 매핑
+// 0013001=재직자, 0013002=자영업자, 0013003=미취업자, 0013004=프리랜서,
+// 0013005=일용직, 0013006=창업예정자, 0013007=기타, 0013008=농업인,
+// 0013009=해당없음(제한없음), 0013010=예비청년(고등학생)
+function youthJobCdToOccupation(codes = '') {
+  // 해당없음(0013009)이 포함되면 제한 없음
+  if (codes.includes('0013009')) return undefined;
   const occ = new Set();
-  if (/01/.test(codes)) occ.add('employed');
-  if (/02/.test(codes)) occ.add('self-employed');
-  if (/03/.test(codes)) occ.add('freelancer');
-  if (/04/.test(codes)) occ.add('employed');   // 일용직 → employed로 근사
-  if (/05/.test(codes)) occ.add('unemployed');
-  if (/07/.test(codes)) occ.add('student');    // 졸업예정자 → student
+  if (codes.includes('0013001')) occ.add('employed');
+  if (codes.includes('0013002')) occ.add('self-employed');
+  if (codes.includes('0013003')) occ.add('unemployed');
+  if (codes.includes('0013004')) occ.add('freelancer');
+  if (codes.includes('0013005')) occ.add('employed');   // 일용직 → employed 근사
+  if (codes.includes('0013006')) occ.add('self-employed'); // 창업예정자 → self-employed 근사
+  if (codes.includes('0013010')) occ.add('student');    // 예비청년(고교생) → student
   return occ.size > 0 ? [...occ] : undefined;
 }
 
-// 온통청년 소득 코드 → incomeLevel 매핑
-// 기초생활수급자(1), 차상위계층(2), 중위소득50%(3), 100%(4), 120%(5), 150%(6), 무관(9)
-function youthIncomeToLevel(incomeInfo = '') {
-  if (!incomeInfo) return undefined;
+// 온통청년 earnCndSeCd → incomeCondition
+// 0043001=소득무관, 0043002=소득기준있음(중위소득), 0043003=기타소득기준
+// 소득 기준이 있는 경우 상세 내용은 earnEtcCn / addAplyQlfcCndCn에서 텍스트 파싱
+function youthEarnToIncome(earnCd = '', earnEtcCn = '', addCond = '') {
+  if (earnCd === '0043001') return undefined; // 소득 무관
+  const text = `${earnEtcCn} ${addCond}`;
   const levels = new Set();
-  if (/기초|수급자/.test(incomeInfo)) levels.add('low');
-  if (/차상위|50%/.test(incomeInfo))  levels.add('low');
-  if (/100%|중위이하/.test(incomeInfo)) levels.add('middle-low');
-  if (/120%|150%/.test(incomeInfo))  levels.add('middle');
-  if (levels.size === 0) return undefined;
+  if (/기초생활|수급자/.test(text))        levels.add('low');
+  if (/차상위|중위소득\s*50/.test(text))   levels.add('low');
+  if (/중위소득\s*(?:60|70|80|100)/.test(text)) levels.add('middle-low');
+  if (/중위소득\s*(?:120|150)/.test(text)) levels.add('middle');
+  // 소득 기준 코드는 있으나 텍스트 파싱 불가 시 low+middle-low 기본값
+  if (levels.size === 0) { levels.add('low'); levels.add('middle-low'); }
   return [...levels];
 }
 
-// 온통청년 polyBizSecd → category 매핑
-function youthCategoryFromCode(code = '', title = '') {
-  if (code === '023010') return 'employment';
-  if (code === '023020') return 'housing';
-  if (code === '023030') return 'education';
-  if (code === '023040') return 'welfare';
-  if (code === '023050') return 'welfare';
+// 온통청년 lclsfNm → category 매핑
+function youthCategoryFromLclsf(lclsfNm = '', title = '') {
+  if (/일자리/.test(lclsfNm))           return 'employment';
+  if (/주거/.test(lclsfNm))             return 'housing';
+  if (/교육|직업훈련/.test(lclsfNm))    return 'education';
+  if (/금융|복지|문화/.test(lclsfNm))   return 'welfare';
+  if (/참여|기반/.test(lclsfNm))        return 'welfare';
   return toCategory(title);
 }
 
 function normalizeYouthItem(item) {
-  const id      = `youth-${item.bizId ?? item.polyBizSjnm?.slice(0, 20)}`;
-  const title   = (item.polyBizSjnm ?? '').trim();
-  const summary = (item.polyItcnCn ?? '').trim().slice(0, 200);
-  const description = (item.polyItcnCn ?? '') + (item.prcpCnd ? `\n\n[지원 조건] ${item.prcpCnd}` : '');
-  const benefitDesc = (item.sporCn ?? item.polyItcnCn ?? '').trim().slice(0, 200);
-  const sourceOrg   = (item.mngtMson ?? item.polyBizSecd ?? '고용노동부').trim();
-
+  const title   = (item.plcyNm ?? '').trim();
   if (!title) return null;
 
-  const category = youthCategoryFromCode(item.polyBizSecd ?? '', title);
+  const id          = `youth-${item.plcyNo ?? title.slice(0, 20)}`;
+  const description = [item.plcyExplnCn, item.addAplyQlfcCndCn ? `[신청 조건] ${item.addAplyQlfcCndCn}` : ''].filter(Boolean).join('\n\n');
+  const summary     = (item.plcyExplnCn ?? '').trim().slice(0, 200);
+  const benefitDesc = (item.plcySprtCn ?? item.plcyExplnCn ?? '').trim().slice(0, 200);
+  const sourceOrg   = (item.sprvsnInstCdNm ?? item.operInstCdNm ?? '고용노동부').trim();
 
-  // 나이 — API가 minAge/maxAge 필드로 제공
-  const ageMin = item.minAge ? parseInt(item.minAge, 10) : undefined;
-  const ageMax = item.maxAge ? parseInt(item.maxAge, 10) : undefined;
+  const category = youthCategoryFromLclsf(item.lclsfNm ?? '', title);
 
-  // 텍스트 보완
+  // 나이 — sprtTrgtMinAge/sprtTrgtMaxAge (0 = 제한없음)
+  const rawMin = parseInt(item.sprtTrgtMinAge ?? '0', 10);
+  const rawMax = parseInt(item.sprtTrgtMaxAge ?? '0', 10);
   const textEnriched = enrichFromText(title, description);
-  const finalAgeMin = ageMin ?? textEnriched.ageMin;
-  const finalAgeMax = ageMax ?? textEnriched.ageMax;
+  const finalAgeMin = (rawMin > 0 ? rawMin : undefined) ?? textEnriched.ageMin;
+  const finalAgeMax = (rawMax > 0 && rawMax < 100 ? rawMax : undefined) ?? textEnriched.ageMax;
 
   // 직업
-  const occupationTarget =
-    youthEmpmToOccupation(item.empmSttsCd ?? '') ??
-    textEnriched.occupationTarget;
+  const occupationTarget = youthJobCdToOccupation(item.jobCd ?? '') ?? textEnriched.occupationTarget;
 
   // 소득
-  const incomeCondition =
-    youthIncomeToLevel(item.incomeRange ?? item.prcpCnd ?? '') ??
-    textEnriched.incomeCondition;
+  const incomeCondition = item.earnCndSeCd !== '0043001'
+    ? (youthEarnToIncome(item.earnCndSeCd ?? '', item.earnEtcCn ?? '', item.addAplyQlfcCndCn ?? '') ?? textEnriched.incomeCondition)
+    : textEnriched.incomeCondition;
 
   // 가구
   const householdCondition = textEnriched.householdCondition;
@@ -774,18 +777,18 @@ function normalizeYouthItem(item) {
   const benefitType   = guessBenefitType(benefitDesc);
   const benefitAmount = extractAmount(benefitDesc) ?? extractAmount(description);
 
-  // 신청 기간
-  const rqutPrd = item.rqutPrdCn ?? '';
-  const isAlwaysOpen = /상시|연중|수시|별도/.test(rqutPrd);
-  let applicationStart, applicationEnd;
-  const dateRange = rqutPrd.match(/(\d{4})[.\-/](\d{1,2})[.\-/](\d{1,2})\s*[~～]\s*(\d{4})[.\-/](\d{1,2})[.\-/](\d{1,2})/);
-  if (dateRange) {
-    applicationStart = `${dateRange[1]}-${String(dateRange[2]).padStart(2,'0')}-${String(dateRange[3]).padStart(2,'0')}`;
-    applicationEnd   = `${dateRange[4]}-${String(dateRange[5]).padStart(2,'0')}-${String(dateRange[6]).padStart(2,'0')}`;
+  // 신청 기간 — bizPrdBgngYmd / bizPrdEndYmd 형식: YYYYMMDD
+  function ymd(s = '') {
+    if (!s || s.length < 8) return undefined;
+    return `${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}`;
   }
+  const applicationStart = ymd(item.bizPrdBgngYmd);
+  const applicationEnd   = ymd(item.bizPrdEndYmd);
+  // aplyPrdSeCd: 0057001=상시, 0057002=기간
+  const isAlwaysOpen = item.aplyPrdSeCd === '0057001' || /상시|연중|수시/.test(item.bizPrdEtcCn ?? '');
 
-  const applyUrl  = item.rqutUrls ?? item.rfcSiteUrls1 ?? undefined;
-  const detailUrl = item.rfcSiteUrls2 ?? item.rqutUrls ?? undefined;
+  const applyUrl  = item.aplyUrlAddr || undefined;
+  const detailUrl = item.refUrlAddr1 || item.refUrlAddr2 || undefined;
 
   // 지역 — 온통청년은 기본적으로 전국 청년 정책
   const region = ['전국'];
@@ -903,8 +906,8 @@ async function main() {
     console.log('→ [5/5] 온통청년 청년정책API...');
     const items = await fetchYouthCenterPages();
     const normalized = items
-      .filter(it => it.polyBizSjnm)
-      .filter(it => !isSpecialtyBlocked(it.polyBizSjnm ?? '', it.polyItcnCn ?? ''))
+      .filter(it => it.plcyNm)
+      .filter(it => !isSpecialtyBlocked(it.plcyNm ?? '', it.plcyExplnCn ?? ''))
       .map(it => { try { return normalizeYouthItem(it); } catch { return null; } })
       .filter(Boolean);
     allPolicies.push(...normalized);
