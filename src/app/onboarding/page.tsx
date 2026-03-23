@@ -18,10 +18,10 @@ const OCCUPATIONS: { value: UserProfile['occupation']; label: string; icon: Reac
 ];
 
 const INCOME_LEVELS: { value: UserProfile['incomeLevel']; label: string; desc: string; example: string }[] = [
-  { value: 'low',        label: '기초/차상위', desc: '기준 중위소득 50% 이하',   example: '1인 가구 기준 월 약 119만원 이하' },
-  { value: 'middle-low', label: '중하위',      desc: '기준 중위소득 50~100%',   example: '1인 가구 기준 월 119~239만원' },
-  { value: 'middle',     label: '중산층',      desc: '기준 중위소득 100~150%',  example: '1인 가구 기준 월 239~359만원' },
-  { value: 'high',       label: '고소득',      desc: '기준 중위소득 150% 이상', example: '1인 가구 기준 월 359만원 초과' },
+  { value: 'low',        label: '기초/차상위', desc: '기준 중위소득 50% 이하',   example: '1인 가구 기준 월 약 128만원 이하' },
+  { value: 'middle-low', label: '중하위',      desc: '기준 중위소득 50~100%',   example: '1인 가구 기준 월 128~256만원' },
+  { value: 'middle',     label: '중산층',      desc: '기준 중위소득 100~150%',  example: '1인 가구 기준 월 256~384만원' },
+  { value: 'high',       label: '고소득',      desc: '기준 중위소득 150% 이상', example: '1인 가구 기준 월 384만원 초과' },
 ];
 
 const HOUSEHOLD_TYPES: { value: UserProfile['householdType']; label: string; icon: React.ReactNode }[] = [
@@ -300,7 +300,7 @@ function Step3({ profile, setProfile }: { profile: Partial<UserProfile>; setProf
       {/* Income */}
       <div>
         <p className="text-sm font-bold text-[#1a1a1a] mb-1">소득 수준</p>
-        <p className="text-xs text-[#888] mb-3">잘 모르겠으면 아래 월 소득 기준을 참고하세요 (2025년, 세전 근로소득 기준)</p>
+        <p className="text-xs text-[#888] mb-3">잘 모르겠으면 아래 월 소득 기준을 참고하세요 (2026년, 세전 근로소득 기준)</p>
         <div className="space-y-2">
           {INCOME_LEVELS.map((inc) => {
             const selected = profile.incomeLevel === inc.value;
