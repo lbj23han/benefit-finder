@@ -183,6 +183,7 @@ export default function HomePage() {
                 score={r.score}
                 matchReasons={r.matchReasons}
                 isFullMatch={r.isFullMatch}
+                regionMatched={r.regionMatched}
               />
             ))}
           </div>

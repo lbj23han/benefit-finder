@@ -56,6 +56,7 @@ export interface RecommendationResult {
   score: number;
   matchReasons: string[];
   isFullMatch: boolean;
+  regionMatched: boolean; // 지역 명시 일치 여부 — false면 신청가능성 배지 표시 불가
 }
 
 export interface FilterState {

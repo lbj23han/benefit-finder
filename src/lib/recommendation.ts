@@ -586,13 +586,22 @@ export function getRecommendations(
       }
 
       const score = Math.round(clamp(finalRaw) * 100);
-      const isFullMatch = e >= 0.6 && score >= 65;
+
+      // 지역 명시 일치 여부 — 전국이면 true, 특정 지역이면 profile.region 포함 시 true.
+      // 전국 정책 중 B1 암묵 추론으로 차단된 케이스는 e가 이미 0.05이므로
+      // isFullMatch에서 e >= 0.6 조건으로 걸러지지만, 명시 불일치 케이스는
+      // 이 플래그로 추가 방어.
+      const regionMatched =
+        policy.region.includes('전국') ||
+        policy.region.some(r => r.includes(profile.region));
+      const isFullMatch = e >= 0.6 && score >= 65 && regionMatched;
 
       return {
         policy,
         score,
         matchReasons: buildReasons(policy, profile, e, b, p),
         isFullMatch,
+        regionMatched,
       };
     })
     .sort((a, b) => b.score - a.score);

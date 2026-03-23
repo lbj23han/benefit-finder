@@ -12,10 +12,11 @@ interface PolicyCardProps {
   score?: number;
   matchReasons?: string[];
   isFullMatch?: boolean;
+  regionMatched?: boolean;
   compact?: boolean;
 }
 
-export default function PolicyCard({ policy, score, matchReasons, isFullMatch }: PolicyCardProps) {
+export default function PolicyCard({ policy, score, matchReasons, isFullMatch, regionMatched = true }: PolicyCardProps) {
   const days = getDaysUntilDeadline(policy);
   const isUrgent = days !== null && days >= 0 && days <= 7;
   const isExpired = days !== null && days < 0;
@@ -26,10 +27,10 @@ export default function PolicyCard({ policy, score, matchReasons, isFullMatch }:
     if (isFullMatch) return (
       <span className={`${BADGE} bg-[#E0F2EC] text-[#1B6B4A]`}><Check size={10} strokeWidth={3} /> 신청 가능성 높음</span>
     );
-    if (score && score >= 60) return (
+    if (score && score >= 60 && regionMatched) return (
       <span className={`${BADGE} bg-blue-100 text-blue-700`}>◈ 조건 일치</span>
     );
-    if (score !== undefined && score >= 35) return (
+    if (score !== undefined && score >= 35 && regionMatched) return (
       <span className={`${BADGE} bg-gray-100 text-gray-500`}>△ 조건 확인 필요</span>
     );
     return null;
