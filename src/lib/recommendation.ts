@@ -17,10 +17,11 @@ function clamp(v: number, min = 0, max = 1): number {
 }
 
 function isActive(policy: Policy): boolean {
-  if (policy.isAlwaysOpen) return true;
   const now = new Date();
+  // applicationEnd가 과거면 isAlwaysOpen 무관하게 마감 처리
+  if (policy.applicationEnd && new Date(policy.applicationEnd) < now) return false;
+  if (policy.isAlwaysOpen) return true;
   if (policy.applicationStart && new Date(policy.applicationStart) > now) return false;
-  if (policy.applicationEnd   && new Date(policy.applicationEnd)   < now) return false;
   return true;
 }
 
@@ -141,11 +142,11 @@ function eligibilityScore(policy: Policy, profile: UserProfile, age: number): nu
   // ── [B] Region ────────────────────────────────────────────────────────────
   if (!policy.region.includes('전국') && !policy.region.some(r => r.includes(profile.region))) return 0.05;
 
-  // ── [B1] Title-based region inference ────────────────────────────────────
-  // 온통청년 등 일부 API가 지역 정책을 '전국'으로 잘못 표기하는 경우 보정.
-  // 제목에 타 지역명이 명시돼 있고 사용자 지역과 다르면 차단.
+  // ── [B1] 암묵적 지역 추론 (title + sourceOrg + desc) ─────────────────────
+  // '전국'으로 잘못 표기된 지역 정책 차단.
+  // 제목 → 주관기관 → 설명 앞부분 순서로 지역명 검출.
   if (policy.region.includes('전국')) {
-    const impliedRegion = inferRegionFromTitle(t);
+    const impliedRegion = inferPolicyRegion(t, policy.sourceOrg ?? '', desc.slice(0, 200));
     if (impliedRegion && impliedRegion !== profile.region) return 0.05;
   }
 
@@ -406,42 +407,49 @@ const TITLE_REGION_BLOCKS: [RegExp, string][] = [
   [/경남|경상남도/, '경남'],
   [/충북|충청북도/, '충북'],
   [/충남|충청남도/, '충남'],
-  [/강원도?(?!\s*대학)/, '강원'],
-  [/제주(?:도|특별자치도)?/, '제주'],
+  [/강원(?:도|특별자치도)?(?!\s*대학)/, '강원'],
+  [/제주(?:도|특별자치도|시)?/, '제주'],
   [/대전(?:광역시)?/, '대전'],
   [/울산(?:광역시)?/, '울산'],
-  [/세종(?:특별자치시)?/, '세종'],
-  [/광주광역시/, '광주'],
+  [/세종(?:특별자치시|시)?/, '세종'],
+  // 광주: 광역시 명시 or 청년/구직/일자리 등 프로그램명 패턴 (경기도 광주시와 구별)
+  [/광주광역시|광주\s*(?:청년|구직|일자리|취업|청년정책|광역)/, '광주'],
   [/부산(?:광역시)?/, '부산'],
   [/대구(?:광역시)?/, '대구'],
   [/인천(?:광역시)?/, '인천'],
-  [/경기도/, '경기'],
+  [/경기(?:도|청)/, '경기'],
   // 경기 주요 시 (접두사로만 체크해 '경기' 보다 후순위)
   [/수원시?|성남시?|고양시?|용인시?|부천시?|안산시?|안양시?|화성시?|파주시?|의정부시?|시흥시?|남양주시?|평택시?|김포시?|광명시?|광주시?|하남시?|오산시?|이천시?|안성시?|양주시?|구리시?|의왕시?|군포시?|포천시?|동두천시?|여주시?/, '경기'],
   // 전북 주요 시/군
-  [/전주시?|군산시?|익산시?|정읍시?|남원시?|김제시?|완주군?|진안군?|무주군?|장수군?|임실군?|순창군?|고창군?|부안군?/, '전북'],
-  // 전남 주요 시/군
-  [/목포시?|여수시?|순천시?|나주시?|광양시?|담양군?|곡성군?|구례군?|고흥군?|보성군?|화순군?|장흥군?|강진군?|해남군?|영암군?|무안군?|함평군?|영광군?|장성군?|완도군?|진도군?|신안군?/, '전남'],
-  // 경북 주요 시/군
-  [/포항시?|경주시?|김천시?|안동시?|구미시?|영주시?|영천시?|상주시?|문경시?|경산시?|군위군?|의성군?|청송군?|영양군?|영덕군?|청도군?|고령군?|성주군?|칠곡군?|예천군?|봉화군?|울진군?|울릉군?/, '경북'],
-  // 경남 주요 시/군
-  [/창원시?|진주시?|통영시?|사천시?|김해시?|밀양시?|거제시?|양산시?|의령군?|함안군?|창녕군?|남해군?|하동군?|산청군?|함양군?|거창군?|합천군?/, '경남'],
-  // 강원 주요 시/군
-  [/춘천시?|원주시?|강릉시?|동해시?|태백시?|속초시?|삼척시?|홍천군?|횡성군?|영월군?|평창군?|정선군?|철원군?|화천군?|양구군?|인제군?|고성군?|양양군?/, '강원'],
-  // 충북 주요 시/군
-  [/청주시?|충주시?|제천시?|보은군?|옥천군?|영동군?|증평군?|진천군?|괴산군?|음성군?|단양군?/, '충북'],
-  // 충남 주요 시/군
-  [/천안시?|공주시?|보령시?|아산시?|서산시?|논산시?|계룡시?|당진시?|금산군?|부여군?|서천군?|청양군?|홍성군?|예산군?|태안군?/, '충남'],
+  // 시(市)는 시? 허용. 군(郡)은 일반 단어와 겹치는 것은 군 필수
+  // (예산=budget, 음성=voice, 영양=nutrition, 강진=earthquake, 진도=level 등 오인식 방지)
+  [/전주시?|군산시?|익산시?|정읍시?|남원시?|김제시?|완주군|진안군|무주군|장수군|임실군|순창군|고창군|부안군/, '전북'],
+  [/목포시?|여수시?|순천시?|나주시?|광양시?|담양군|곡성군|구례군|고흥군|보성군|화순군|장흥군|강진군|해남군|영암군|무안군|함평군|영광군|장성군|완도군|진도군|신안군/, '전남'],
+  [/포항시?|경주시?|김천시?|안동시?|구미시?|영주시?|영천시?|상주시?|문경시?|경산시?|군위군|의성군|청송군|영양군|영덕군|청도군|고령군|성주군|칠곡군|예천군|봉화군|울진군|울릉군/, '경북'],
+  [/창원시?|진주시?|통영시?|사천시?|김해시?|밀양시?|거제시?|양산시?|의령군|함안군|창녕군|남해군|하동군|산청군|함양군|거창군|합천군/, '경남'],
+  [/춘천시?|원주시?|강릉시?|동해시?|태백시?|속초시?|삼척시?|홍천군|횡성군|영월군|평창군|정선군|철원군|화천군|양구군|인제군|양양군/, '강원'],
+  [/청주시?|충주시?|제천시?|보은군|옥천군|영동군|증평군|진천군|괴산군|음성군|단양군/, '충북'],
+  [/천안시?|공주시?|보령시?|아산시?|서산시?|논산시?|계룡시?|당진시?|금산군|부여군|서천군|청양군|홍성군|예산군|태안군/, '충남'],
   // 경기 정책명 패턴 ('경기청년', '경기도형' 등 접속사 없이 쓰일 때)
   [/경기(?:청년|도형?|스타트업|결혼|군복무|일자리|창업|기후|참여)/, '경기'],
 ];
 
-/** 정책 제목에서 암묵적 지역을 추출. 없으면 undefined. */
-function inferRegionFromTitle(title: string): string | undefined {
+/** 단일 텍스트에서 지역 추출 */
+function inferRegionFromText(text: string): string | undefined {
   for (const [re, region] of TITLE_REGION_BLOCKS) {
-    if (re.test(title)) return region;
+    if (re.test(text)) return region;
   }
   return undefined;
+}
+
+/**
+ * 정책의 제목 → 주관기관(sourceOrg) → 설명 앞부분 순서로 지역 추론.
+ * 세 곳 중 하나라도 특정 지역명이 나오면 해당 지역 정책으로 판단.
+ */
+function inferPolicyRegion(title: string, sourceOrg: string, descStart: string): string | undefined {
+  return inferRegionFromText(title)
+    ?? inferRegionFromText(sourceOrg)
+    ?? inferRegionFromText(descStart);
 }
 
 // ─── Public API ───────────────────────────────────────────────────────────────
@@ -468,9 +476,8 @@ export function getRecommendations(
   const isSelfEmployed = profile.occupation === 'self-employed';
 
   return policies
-    // 마감된 정책 제거 (isAlwaysOpen이 아니고 applicationEnd가 오늘 이전)
+    // 마감된 정책 제거 — isAlwaysOpen이어도 applicationEnd가 과거면 제외
     .filter(policy => {
-      if (policy.isAlwaysOpen) return true;
       if (policy.applicationEnd && new Date(policy.applicationEnd) < new Date()) return false;
       return true;
     })
