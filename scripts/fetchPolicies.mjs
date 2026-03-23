@@ -14,12 +14,28 @@
  * On any failure: exits 0 to preserve existing data (Vercel keeps last good build).
  */
 
-import { writeFileSync } from 'fs';
+import { writeFileSync, readFileSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const OUT_PATH = resolve(__dirname, '..', 'src/data/policies.generated.json');
+const OUT_PATH   = resolve(__dirname, '..', 'src/data/policies.generated.json');
+const CACHE_PATH = resolve(__dirname, '..', 'src/data/enrichment-cache.json');
+
+function loadEnrichmentCache() {
+  if (!existsSync(CACHE_PATH)) return new Map();
+  try {
+    const raw = JSON.parse(readFileSync(CACHE_PATH, 'utf-8'));
+    return new Map(Object.entries(raw));
+  } catch {
+    return new Map();
+  }
+}
+
+function saveEnrichmentCache(map) {
+  const obj = Object.fromEntries(map);
+  writeFileSync(CACHE_PATH, JSON.stringify(obj, null, 2), 'utf-8');
+}
 
 const API_KEY          = process.env.DATA_GO_KR_KEY;
 const YOUTH_CENTER_KEY = process.env.YOUTH_CENTER_KEY; // 온통청년 별도 키
@@ -925,15 +941,37 @@ async function main() {
   console.log(`→ 중복 제거 후: ${deduped.length}건 (원본 ${allPolicies.length}건)`);
 
   // ── Claude Haiku enrichment (runs only when ANTHROPIC_API_KEY is set) ──────
-  // Handles the ~20% of policies that pattern extraction couldn't resolve.
+  // Uses a persistent cache (src/data/enrichment-cache.json) so each policy
+  // is only sent to Claude once — daily runs cost nearly $0 after first run.
   const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
   if (ANTHROPIC_API_KEY) {
+    const cache = loadEnrichmentCache();
+    console.log(`→ Enrichment 캐시 로드: ${cache.size}건 기존 캐시`);
+
+    // Apply cached results first
+    deduped.forEach(p => {
+      const cd = cache.get(p.id);
+      if (!cd) return;
+      if (cd.ageMin != null && p.ageMin === undefined) p.ageMin = cd.ageMin;
+      if (cd.ageMax != null && p.ageMax === undefined) p.ageMax = cd.ageMax;
+      if (cd.occupationTarget?.length && !p.occupationTarget) p.occupationTarget = cd.occupationTarget;
+      if (cd.incomeCondition?.length  && !p.incomeCondition)  p.incomeCondition  = cd.incomeCondition;
+      if (cd.householdCondition?.length && !p.householdCondition) p.householdCondition = cd.householdCondition;
+      if (cd.genderCondition?.length  && !p.genderCondition)  p.genderCondition  = cd.genderCondition;
+      if (cd.targetSpecialty)             p.targetSpecialty = cd.targetSpecialty;
+      if (cd.relevanceScore != null)      p.relevanceScore  = cd.relevanceScore;
+      if (cd.estimatedBenefitText)        p.estimatedBenefitText = cd.estimatedBenefitText;
+    });
+
+    // Only send policies not yet in cache
     const needsEnrichment = deduped.filter(p =>
+      !cache.has(p.id) &&
       !p.occupationTarget && !p.incomeCondition && !p.householdCondition &&
       p.ageMin === undefined && p.ageMax === undefined
     );
+
     if (needsEnrichment.length > 0) {
-      console.log(`→ Claude Haiku enrichment: ${needsEnrichment.length}개 정책 분석 중...`);
+      console.log(`→ Claude Haiku enrichment: ${needsEnrichment.length}개 신규 정책 분석 중... (캐시 히트: ${deduped.length - needsEnrichment.length}건 스킵)`);
       const claudeMap = await enrichWithClaude(needsEnrichment, ANTHROPIC_API_KEY);
       let enrichedCount = 0;
       deduped.forEach(p => {
@@ -948,11 +986,13 @@ async function main() {
         if (cd.targetSpecialty)             p.targetSpecialty = cd.targetSpecialty;
         if (cd.relevanceScore != null)      p.relevanceScore  = cd.relevanceScore;
         if (cd.estimatedBenefitText)        p.estimatedBenefitText = cd.estimatedBenefitText;
+        cache.set(p.id, cd);
         enrichedCount++;
       });
-      console.log(`  ✓ Claude enrichment 완료: ${enrichedCount}건 추가 처리`);
+      saveEnrichmentCache(cache);
+      console.log(`  ✓ Claude enrichment 완료: ${enrichedCount}건 처리, 캐시 저장 (총 ${cache.size}건)`);
     } else {
-      console.log('→ Claude enrichment: 패턴으로 전체 커버 완료, 스킵');
+      console.log(`→ Claude enrichment: 전체 캐시 히트 또는 패턴 커버 완료, 스킵`);
     }
   } else {
     const patternCovered = deduped.filter(p =>
