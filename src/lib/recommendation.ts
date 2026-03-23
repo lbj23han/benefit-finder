@@ -155,7 +155,7 @@ function eligibilityScore(policy: Policy, profile: UserProfile, age: number): nu
   if (policy.region.includes('전국')) {
     const benefitDesc = (policy.benefitDescription || '').slice(0, 300);
     const combinedDesc = `${desc.slice(0, 200)} ${benefitDesc}`;
-    const impliedRegion = inferPolicyRegion(t, policy.sourceOrg ?? '', combinedDesc);
+    const impliedRegion = inferPolicyRegion(t, policy.sourceOrg ?? '', combinedDesc, policy.applyUrl, policy.detailUrl);
     if (impliedRegion && impliedRegion !== profile.region) return 0.05;
     if (!impliedRegion && /관내|도내|시내|군내|구내/.test(combinedDesc)) return 0.15;
   }
@@ -423,7 +423,8 @@ const TITLE_REGION_BLOCKS: [RegExp, string][] = [
   [/울산(?:광역시)?/, '울산'],
   [/세종(?:특별자치시|시)?/, '세종'],
   // 광주: 광역시 명시 or 청년/구직/일자리 등 프로그램명 패턴 (경기도 광주시와 구별)
-  [/광주광역시|광주\s*(?:청년|구직|일자리|취업|청년정책|광역)/, '광주'],
+  // "광주시에 주민등록" / "광주시 소재 대학" 등 자격조건 서술도 포함
+  [/광주광역시|광주\s*(?:청년|구직|일자리|취업|청년정책|광역)|광주시(?:에\s*주민등록|에\s*거주|소재\s*대학|청년)/, '광주'],
   [/부산(?:광역시)?/, '부산'],
   // 부산 구 단위 (부산진구·영도구 등 '전국' 표기 오류 보정)
   [/부산진구|해운대구|사하구|금정구|영도구|사상구|연제구|수영구|동래구|기장군|강서구.*부산|부산.*강서구/, '부산'],
@@ -460,14 +461,50 @@ function inferRegionFromText(text: string): string | undefined {
   return undefined;
 }
 
+/** URL 도메인에서 지역 추출 — 링크만 보면 알 수 있는 케이스 처리 */
+const URL_DOMAIN_REGION: [RegExp, string][] = [
+  [/gwangju\.(?:go|or)\.kr/, '광주'],
+  [/daegu\.(?:go|or)\.kr|\.daegu\.kr/, '대구'],
+  [/busan\.(?:go|or)\.kr|\.busan\.kr/, '부산'],
+  [/incheon\.(?:go|or)\.kr|\.incheon\.kr/, '인천'],
+  [/seoul\.(?:go|or)\.kr|\.seoul\.kr/, '서울'],
+  [/daejeon\.(?:go|or)\.kr/, '대전'],
+  [/ulsan\.(?:go|or)\.kr/, '울산'],
+  [/sejong\.(?:go|or)\.kr|sjepa\.or\.kr/, '세종'],
+  [/gyeonggi\.go\.kr|gg\.go\.kr/, '경기'],
+  [/gyeongnam\.go\.kr/, '경남'],
+  [/gyeongbuk\.go\.kr/, '경북'],
+  [/jeonnam\.go\.kr/, '전남'],
+  [/jeonbuk\.go\.kr/, '전북'],
+  [/chungnam\.go\.kr/, '충남'],
+  [/chungbuk\.go\.kr/, '충북'],
+  [/gangwon\.go\.kr/, '강원'],
+  [/jeju\.go\.kr/, '제주'],
+];
+
+function inferRegionFromUrl(url: string | undefined): string | undefined {
+  if (!url) return undefined;
+  for (const [re, region] of URL_DOMAIN_REGION) {
+    if (re.test(url)) return region;
+  }
+  return undefined;
+}
+
 /**
- * 정책의 제목 → 주관기관(sourceOrg) → 설명 앞부분 순서로 지역 추론.
- * 세 곳 중 하나라도 특정 지역명이 나오면 해당 지역 정책으로 판단.
+ * 정책의 제목 → 주관기관(sourceOrg) → 설명/혜택 앞부분 → applyUrl → detailUrl 순으로 지역 추론.
  */
-function inferPolicyRegion(title: string, sourceOrg: string, descStart: string): string | undefined {
+function inferPolicyRegion(
+  title: string,
+  sourceOrg: string,
+  descStart: string,
+  applyUrl?: string,
+  detailUrl?: string,
+): string | undefined {
   return inferRegionFromText(title)
     ?? inferRegionFromText(sourceOrg)
-    ?? inferRegionFromText(descStart);
+    ?? inferRegionFromText(descStart)
+    ?? inferRegionFromUrl(applyUrl)
+    ?? inferRegionFromUrl(detailUrl);
 }
 
 // ─── Public API ───────────────────────────────────────────────────────────────
