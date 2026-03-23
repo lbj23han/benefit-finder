@@ -131,9 +131,15 @@ function eligibilityScore(policy: Policy, profile: UserProfile, age: number): nu
   if (FOREIGN_NATIONAL.test(full)) return 0.04;
   if (/한센인|나병/.test(full))    return 0.03;
 
-  if (EMPLOYER_FACING.test(t) || SPECIALIST.test(t)) {
-    if (profile.occupation !== 'self-employed' && profile.occupation !== 'employed') return 0.07;
-    return 0.18; // employer applies, not the individual
+  // 폐광·탄광·광업 종사자 전용 — 일반인과 무관한 특수 지원
+  if (/폐광|탄광|광업.*(?:종사|근로자|이직|자대책)|광업자\s*대책/.test(full)) return 0.04;
+
+  // SPECIALIST: 특정 면허·자격증 보유자 전용 → 모든 직업에 대해 차단
+  if (SPECIALIST.test(t)) return 0.07;
+  // EMPLOYER_FACING: 사업주·고용주 대상 → 사업자(자영업자)만 일부 관련성 있음
+  if (EMPLOYER_FACING.test(t)) {
+    if (profile.occupation !== 'self-employed') return 0.07;
+    return 0.18; // 사업주가 신청, 개인 혜택 아님
   }
 
   // Vocational school programs are not for general adult students (college+)
@@ -415,8 +421,16 @@ const TITLE_REGION_BLOCKS: [RegExp, string][] = [
   // 광주: 광역시 명시 or 청년/구직/일자리 등 프로그램명 패턴 (경기도 광주시와 구별)
   [/광주광역시|광주\s*(?:청년|구직|일자리|취업|청년정책|광역)/, '광주'],
   [/부산(?:광역시)?/, '부산'],
+  // 부산 구 단위 (부산진구·영도구 등 '전국' 표기 오류 보정)
+  [/부산진구|해운대구|사하구|금정구|영도구|사상구|연제구|수영구|동래구|기장군|강서구.*부산|부산.*강서구/, '부산'],
   [/대구(?:광역시)?/, '대구'],
+  // 대구 구 단위
+  [/달서구|달성군|수성구|중구.*대구|동구.*대구|서구.*대구|북구.*대구|남구.*대구/, '대구'],
   [/인천(?:광역시)?/, '인천'],
+  // 인천 구 단위 (남동구·부평구 등이 '전국' 정책 제목/주관기관에 포함되는 경우)
+  [/남동구|남동형|부평구|계양구|연수구|미추홀구|서구.*인천|인천.*서구|동구.*인천|중구.*인천/, '인천'],
+  // 서울 광역 + 서울 전용 구 단위 (서울에만 존재하는 구명들)
+  [/서울(?:특별시)?|은평구|양천구|강동구|송파구|강남구|서초구|성북구|구로구|도봉구|노원구|중랑구|강북구|관악구|금천구|동작구|마포구|광진구|용산구|성동구|동대문구|서대문구|영등포구/, '서울'],
   [/경기(?:도|청)/, '경기'],
   // 경기 주요 시 (접두사로만 체크해 '경기' 보다 후순위)
   [/수원시?|성남시?|고양시?|용인시?|부천시?|안산시?|안양시?|화성시?|파주시?|의정부시?|시흥시?|남양주시?|평택시?|김포시?|광명시?|광주시?|하남시?|오산시?|이천시?|안성시?|양주시?|구리시?|의왕시?|군포시?|포천시?|동두천시?|여주시?/, '경기'],
