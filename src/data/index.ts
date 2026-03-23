@@ -1,23 +1,29 @@
 /**
  * Policy data entry point.
  *
- * Priority:
+ * Always merges:
  *   1. policies.generated.json  — auto-updated daily by GitHub Actions (복지로 API)
- *   2. policies.ts              — hand-curated fallback (always current)
+ *   2. policies.ts              — hand-curated policies (always included)
  *
- * The generated file starts empty (count: 0). Once GitHub Actions runs with a
- * valid DATA_GO_KR_KEY, it will be populated and committed, triggering a
- * Vercel redeploy. The app always works even before that happens.
+ * Curated policies use custom IDs that never conflict with API IDs.
+ * Title-based dedup prevents the same policy from appearing twice.
  */
 
 import type { Policy } from '@/types';
 import generated from './policies.generated.json';
-import { policies as fallbackPolicies } from './policies';
+import { policies as curatedPolicies } from './policies';
 
 const generatedPolicies = generated.policies as unknown as Policy[];
 
-export const activePolicies: Policy[] =
-  generatedPolicies.length > 0 ? generatedPolicies : fallbackPolicies;
+// Always include curated policies — deduplicate by exact title match.
+function mergePolicies(gen: Policy[], curated: Policy[]): Policy[] {
+  if (gen.length === 0) return curated;
+  const genTitles = new Set(gen.map((p) => p.title.trim()));
+  const uniqueCurated = curated.filter((p) => !genTitles.has(p.title.trim()));
+  return [...gen, ...uniqueCurated];
+}
+
+export const activePolicies: Policy[] = mergePolicies(generatedPolicies, curatedPolicies);
 
 export const dataSource: 'api' | 'mock' =
   generated.source === 'bokjiro-api' ? 'api' : 'mock';

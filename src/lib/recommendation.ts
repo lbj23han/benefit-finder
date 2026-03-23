@@ -60,14 +60,14 @@ const UNIVERSAL_EMPLOYMENT = /국민내일배움카드|국민취업지원제도|
 // 거의 모든 시민 — 조건 없이 매년 수백만 명이 찾는 정책
 const POPULAR_ALL = /실업급여|구직급여|고용보험.*(?:급여|지원)|전국민\s*마음투자|마음투자\s*지원|에너지\s*바우처|통신비\s*(?:감면|지원)|인플루엔자\s*국가예방접종|긴급복지\s*(?:지원|생계|의료|주거)|주거급여|기초생활\s*보장|생계급여|의료급여|문화누리카드|본인부담상한/;
 
-// 청년 대상 핵심 인기 정책
-const POPULAR_YOUTH = /청년도약계좌|청년미래적금|청년내일저축계좌|청년희망적금|청년월세.*(?:지원|특별)|청년\s*구직활동\s*지원금|청년수당|청년\s*주거급여|버팀목\s*전세|청년전세임대|행복주택|청년\s*매입임대|청년\s*신혼부부\s*매입임대|신혼부부.*전세자금|신혼부부.*구입자금|청년일자리도약/;
+// 청년 대상 핵심 인기 정책 (국가 + 수도권 주요 지자체)
+const POPULAR_YOUTH = /청년도약계좌|청년미래적금|청년내일저축계좌|청년희망적금|청년월세.*(?:지원|특별)|청년\s*구직활동\s*지원금|청년수당|청년\s*주거급여|버팀목\s*전세|청년전세임대|행복주택|청년\s*매입임대|청년\s*신혼부부\s*매입임대|신혼부부.*전세자금|신혼부부.*구입자금|청년일자리도약|희망두배\s*청년통장|청년기본소득|경기.*청년노동자|청년노동자.*지원사업|청년\s*복지포인트|경기.*청년.*통장|청년.*문화패스|청년\s*면접수당|청년\s*내일저축|서울.*청년통장/;
 
 // 취업/재직자 핵심 정책
 const POPULAR_WORK = /두루누리\s*사회보험|내일채움공제|청년내일채움공제|근로장려금|자녀장려금|출산전후휴가\s*급여|육아휴직\s*급여|배우자\s*출산휴가|소상공인\s*정책자금|미소금융/;
 
 // 교육/대출/양육 핵심 정책
-const POPULAR_EDU = /국가장학금|학자금\s*대출|버팀목전세자금|디딤돌\s*대출|보금자리론|부모급여|아이돌봄\s*서비스|K-디지털\s*아카데미/;
+const POPULAR_EDU = /국가장학금|학자금\s*대출|버팀목전세자금|디딤돌\s*대출|보금자리론|부모급여|아이돌봄\s*서비스|K-디지털\s*아카데미|학자금.*대출이자/;
 
 // ─── Title-based implicit age inference ───────────────────────────────────────
 function inferAgeRangeFromTitle(title: string): { min?: number; max?: number } {
@@ -612,13 +612,13 @@ export function getRecommendations(
       // [H] 인기 정책 부스트 — 실제로 수백만 명이 신청하는 주요 정책 우선 노출
       if (e >= 0.20) {
         if (POPULAR_ALL.test(policy.title)) {
-          finalRaw *= 1.35; // 거의 모든 시민 대상
+          finalRaw *= 1.45; // 거의 모든 시민 대상
         } else if (POPULAR_YOUTH.test(policy.title) && (profile.ageGroup === '20s' || profile.ageGroup === '30s')) {
-          finalRaw *= 1.40; // 청년 인기 정책 × 청년 프로필
+          finalRaw *= 1.55; // 청년 인기 정책 × 청년 프로필
         } else if (POPULAR_WORK.test(policy.title) && (profile.occupation === 'employed' || profile.occupation === 'self-employed')) {
-          finalRaw *= 1.35; // 취업/재직자 인기 정책
+          finalRaw *= 1.45; // 취업/재직자 인기 정책
         } else if (POPULAR_EDU.test(policy.title) && (profile.ageGroup === '20s' || profile.ageGroup === '30s')) {
-          finalRaw *= 1.30; // 교육/대출 인기 정책
+          finalRaw *= 1.40; // 교육/대출 인기 정책
         }
       }
 
