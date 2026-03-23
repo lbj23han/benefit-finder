@@ -45,6 +45,9 @@ function ResultsContent() {
   }, [profile, policies, profileLoaded]);
 
   const filtered = results.filter((r) => {
+    // 프로필 기반 추천 모드에서 지역/전문직 하드블록 정책 숨김 (score < 10)
+    // 키워드 검색 중에는 사용자가 명시적으로 찾는 것이므로 점수 무관 표시
+    if (profile && !filter.keyword && r.score < 10) return false;
     if (filter.category && r.policy.category !== filter.category) return false;
     if (filter.activeOnly && !r.policy.isAlwaysOpen) {
       const now = new Date();
