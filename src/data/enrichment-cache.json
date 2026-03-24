@@ -19447,5 +19447,31 @@
     "targetSpecialty": "foreign-national",
     "relevanceScore": 0.08,
     "estimatedBenefitText": "지역상품권 지급 (규모 미정)"
+  },
+  "WLF00006234": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "보일러 설치 또는 교체 지원"
+  },
+  "WLF00006231": {
+    "ageMin": 65,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "영양 도시락 배달 서비스 제공"
   }
 }
