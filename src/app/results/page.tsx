@@ -37,15 +37,21 @@ function ResultsContent() {
 
   useEffect(() => {
     if (!profileLoaded || policies.length === 0) return;
-    // Defer heavy computation off the critical rendering path (fixes TBT)
-    const id = setTimeout(() => {
+    // Defer heavy computation to idle time (fixes TBT)
+    const cb = () => {
       if (profile) {
         setResults(getRecommendations(policies, profile));
       } else {
         setResults(policies.map((policy) => ({ policy, score: 0, matchReasons: [], isFullMatch: false, regionMatched: true })));
       }
-    }, 0);
-    return () => clearTimeout(id);
+    };
+    if (typeof requestIdleCallback !== 'undefined') {
+      const id = requestIdleCallback(cb);
+      return () => cancelIdleCallback(id);
+    } else {
+      const id = setTimeout(cb, 16);
+      return () => clearTimeout(id);
+    }
   }, [profile, policies, profileLoaded]);
 
   const filtered = results.filter((r) => {
@@ -83,7 +89,7 @@ function ResultsContent() {
     setSort('recommended');
   };
 
-  if (!profileLoaded || (loading && policies.length === 0)) {
+  if (!profileLoaded) {
     return (
       <div className="flex items-center justify-center py-20">
         <div className="w-8 h-8 border-2 border-[#1B6B4A] border-t-transparent rounded-full animate-spin" />

@@ -1049,20 +1049,31 @@ async function main() {
   });
   console.log(`→ specialty 후처리 필터: ${beforeSpecFilter - filtered.length}건 제거, 최종 ${filtered.length}건`);
 
+  // Strip fields only needed in detail pages (served from activePolicies/curated bundle, not this JSON)
+  // This reduces file size by ~60%: description(2MB) + eligibility(1MB) + urls(1MB) stripped
+  const DETAIL_ONLY_FIELDS = new Set(['description', 'eligibility', 'detailUrl', 'applyUrl', 'urlVerified']);
+  const slim = filtered.map(p => {
+    const out = {};
+    for (const [k, v] of Object.entries(p)) {
+      if (!DETAIL_ONLY_FIELDS.has(k)) out[k] = v;
+    }
+    return out;
+  });
+
   const output = {
     fetchedAt: new Date().toISOString(),
     source: 'bokjiro-api',
-    count: filtered.length,
-    policies: filtered,
+    count: slim.length,
+    policies: slim,
   };
 
   // Full dataset → public/data/policies.json (served as static file, not bundled)
   writeFileSync(OUT_PATH, JSON.stringify(output, null, 2), 'utf-8');
   console.log(`✓ ${OUT_PATH} 에 저장됨`);
-  console.log(`  총 ${filtered.length}건 / fetchedAt: ${output.fetchedAt}`);
+  console.log(`  총 ${slim.length}건 / fetchedAt: ${output.fetchedAt}`);
 
   // Lightweight stub → src/data/policies.generated.json (metadata only, no policies array)
-  const stub = { fetchedAt: output.fetchedAt, source: output.source, count: output.count, policies: [] };
+  const stub = { fetchedAt: output.fetchedAt, source: output.source, count: slim.length, policies: [] };
   writeFileSync(STUB_PATH, JSON.stringify(stub, null, 2), 'utf-8');
   console.log(`✓ ${STUB_PATH} 스텁 저장됨`);
 }

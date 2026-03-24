@@ -32,15 +32,18 @@ export default function HomePage() {
 
   useEffect(() => {
     if (profile && policies.length > 0) {
-      // Defer heavy computation off the critical rendering path (fixes TBT)
-      const id = setTimeout(() => {
-        setResults(getRecommendations(policies, profile));
-      }, 0);
-      return () => clearTimeout(id);
+      // Defer heavy computation to idle time (fixes TBT)
+      if (typeof requestIdleCallback !== 'undefined') {
+        const id = requestIdleCallback(() => setResults(getRecommendations(policies, profile)));
+        return () => cancelIdleCallback(id);
+      } else {
+        const id = setTimeout(() => setResults(getRecommendations(policies, profile)), 16);
+        return () => clearTimeout(id);
+      }
     }
   }, [profile, policies]);
 
-  if (!profileLoaded || (loading && policies.length === 0)) {
+  if (!profileLoaded) {
     return (
       <div className="min-h-dvh bg-[#F4F8F6] flex items-center justify-center">
         <div className="w-8 h-8 border-2 border-[#1B6B4A] border-t-transparent rounded-full animate-spin" />

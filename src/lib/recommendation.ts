@@ -103,7 +103,7 @@ function normalizeArray(val: string | string[] | undefined): string[] | undefine
 
 function eligibilityScore(policy: Policy, profile: UserProfile, age: number): number {
   const t = policy.title;
-  const desc = (policy.description || policy.summary || '').slice(0, 500);
+  const desc = (policy.summary || '').slice(0, 500);
   const full = `${t} ${desc}`;
 
   const hasChildren = profile.householdType === 'family-with-children' || profile.householdType === 'single-parent';
