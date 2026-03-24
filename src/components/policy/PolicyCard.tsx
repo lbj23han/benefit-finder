@@ -37,7 +37,7 @@ export default function PolicyCard({ policy, score, matchReasons, isFullMatch, r
   };
 
   return (
-    <Link href={`/policy/${policy.id}`} className="block h-full">
+    <Link href={`/policy/${policy.id}`} className="block h-full active:scale-[0.97] transition-transform duration-150">
       {/* Fixed height card — content truncates, never grows */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-50 p-4 hover:shadow-md transition-shadow h-[210px] flex flex-col overflow-hidden">
 

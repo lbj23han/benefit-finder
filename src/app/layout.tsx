@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import ServiceWorkerRegistrar from "@/components/common/ServiceWorkerRegistrar";
+import NavDirectionTracker from "@/components/common/NavDirectionTracker";
+import { ViewTransitions } from "next-view-transitions";
 
 const BASE_URL = "https://benefit-finder-jet.vercel.app";
 
@@ -89,11 +91,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className="h-full">
-      <body className="min-h-full">
-        <ServiceWorkerRegistrar />
-        {children}
-      </body>
-    </html>
+    <ViewTransitions>
+      <html lang="ko" className="h-full">
+        <body className="min-h-full">
+          <ServiceWorkerRegistrar />
+          <NavDirectionTracker />
+          {children}
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }

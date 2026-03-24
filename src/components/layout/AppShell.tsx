@@ -16,8 +16,11 @@ export default function AppShell({ children, showBottomNav = true }: AppShellPro
           showBottomNav ? 'pb-16 lg:pb-0 lg:ml-56' : '',
         ].join(' ')}
       >
-        {/* Inner content: constrained on mobile, wider on tablet/desktop */}
-        <div className="w-full max-w-[430px] mx-auto lg:max-w-none lg:mx-0">
+        {/* page-content: view-transition-name 지정 — 이 영역만 슬라이드 애니메이션 */}
+        <div
+          className="w-full max-w-[430px] mx-auto lg:max-w-none lg:mx-0"
+          style={{ viewTransitionName: 'page-content' }}
+        >
           {children}
         </div>
       </div>

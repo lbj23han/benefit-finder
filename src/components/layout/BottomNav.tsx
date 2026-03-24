@@ -56,7 +56,7 @@ export default function BottomNav() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex flex-col items-center gap-0.5 px-4 py-1 min-w-[60px]"
+                className="flex flex-col items-center gap-0.5 px-4 py-1 min-w-[60px] active:scale-90 transition-transform duration-100"
               >
                 {item.icon(active)}
                 <span className={`text-[10px] font-medium ${active ? 'text-[#1B6B4A]' : 'text-gray-400'}`}>

@@ -31,3 +31,99 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* ─── Tap / touch feedback ──────────────────────────────────────────────────
+   모든 버튼·링크에 즉각적인 시각 피드백 (Toss 스타일)
+   -webkit-tap-highlight-color 제거 → 파란 하이라이트 없앰               */
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, a, [role="button"] {
+  touch-action: manipulation; /* 300ms 딜레이 제거 */
+}
+
+/* ─── View Transitions ───────────────────────────────────────────────────────
+   브라우저 미지원(Safari 구버전 등) 시 자동으로 무시됨 (graceful fallback)
+
+   page-content 영역만 애니메이션 — 하단 탭바·사이드바는 고정             */
+
+/* 기본: 배경 화면은 즉시 전환 (애니메이션 없음) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* ── keyframes ─────────────────────────────────────────────────────────────── */
+
+@keyframes vt-slide-in-from-right {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+@keyframes vt-slide-out-to-left {
+  from { transform: translateX(0);    opacity: 1; }
+  to   { transform: translateX(-25%); opacity: 0.6; }
+}
+@keyframes vt-slide-in-from-left {
+  from { transform: translateX(-25%); opacity: 0.6; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+@keyframes vt-slide-out-to-right {
+  from { transform: translateX(0);    }
+  to   { transform: translateX(100%); }
+}
+@keyframes vt-fade-in {
+  from { opacity: 0; transform: scale(0.98); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes vt-fade-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.98); }
+}
+
+/* ── FORWARD: 상세 페이지 진입 (iOS push) ──────────────────────────────────── */
+
+[data-nav="forward"]::view-transition-old(page-content) {
+  animation: 320ms cubic-bezier(0.32, 0, 0.15, 1) both vt-slide-out-to-left;
+}
+[data-nav="forward"]::view-transition-new(page-content) {
+  animation: 320ms cubic-bezier(0.32, 0, 0.15, 1) both vt-slide-in-from-right;
+}
+
+/* ── BACK: 상위 페이지로 복귀 (iOS pop) ────────────────────────────────────── */
+
+[data-nav="back"]::view-transition-old(page-content) {
+  animation: 300ms cubic-bezier(0.32, 0, 0.15, 1) both vt-slide-out-to-right;
+}
+[data-nav="back"]::view-transition-new(page-content) {
+  animation: 300ms cubic-bezier(0.32, 0, 0.15, 1) both vt-slide-in-from-left;
+}
+
+/* ── TAB: 같은 깊이 탭 전환 (cross-fade) ───────────────────────────────────── */
+
+[data-nav="tab"]::view-transition-old(page-content) {
+  animation: 180ms ease-out both vt-fade-out;
+}
+[data-nav="tab"]::view-transition-new(page-content) {
+  animation: 180ms ease-out both vt-fade-in;
+}
+
+/* ── 기본값 (첫 진입 / 방향 미결정) ────────────────────────────────────────── */
+
+::view-transition-old(page-content) {
+  animation: 200ms ease-out both vt-fade-out;
+}
+::view-transition-new(page-content) {
+  animation: 200ms ease-out both vt-fade-in;
+}
+
+/* ── 모션 감소 설정 존중 ────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(page-content),
+  ::view-transition-new(page-content) {
+    animation: none;
+  }
+}
