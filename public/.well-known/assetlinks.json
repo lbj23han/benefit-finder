@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "TODO_앱패키지명_예시_com.hyetagjupjup.app",
+      "sha256_cert_fingerprints": [
+        "TODO_Play_Console에서_앱_서명_키_SHA256_핑거프린트_입력"
+      ]
+    }
+  }
+]

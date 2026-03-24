@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import ServiceWorkerRegistrar from "@/components/common/ServiceWorkerRegistrar";
 
 const BASE_URL = "https://benefit-finder-jet.vercel.app";
 
@@ -89,7 +90,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className="h-full">
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        <ServiceWorkerRegistrar />
+        {children}
+      </body>
     </html>
   );
 }
