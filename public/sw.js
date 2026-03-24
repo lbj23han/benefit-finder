@@ -16,6 +16,7 @@ const STATIC_PATTERNS = [
   /\/icon-\d+\.png$/,
   /\/manifest\.json$/,
   /\/favicon\.ico$/,
+  /\/data\/policies\.json$/,  // 정책 데이터 — CacheFirst (크기가 커서 재다운로드 최소화)
 ];
 
 const PAGE_PATTERNS = [
@@ -32,6 +33,7 @@ self.addEventListener('install', (event) => {
         '/icon-192.png',
         '/icon-512.png',
         '/favicon.ico',
+        '/data/policies.json',  // 정책 데이터 pre-cache
       ])
     ).then(() => self.skipWaiting())
   );

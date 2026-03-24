@@ -32,7 +32,11 @@ export default function HomePage() {
 
   useEffect(() => {
     if (profile && policies.length > 0) {
-      setResults(getRecommendations(policies, profile));
+      // Defer heavy computation off the critical rendering path (fixes TBT)
+      const id = setTimeout(() => {
+        setResults(getRecommendations(policies, profile));
+      }, 0);
+      return () => clearTimeout(id);
     }
   }, [profile, policies]);
 

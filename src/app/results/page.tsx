@@ -37,11 +37,15 @@ function ResultsContent() {
 
   useEffect(() => {
     if (!profileLoaded || policies.length === 0) return;
-    if (profile) {
-      setResults(getRecommendations(policies, profile));
-    } else {
-      setResults(policies.map((policy) => ({ policy, score: 0, matchReasons: [], isFullMatch: false, regionMatched: true })));
-    }
+    // Defer heavy computation off the critical rendering path (fixes TBT)
+    const id = setTimeout(() => {
+      if (profile) {
+        setResults(getRecommendations(policies, profile));
+      } else {
+        setResults(policies.map((policy) => ({ policy, score: 0, matchReasons: [], isFullMatch: false, regionMatched: true })));
+      }
+    }, 0);
+    return () => clearTimeout(id);
   }, [profile, policies, profileLoaded]);
 
   const filtered = results.filter((r) => {

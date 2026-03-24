@@ -1,32 +1,28 @@
 /**
  * Policy data entry point.
  *
- * Always merges:
- *   1. policies.generated.json  — auto-updated daily by GitHub Actions (복지로 API)
- *   2. policies.ts              — hand-curated policies (always included)
+ * The large generated dataset (public/data/policies.json) is NOT imported here
+ * to avoid bundling ~9 MB of JSON into the JS chunks.
+ * It is fetched at runtime via policyCache.ts → fetch('/data/policies.json').
  *
- * Curated policies use custom IDs that never conflict with API IDs.
- * Title-based dedup prevents the same policy from appearing twice.
+ * This file exports only the hand-curated fallback policies (< 30 entries)
+ * used when the network fetch fails or on first load before the fetch completes.
  */
 
 import type { Policy } from '@/types';
 import generated from './policies.generated.json';
 import { policies as curatedPolicies } from './policies';
 
-const generatedPolicies = generated.policies as unknown as Policy[];
+// Re-export curated policies so policyCache.ts can reference them.
+export { curatedPolicies };
 
-// Always include curated policies — deduplicate by exact title match.
-function mergePolicies(gen: Policy[], curated: Policy[]): Policy[] {
-  if (gen.length === 0) return curated;
-  const genTitles = new Set(gen.map((p) => p.title.trim()));
-  const uniqueCurated = curated.filter((p) => !genTitles.has(p.title.trim()));
-  return [...gen, ...uniqueCurated];
-}
-
-export const activePolicies: Policy[] = mergePolicies(generatedPolicies, curatedPolicies);
-
+// Metadata from the stub generated file (populated by fetchPolicies.mjs).
 export const dataSource: 'api' | 'mock' =
   generated.source === 'bokjiro-api' ? 'api' : 'mock';
 
 export const dataFetchedAt: Date | null =
   generated.fetchedAt ? new Date(generated.fetchedAt) : null;
+
+// Kept for backward compatibility — callers that used activePolicies
+// now get curated only; full data comes from loadPolicies() in policyCache.ts.
+export const activePolicies: Policy[] = curatedPolicies as Policy[];

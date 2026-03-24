@@ -10,17 +10,22 @@
  *   2. 복지로 지자체복지정보        B554287/LocalGovernmentWelfareInformations
  *   3. 정부24 서비스목록            api.odcloud.kr/api/gov24/v3/serviceList
  *
- * Output: src/data/policies.generated.json
+ * Output: public/data/policies.json  — served as static file, NOT bundled in JS
+ *         src/data/policies.generated.json — lightweight stub (fetchedAt + source metadata only)
  * On any failure: exits 0 to preserve existing data (Vercel keeps last good build).
  */
 
-import { writeFileSync, readFileSync, existsSync } from 'fs';
+import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const OUT_PATH   = resolve(__dirname, '..', 'src/data/policies.generated.json');
+const __dirname  = dirname(fileURLToPath(import.meta.url));
+const OUT_PATH   = resolve(__dirname, '..', 'public/data/policies.json');
+const STUB_PATH  = resolve(__dirname, '..', 'src/data/policies.generated.json');
 const CACHE_PATH = resolve(__dirname, '..', 'src/data/enrichment-cache.json');
+
+// Ensure public/data/ directory exists
+mkdirSync(resolve(__dirname, '..', 'public/data'), { recursive: true });
 
 function loadEnrichmentCache() {
   if (!existsSync(CACHE_PATH)) return new Map();
@@ -1051,9 +1056,15 @@ async function main() {
     policies: filtered,
   };
 
+  // Full dataset → public/data/policies.json (served as static file, not bundled)
   writeFileSync(OUT_PATH, JSON.stringify(output, null, 2), 'utf-8');
   console.log(`✓ ${OUT_PATH} 에 저장됨`);
   console.log(`  총 ${filtered.length}건 / fetchedAt: ${output.fetchedAt}`);
+
+  // Lightweight stub → src/data/policies.generated.json (metadata only, no policies array)
+  const stub = { fetchedAt: output.fetchedAt, source: output.source, count: output.count, policies: [] };
+  writeFileSync(STUB_PATH, JSON.stringify(stub, null, 2), 'utf-8');
+  console.log(`✓ ${STUB_PATH} 스텁 저장됨`);
 }
 
 main().catch(err => {
