@@ -284,6 +284,20 @@ describe('가구 · 아동 필터링', () => {
     expect(scoreOf(makePolicy({ title: '배우자 출산휴가 급여' }),
       { ...baseProfile, gender: 'male' })).toBeGreaterThan(10);
   });
+
+  it('title에는 키워드 없고 summary에 임산부 키워드 → 남성에게 낮은 점수', () => {
+    expect(scoreOf(makePolicy({
+      title: '여성 건강 지원사업',
+      summary: '임산부 및 출산전후 여성을 대상으로 건강관리 서비스를 제공합니다',
+    }), { ...baseProfile, gender: 'male' })).toBeLessThanOrEqual(10);
+  });
+
+  it('title에는 키워드 없고 summary에 산후 키워드 → 남성에게 낮은 점수', () => {
+    expect(scoreOf(makePolicy({
+      title: '모성보호 프로그램',
+      summary: '산후조리 비용 및 산후우울증 예방 서비스를 지원합니다',
+    }), { ...baseProfile, gender: 'male' })).toBeLessThanOrEqual(10);
+  });
 });
 
 // ─── 7. 소득 조건 ────────────────────────────────────────────────────────────
