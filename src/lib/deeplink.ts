@@ -22,16 +22,25 @@ export function isDeepLink(url: string): boolean {
 }
 
 export type DeepLinkResult =
-  | { ok: true; url: string; label: '신청하러 가기' | '자세히 보기' }
+  | { ok: true; url: string; label: '신청하러 가기' | '자세히 보기' | '복지로에서 보기' }
   | { ok: false; reason: string };
+
+/** Constructs a bokjiro.go.kr direct link for WLF* IDs. */
+export function getBokjiroUrl(policyId: string): string | null {
+  if (/^WLF\d+$/.test(policyId)) {
+    return `https://www.bokjiro.go.kr/ssis-tbu/twataa/wlfareInfo/moveTWAT52011M.do?wlfareInfoId=${policyId}`;
+  }
+  return null;
+}
 
 /**
  * Picks the best navigable URL for a policy.
- * Priority: detailUrl → applyUrl (if deep) → applyUrl (any, with warning) → null
+ * Priority: detailUrl → applyUrl (if deep) → applyUrl (any) → bokjiro fallback → null
  */
 export function getBestUrl(
   detailUrl?: string,
   applyUrl?: string,
+  policyId?: string,
 ): DeepLinkResult {
   if (detailUrl && isDeepLink(detailUrl)) {
     return { ok: true, url: detailUrl, label: '자세히 보기' };
@@ -42,6 +51,13 @@ export function getBestUrl(
   // applyUrl exists but is root-only — still usable as last resort
   if (applyUrl) {
     return { ok: true, url: applyUrl, label: '신청하러 가기' };
+  }
+  // Fallback: auto-generate bokjiro link from WLF policy ID
+  if (policyId) {
+    const bokjiroUrl = getBokjiroUrl(policyId);
+    if (bokjiroUrl) {
+      return { ok: true, url: bokjiroUrl, label: '복지로에서 보기' };
+    }
   }
   return {
     ok: false,

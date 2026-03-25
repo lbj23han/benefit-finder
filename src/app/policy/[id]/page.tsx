@@ -61,9 +61,8 @@ export default function PolicyDetailPage({
     voucher: '바우처',
   };
 
-  // detailUrl / applyUrl 은 큐레이션 정책에만 존재 (JSON에서 제거된 필드)
-  const hasUrl = !!(policy.detailUrl || policy.applyUrl);
-  const link = hasUrl ? getBestUrl(policy.detailUrl, policy.applyUrl) : null;
+  // detailUrl / applyUrl 은 큐레이션 정책에만 존재. API 정책은 WLF ID로 bokjiro 링크 자동 생성.
+  const link = getBestUrl(policy.detailUrl, policy.applyUrl, policy.id);
 
   return (
     <AppShell>
@@ -186,54 +185,40 @@ export default function PolicyDetailPage({
             </div>
           </div>
 
-          {/* Apply CTA — URL 있는 정책만 표시 */}
-          {link && (
-            <div className="space-y-3">
-              {!policy.urlVerified && (
-                <div className="flex items-start gap-2 px-4 py-3 bg-amber-50 rounded-2xl border border-amber-100">
-                  <span className="text-amber-500 text-sm flex-shrink-0 mt-0.5">⚠</span>
-                  <p className="text-xs text-amber-700 leading-relaxed">
-                    링크가 공식 사이트로 연결되지만, 정확한 페이지는 직접 확인이 필요할 수 있어요.
-                    사이트 내에서 <strong>&quot;{policy.title}&quot;</strong>를 검색해 보세요.
-                  </p>
-                </div>
-              )}
-              {link.ok ? (
-                <>
-                  <a
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block w-full text-center bg-[#1B6B4A] text-white font-extrabold py-5 rounded-2xl shadow-md text-base"
-                  >
-                    {link.label} →
-                  </a>
-                  <p className="text-center text-xs text-[#888]">
-                    {policy.urlVerified ? '공식 페이지로 이동합니다' : '외부 사이트로 이동합니다'}
-                  </p>
-                </>
-              ) : (
-                <>
-                  <div className="w-full text-center bg-gray-100 text-gray-400 font-bold py-5 rounded-2xl text-base">
-                    주민센터 방문 신청
+          {/* Apply CTA */}
+          <div className="space-y-3">
+            {link.ok ? (
+              <>
+                {!policy.urlVerified && (
+                  <div className="flex items-start gap-2 px-4 py-3 bg-amber-50 rounded-2xl border border-amber-100">
+                    <span className="text-amber-500 text-sm flex-shrink-0 mt-0.5">⚠</span>
+                    <p className="text-xs text-amber-700 leading-relaxed">
+                      링크가 공식 사이트로 연결되지만, 정확한 페이지는 직접 확인이 필요할 수 있어요.
+                      사이트 내에서 <strong>&quot;{policy.title}&quot;</strong>를 검색해 보세요.
+                    </p>
                   </div>
-                  <p className="text-center text-xs text-amber-500">⚠ {link.reason}</p>
-                </>
-              )}
-            </div>
-          )}
-
-          {/* URL 없는 정책(API 수집분) — 기관 검색 안내 */}
-          {!hasUrl && (
-            <div className="space-y-3">
-              <div className="w-full text-center bg-gray-50 border border-gray-200 text-gray-500 font-bold py-5 rounded-2xl text-sm">
-                {policy.sourceOrg} 공식 홈페이지에서 신청
-              </div>
-              <p className="text-center text-xs text-[#888]">
-                포털에서 &quot;{policy.title}&quot; 또는 {policy.sourceOrg}을 검색해 주세요
-              </p>
-            </div>
-          )}
+                )}
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full text-center bg-[#1B6B4A] text-white font-extrabold py-5 rounded-2xl shadow-md text-base"
+                >
+                  {link.label} →
+                </a>
+                <p className="text-center text-xs text-[#888]">
+                  {policy.urlVerified ? '공식 페이지로 이동합니다' : '외부 사이트로 이동합니다'}
+                </p>
+              </>
+            ) : (
+              <>
+                <div className="w-full text-center bg-gray-100 text-gray-400 font-bold py-5 rounded-2xl text-base">
+                  주민센터 방문 신청
+                </div>
+                <p className="text-center text-xs text-amber-500">⚠ {link.reason}</p>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </AppShell>
