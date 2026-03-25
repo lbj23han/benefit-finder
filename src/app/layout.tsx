@@ -107,6 +107,11 @@ export default function RootLayout({
       <html lang="ko" className="h-full">
         <head>
           <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5992854033857462"
+            crossOrigin="anonymous"
+          />
+          <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           />
