@@ -62,7 +62,7 @@ export default function PolicyDetailPage({
   };
 
   // detailUrl / applyUrl 은 큐레이션 정책에만 존재. API 정책은 WLF ID로 bokjiro 링크 자동 생성.
-  const link = getBestUrl(policy.detailUrl, policy.applyUrl, policy.id);
+  const link = getBestUrl(policy.detailUrl, policy.applyUrl, policy.id, policy.title);
 
   return (
     <AppShell>

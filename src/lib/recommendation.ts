@@ -274,8 +274,8 @@ function eligibilityScore(policy: Policy, profile: UserProfile, age: number): nu
     if (policy.genderCondition && policy.genderCondition.length > 0) {
       score *= policy.genderCondition.includes(profile.gender) ? 1.0 : 0.05;
     } else {
-      if (FEMALE_ONLY.test(t) && profile.gender !== 'female') score *= 0.07;
-      if (MALE_ONLY.test(t)   && profile.gender !== 'male')   score *= 0.07;
+      if (FEMALE_ONLY.test(full) && profile.gender !== 'female') score *= 0.07;
+      if (MALE_ONLY.test(full)   && profile.gender !== 'male')   score *= 0.07;
     }
   }
 

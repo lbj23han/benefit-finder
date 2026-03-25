@@ -22,7 +22,7 @@ export function isDeepLink(url: string): boolean {
 }
 
 export type DeepLinkResult =
-  | { ok: true; url: string; label: '신청하러 가기' | '자세히 보기' | '복지로에서 보기' }
+  | { ok: true; url: string; label: '신청하러 가기' | '자세히 보기' | '복지로에서 보기' | '정부24에서 검색' }
   | { ok: false; reason: string };
 
 /** Constructs a bokjiro.go.kr direct link for WLF* IDs. */
@@ -35,12 +35,13 @@ export function getBokjiroUrl(policyId: string): string | null {
 
 /**
  * Picks the best navigable URL for a policy.
- * Priority: detailUrl → applyUrl (if deep) → applyUrl (any) → bokjiro fallback → null
+ * Priority: detailUrl → applyUrl (if deep) → applyUrl (any) → bokjiro WLF → gov.kr search fallback
  */
 export function getBestUrl(
   detailUrl?: string,
   applyUrl?: string,
   policyId?: string,
+  policyTitle?: string,
 ): DeepLinkResult {
   if (detailUrl && isDeepLink(detailUrl)) {
     return { ok: true, url: detailUrl, label: '자세히 보기' };
@@ -58,6 +59,11 @@ export function getBestUrl(
     if (bokjiroUrl) {
       return { ok: true, url: bokjiroUrl, label: '복지로에서 보기' };
     }
+  }
+  // Last resort: 정부24 검색
+  if (policyTitle) {
+    const searchUrl = `https://www.gov.kr/search?query=${encodeURIComponent(policyTitle)}`;
+    return { ok: true, url: searchUrl, label: '정부24에서 검색' };
   }
   return {
     ok: false,
