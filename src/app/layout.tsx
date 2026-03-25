@@ -85,6 +85,18 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: '혜택줍줍',
+  url: 'https://benefit-finder-jet.vercel.app',
+  description: '나이·지역·직업·소득 조건만 입력하면 받을 수 있는 정부 지원금·복지 혜택을 바로 찾아드려요.',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Web',
+  inLanguage: 'ko-KR',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -93,6 +105,12 @@ export default function RootLayout({
   return (
     <ViewTransitions>
       <html lang="ko" className="h-full">
+        <head>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          />
+        </head>
         <body className="min-h-full">
           <ServiceWorkerRegistrar />
           <NavDirectionTracker />

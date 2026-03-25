@@ -1,8 +1,16 @@
 import { MetadataRoute } from 'next';
+import { policies } from '@/data/policies';
 
 const BASE_URL = 'https://benefit-finder-jet.vercel.app';
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const policyEntries: MetadataRoute.Sitemap = policies.map((p) => ({
+    url: `${BASE_URL}/policy/${p.id}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.8,
+  }));
+
   return [
     {
       url: BASE_URL,
@@ -46,5 +54,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 0.3,
     },
+    ...policyEntries,
   ];
 }
