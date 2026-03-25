@@ -269,7 +269,7 @@ function eligibilityScore(policy: Policy, profile: UserProfile, age: number): nu
 
   // ── Gender ────────────────────────────────────────────────────────────────
   if (profile.gender && profile.gender !== 'other') {
-    const FEMALE_ONLY = /여성\s*(?:전용|만\s*대상|창업|일자리)|임산부|산모|모성\s*보호|경력단절\s*여성|여성\s*폭력\s*피해|성폭력\s*피해|여성\s*농업인/;
+    const FEMALE_ONLY = /여성\s*(?:전용|만\s*대상|창업|일자리)|임산부|산모|모성\s*보호|경력단절\s*여성|여성\s*폭력\s*피해|성폭력\s*피해|여성\s*농업인|출산전후휴가|임신\s*(?:지원|관리|중|부)|산후\s*(?:조리|우울|관리|지원)/;
     const MALE_ONLY   = /병역\s*지원|현역\s*장병|군\s*장병|남성\s*(?:전용|한정)/;
     if (policy.genderCondition && policy.genderCondition.length > 0) {
       score *= policy.genderCondition.includes(profile.gender) ? 1.0 : 0.05;

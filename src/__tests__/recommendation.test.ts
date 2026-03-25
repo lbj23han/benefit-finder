@@ -264,6 +264,26 @@ describe('가구 · 아동 필터링', () => {
     expect(scoreOf(makePolicy({ title: '산후조리원 비용 지원사업' }),
       { ...baseProfile, householdType: 'single' })).toBeLessThanOrEqual(10);
   });
+
+  it('출산전후휴가 정책 → 남성에게 낮은 점수', () => {
+    expect(scoreOf(makePolicy({ title: '출산전후휴가 급여 지원' }),
+      { ...baseProfile, gender: 'male' })).toBeLessThanOrEqual(10);
+  });
+
+  it('임산부 지원 정책 → 남성에게 낮은 점수', () => {
+    expect(scoreOf(makePolicy({ title: '임신부 건강관리 지원사업' }),
+      { ...baseProfile, gender: 'male' })).toBeLessThanOrEqual(10);
+  });
+
+  it('산후 지원 정책 → 남성에게 낮은 점수', () => {
+    expect(scoreOf(makePolicy({ title: '산후우울증 예방 지원' }),
+      { ...baseProfile, gender: 'male' })).toBeLessThanOrEqual(10);
+  });
+
+  it('배우자 출산휴가 → 남성에게 정상 점수', () => {
+    expect(scoreOf(makePolicy({ title: '배우자 출산휴가 급여' }),
+      { ...baseProfile, gender: 'male' })).toBeGreaterThan(10);
+  });
 });
 
 // ─── 7. 소득 조건 ────────────────────────────────────────────────────────────
