@@ -19473,5 +19473,49 @@
     "targetSpecialty": null,
     "relevanceScore": 0.1,
     "estimatedBenefitText": "영양 도시락 배달 서비스 제공"
+  },
+  "WLF00006230": {
+    "ageMin": 65,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "무료 방문의료서비스 제공"
+  },
+  "WLF00006232": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.2,
+    "estimatedBenefitText": "무료 재가돌봄서비스 연계"
+  },
+  "WLF00006233": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "주거환경 개선공사 지원"
+  },
+  "gov24-323000000135": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "월세/이사비 최대 50만원 또는 소송수행경비 최대 50만원"
   }
 }
