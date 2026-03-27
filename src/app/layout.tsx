@@ -78,7 +78,7 @@ export const metadata: Metadata = {
 
   // ── Google Search Console 소유권 확인 ──────────────────────────────────
   verification: {
-    google: 'VXoRHucdO40Qy6KrxkKShG2Nnlc278mH19dYbKg5vTk',
+    google: 'UqqVWxR6WNXvWnv66Cod24CsoN0fKdO1opwN9PFOpcg',
   },
 };
 
