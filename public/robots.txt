@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://benefit-finder-jet.vercel.app/sitemap.xml
+Sitemap: https://findmymoney.vercel.app/sitemap.xml

@@ -20,7 +20,7 @@ const STATIC_PATTERNS = [
 ];
 
 const PAGE_PATTERNS = [
-  /^https:\/\/benefit-finder-jet\.vercel\.app\//,
+  /^https:\/\/findmymoney\.vercel\.app\//,
 ];
 
 // ── Install: pre-cache 앱 셸 ──────────────────────────────────────────────────

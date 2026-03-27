@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 import { policies } from '@/data/policies';
 
-const BASE_URL = 'https://benefit-finder-jet.vercel.app';
+const BASE_URL = 'https://findmymoney.vercel.app';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const policyEntries: MetadataRoute.Sitemap = policies.map((p) => ({

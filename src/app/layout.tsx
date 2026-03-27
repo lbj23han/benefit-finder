@@ -4,7 +4,7 @@ import ServiceWorkerRegistrar from "@/components/common/ServiceWorkerRegistrar";
 import NavDirectionTracker from "@/components/common/NavDirectionTracker";
 import { ViewTransitions } from "next-view-transitions";
 
-const BASE_URL = "https://benefit-finder-jet.vercel.app";
+const BASE_URL = "https://findmymoney.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -89,7 +89,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
   name: '혜택줍줍',
-  url: 'https://benefit-finder-jet.vercel.app',
+  url: 'https://findmymoney.vercel.app',
   description: '나이·지역·직업·소득 조건만 입력하면 받을 수 있는 정부 지원금·복지 혜택을 바로 찾아드려요.',
   applicationCategory: 'UtilitiesApplication',
   operatingSystem: 'Web',

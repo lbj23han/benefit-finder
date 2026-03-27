@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { policies } from '@/data/policies';
 
-const BASE_URL = 'https://benefit-finder-jet.vercel.app';
+const BASE_URL = 'https://findmymoney.vercel.app';
 
 export async function generateMetadata({
   params,
