@@ -75,6 +75,11 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true },
   },
+
+  // ── Google Search Console 소유권 확인 ──────────────────────────────────
+  verification: {
+    google: 'VXoRHucdO40Qy6KrxkKShG2Nnlc278mH19dYbKg5vTk',
+  },
 };
 
 export const viewport: Viewport = {
