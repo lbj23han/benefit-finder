@@ -21,6 +21,11 @@ export const metadata: Metadata = {
     "복지로", "정부24", "맞춤혜택", "혜택줍줍",
   ],
 
+  // ── Canonical ──────────────────────────────────────────────────────────
+  alternates: {
+    canonical: BASE_URL,
+  },
+
   // ── Icons ──────────────────────────────────────────────────────────────
   icons: {
     icon: [
@@ -28,7 +33,7 @@ export const metadata: Metadata = {
       { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
     apple: [
-      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
     shortcut: "/icon-192.png",
   },
@@ -53,20 +58,20 @@ export const metadata: Metadata = {
       "나이·지역·직업 조건만 입력하면 받을 수 있는 정부 지원금을 바로 찾아드려요.",
     images: [
       {
-        url: "/icon-512.png",
-        width: 512,
-        height: 512,
-        alt: "혜택줍줍 로고",
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "혜택줍줍 — 내 조건에 맞는 정부 지원 혜택 찾기",
       },
     ],
   },
 
   // ── Twitter / X 카드 ────────────────────────────────────────────────────
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "혜택줍줍 — 내 조건에 맞는 정부 지원 혜택 찾기",
     description: "나이·지역·직업 조건만 입력하면 받을 수 있는 정부 지원금을 바로 찾아드려요.",
-    images: ["/icon-512.png"],
+    images: ["/og-image.png"],
   },
 
   // ── Robots ─────────────────────────────────────────────────────────────
