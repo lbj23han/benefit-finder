@@ -43,14 +43,6 @@ export default function HomePage() {
     }
   }, [profile, policies]);
 
-  if (!profileLoaded) {
-    return (
-      <div className="min-h-dvh bg-[#F4F8F6] flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-[#1B6B4A] border-t-transparent rounded-full animate-spin" />
-      </div>
-    );
-  }
-
   if (!profile) {
     return <SplashScreen />;
   }
@@ -203,7 +195,7 @@ export default function HomePage() {
 
 function SplashScreen() {
   return (
-    <div className="min-h-dvh bg-gradient-to-br from-[#1B6B4A] to-[#2A9D8F] flex flex-col items-center justify-center px-6">
+    <main className="min-h-dvh bg-gradient-to-br from-[#1B6B4A] to-[#2A9D8F] flex flex-col items-center justify-center px-6">
       <div className="text-center mb-10">
         <div className="mb-4 text-white"><Gift size={64} /></div>
         <h1 className="text-4xl font-black text-white mb-2">혜택줍줍</h1>
@@ -219,9 +211,9 @@ function SplashScreen() {
         <div className="bg-white/10 rounded-2xl p-4 flex items-center gap-3">
           <ClipboardList size={24} className="text-white flex-shrink-0" />
           <div>
-            <p className="text-white font-semibold text-sm">
+            <h2 className="text-white font-semibold text-sm">
               간단한 질문 3가지
-            </p>
+            </h2>
             <p className="text-white/70 text-xs">
               나이, 지역, 직업만 알면 돼요
             </p>
@@ -230,17 +222,17 @@ function SplashScreen() {
         <div className="bg-white/10 rounded-2xl p-4 flex items-center gap-3">
           <Search size={24} className="text-white flex-shrink-0" />
           <div>
-            <p className="text-white font-semibold text-sm">맞춤 혜택 추천</p>
+            <h2 className="text-white font-semibold text-sm">맞춤 혜택 추천</h2>
             <p className="text-white/70 text-xs">
-              조건에 맞는 혜택만 골라드려요
+              조건에 맞는 정부지원금만 골라드려요
             </p>
           </div>
         </div>
         <div className="bg-white/10 rounded-2xl p-4 flex items-center gap-3">
           <Wallet size={24} className="text-white flex-shrink-0" />
           <div>
-            <p className="text-white font-semibold text-sm">숨은 혜택 발굴</p>
-            <p className="text-white/70 text-xs">몰랐던 지원금을 찾아드려요</p>
+            <h2 className="text-white font-semibold text-sm">숨은 혜택 발굴</h2>
+            <p className="text-white/70 text-xs">몰랐던 복지 지원금을 찾아드려요</p>
           </div>
         </div>
       </div>
@@ -256,6 +248,26 @@ function SplashScreen() {
           10초면 완료돼요
         </p>
       </div>
-    </div>
+
+      {/* SEO 보조 텍스트: 크롤러가 서비스 핵심 키워드를 파악할 수 있도록 */}
+      <section className="sr-only" aria-label="서비스 소개">
+        <h2>혜택줍줍 — 정부지원금·복지혜택 맞춤 추천</h2>
+        <p>
+          혜택줍줍은 나이, 지역, 직업, 소득 조건을 입력하면 받을 수 있는
+          정부 지원금과 복지 혜택을 즉시 찾아주는 무료 서비스입니다.
+          청년 취업 지원, 주거 지원, 육아·보육 지원, 교육비 지원, 창업 지원 등
+          300개 이상의 정부 혜택을 한눈에 확인하세요.
+        </p>
+        <ul>
+          <li>정부지원금 자동 매칭</li>
+          <li>복지로·정부24 혜택 통합 검색</li>
+          <li>청년 혜택 추천</li>
+          <li>주거 지원금 안내</li>
+          <li>육아·보육 지원 정보</li>
+          <li>취업 지원 프로그램</li>
+          <li>창업 지원금 안내</li>
+        </ul>
+      </section>
+    </main>
   );
 }

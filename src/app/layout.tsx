@@ -16,9 +16,10 @@ export const metadata: Metadata = {
   description:
     "나이·지역·직업·소득 조건만 입력하면 받을 수 있는 정부 지원금·복지 혜택을 바로 찾아드려요. 취업·주거·육아·교육·창업 분야 300개 이상의 혜택을 한눈에.",
   keywords: [
-    "정부지원금", "복지혜택", "정부혜택", "지원금찾기", "청년혜택",
-    "주거지원", "취업지원", "육아지원", "교육비지원", "창업지원",
-    "복지로", "정부24", "맞춤혜택", "혜택줍줍",
+    "혜택줍줍", "정부지원금", "복지혜택", "정부혜택", "지원금찾기",
+    "청년혜택", "청년지원금", "주거지원", "취업지원", "육아지원",
+    "교육비지원", "창업지원", "맞춤혜택추천", "복지로", "정부24",
+    "내게맞는정부지원금", "숨은혜택",
   ],
 
   // ── Canonical ──────────────────────────────────────────────────────────
@@ -95,17 +96,45 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebApplication',
-  name: '혜택줍줍',
-  url: 'https://findmymoney.vercel.app',
-  description: '나이·지역·직업·소득 조건만 입력하면 받을 수 있는 정부 지원금·복지 혜택을 바로 찾아드려요.',
-  applicationCategory: 'UtilitiesApplication',
-  operatingSystem: 'Web',
-  inLanguage: 'ko-KR',
-  offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },
-};
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: '혜택줍줍',
+    alternateName: '혜택줍줍 - 정부지원금 맞춤 추천',
+    url: BASE_URL,
+    description: '나이·지역·직업·소득 조건만 입력하면 받을 수 있는 정부 지원금·복지 혜택을 바로 찾아드려요. 청년·주거·육아·교육·창업 분야 300개 이상의 혜택.',
+    applicationCategory: 'UtilitiesApplication',
+    operatingSystem: 'Web',
+    inLanguage: 'ko-KR',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'KRW' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: '혜택줍줍',
+    alternateName: '혜택줍줍 - 정부지원금 찾기',
+    url: BASE_URL,
+    description: '내 조건에 맞는 정부 지원 혜택을 찾아주는 서비스, 혜택줍줍',
+    inLanguage: 'ko-KR',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${BASE_URL}/results`,
+      },
+      'query-input': '정부지원금 혜택 검색',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: '혜택줍줍',
+    url: BASE_URL,
+    description: '정부 지원금·복지 혜택 맞춤 추천 서비스 혜택줍줍',
+    logo: `${BASE_URL}/icon-512.png`,
+  },
+];
 
 export default function RootLayout({
   children,
@@ -121,10 +150,13 @@ export default function RootLayout({
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5992854033857462"
             crossOrigin="anonymous"
           />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-          />
+          {jsonLd.map((schema, i) => (
+            <script
+              key={i}
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+            />
+          ))}
         </head>
         <body className="min-h-full">
           <ServiceWorkerRegistrar />
