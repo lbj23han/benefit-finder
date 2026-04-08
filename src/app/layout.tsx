@@ -145,11 +145,7 @@ export default function RootLayout({
     <ViewTransitions>
       <html lang="ko" className="h-full">
         <head>
-          <script
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5992854033857462"
-            crossOrigin="anonymous"
-          />
+          {/* AdSense 스크립트는 콘텐츠 페이지에서만 로드 (AdBanner 컴포넌트 참조) */}
           {jsonLd.map((schema, i) => (
             <script
               key={i}

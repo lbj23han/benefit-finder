@@ -9,6 +9,7 @@ import { Info, Clock, Frown } from 'lucide-react';
 import { formatAmount, getCategoryLabel, getCategoryIcon, getEligibilityIcon } from '@/lib/utils';
 import { getDaysUntilDeadline } from '@/lib/recommendation';
 import { getBestUrl } from '@/lib/deeplink';
+import AdBanner from '@/components/common/AdBanner';
 import { usePolicies } from '@/hooks/usePolicies';
 
 export default function PolicyDetailPage({
@@ -209,6 +210,8 @@ export default function PolicyDetailPage({
                 <p className="text-center text-xs text-[#888]">
                   {policy.urlVerified ? '공식 페이지로 이동합니다' : '외부 사이트로 이동합니다'}
                 </p>
+                {/* 광고 배너 — 신청 버튼 아래 */}
+                <AdBanner slot="XXXXXXXXXX" format="auto" className="mt-4 rounded-xl" />
               </>
             ) : (
               <>

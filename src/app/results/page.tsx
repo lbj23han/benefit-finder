@@ -13,6 +13,7 @@ import { getProfile } from '@/lib/storage';
 import { getRecommendations } from '@/lib/recommendation';
 import { usePolicies } from '@/hooks/usePolicies';
 import FreshnessBar from '@/components/common/FreshnessBar';
+import AdBanner from '@/components/common/AdBanner';
 import { UserProfile, RecommendationResult, FilterState, SortOption } from '@/types';
 
 function ResultsContent() {
@@ -170,6 +171,9 @@ function ResultsContent() {
             ))}
           </div>
         )}
+
+        {/* 광고 배너 — 콘텐츠 목록 하단 */}
+        <AdBanner slot="XXXXXXXXXX" format="auto" className="mt-4 mx-1 rounded-xl" />
       </div>
 
     </div>
