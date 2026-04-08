@@ -4,8 +4,6 @@ import { useEffect, useRef } from 'react';
 import Script from 'next/script';
 
 interface Props {
-  slot: string;
-  format?: 'auto' | 'rectangle' | 'horizontal';
   className?: string;
 }
 
@@ -16,8 +14,9 @@ declare global {
 }
 
 const CLIENT_ID = 'ca-pub-5992854033857462';
+const SLOT_ID = '9143719859';
 
-export default function AdBanner({ slot, format = 'auto', className = '' }: Props) {
+export default function AdBanner({ className = '' }: Props) {
   const pushed = useRef(false);
 
   useEffect(() => {
@@ -43,8 +42,8 @@ export default function AdBanner({ slot, format = 'auto', className = '' }: Prop
           className="adsbygoogle"
           style={{ display: 'block' }}
           data-ad-client={CLIENT_ID}
-          data-ad-slot={slot}
-          data-ad-format={format}
+          data-ad-slot={SLOT_ID}
+          data-ad-format="horizontal"
           data-full-width-responsive="true"
         />
       </div>

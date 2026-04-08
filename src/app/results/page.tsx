@@ -173,7 +173,7 @@ function ResultsContent() {
         )}
 
         {/* 광고 배너 — 콘텐츠 목록 하단 */}
-        <AdBanner slot="XXXXXXXXXX" format="auto" className="mt-4 mx-1 rounded-xl" />
+        <AdBanner className="mt-4 mx-1" />
       </div>
 
     </div>

@@ -211,7 +211,7 @@ export default function PolicyDetailPage({
                   {policy.urlVerified ? '공식 페이지로 이동합니다' : '외부 사이트로 이동합니다'}
                 </p>
                 {/* 광고 배너 — 신청 버튼 아래 */}
-                <AdBanner slot="XXXXXXXXXX" format="auto" className="mt-4 rounded-xl" />
+                <AdBanner className="mt-4" />
               </>
             ) : (
               <>
