@@ -19658,5 +19658,16 @@
     "targetSpecialty": null,
     "relevanceScore": 0.25,
     "estimatedBenefitText": "국민건강보험료 등 지원"
+  },
+  "WLF00006240": {
+    "ageMin": 65,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "식사 제공 및 배달 서비스 무료 제공"
   }
 }
