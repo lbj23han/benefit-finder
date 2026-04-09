@@ -19669,5 +19669,18 @@
     "targetSpecialty": null,
     "relevanceScore": 0.15,
     "estimatedBenefitText": "식사 제공 및 배달 서비스 무료 제공"
+  },
+  "WLF00006244": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": [
+      "employed"
+    ],
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "월 웰빙보조비 지원"
   }
 }
