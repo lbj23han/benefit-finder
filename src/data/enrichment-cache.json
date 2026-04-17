@@ -19682,5 +19682,46 @@
     "targetSpecialty": null,
     "relevanceScore": 0.15,
     "estimatedBenefitText": "월 웰빙보조비 지원"
+  },
+  "WLF00006261": {
+    "ageMin": 65,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low",
+      "middle-low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "방문 간호, 요양보호사 등 통합돌봄 서비스 제공"
+  },
+  "youth-20260416005400112764": {
+    "ageMin": null,
+    "ageMax": 39,
+    "occupationTarget": [
+      "student",
+      "self-employed"
+    ],
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.35,
+    "estimatedBenefitText": "창업 자금, 멘토링, 인프라 지원"
+  },
+  "youth-20260416005400112763": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": [
+      "self-employed"
+    ],
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.25,
+    "estimatedBenefitText": "재창업 자금, 컨설팅, 교육 패키지 지원"
   }
 }
