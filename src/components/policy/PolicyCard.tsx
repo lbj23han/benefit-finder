@@ -20,6 +20,7 @@ export default function PolicyCard({ policy, score, matchReasons, isFullMatch, r
   const days = getDaysUntilDeadline(policy);
   const isUrgent = days !== null && days >= 0 && days <= 7;
   const isExpired = days !== null && days < 0;
+  const href = `/policy/${policy.id}/`;
 
   const BADGE = 'inline-flex items-center gap-1 h-5 text-xs font-semibold px-2 rounded-full whitespace-nowrap leading-none';
 
@@ -36,8 +37,8 @@ export default function PolicyCard({ policy, score, matchReasons, isFullMatch, r
     return null;
   };
 
-  return (
-    <Link href={`/policy/${policy.id}`} className="block h-full active:scale-[0.97] transition-transform duration-150">
+  const content = (
+    <>
       {/* Fixed height card — content truncates, never grows */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-50 p-4 hover:shadow-md transition-shadow h-[210px] flex flex-col overflow-hidden">
 
@@ -115,6 +116,12 @@ export default function PolicyCard({ policy, score, matchReasons, isFullMatch, r
           <span className="text-xs text-[#2A9D8F] font-medium whitespace-nowrap ml-2 flex-shrink-0">보기 ›</span>
         </div>
       </div>
+    </>
+  );
+
+  return (
+    <Link href={href} className="block h-full active:scale-[0.97] transition-transform duration-150">
+      {content}
     </Link>
   );
 }
