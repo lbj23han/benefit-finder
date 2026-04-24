@@ -19723,5 +19723,31 @@
     "targetSpecialty": null,
     "relevanceScore": 0.25,
     "estimatedBenefitText": "재창업 자금, 컨설팅, 교육 패키지 지원"
+  },
+  "gov24-324000000103": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.5,
+    "estimatedBenefitText": "인플루엔자, 대상포진 무료예방접종"
+  },
+  "gov24-324000000104": {
+    "ageMin": 65,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "반려식물 무료 보급"
   }
 }
