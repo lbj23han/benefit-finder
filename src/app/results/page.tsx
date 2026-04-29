@@ -13,7 +13,7 @@ import { getProfile } from '@/lib/storage';
 import { getRecommendations } from '@/lib/recommendation';
 import { usePolicies } from '@/hooks/usePolicies';
 import FreshnessBar from '@/components/common/FreshnessBar';
-import AdBanner from '@/components/common/AdBanner';
+import LazyAdBanner from '@/components/common/LazyAdBanner';
 import { UserProfile, RecommendationResult, FilterState, SortOption } from '@/types';
 
 function ResultsContent() {
@@ -159,21 +159,22 @@ function ResultsContent() {
           />
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-            {sorted.map((r) => (
-              <PolicyCard
-                key={r.policy.id}
-                policy={r.policy}
-                score={r.score}
-                matchReasons={r.matchReasons}
-                isFullMatch={r.isFullMatch}
-                regionMatched={r.regionMatched}
-              />
+            {sorted.map((r, index) => (
+              <div key={r.policy.id} className="contents">
+                <PolicyCard
+                  policy={r.policy}
+                  score={r.score}
+                  matchReasons={r.matchReasons}
+                  isFullMatch={r.isFullMatch}
+                  regionMatched={r.regionMatched}
+                />
+                {(index + 1) % 5 === 0 && (
+                  <LazyAdBanner className="md:col-span-2 xl:col-span-3" />
+                )}
+              </div>
             ))}
           </div>
         )}
-
-        {/* 광고 배너 — 콘텐츠 목록 하단 */}
-        <AdBanner className="mt-4 mx-1" />
       </div>
 
     </div>

@@ -11,6 +11,7 @@ import {
 import AppShell from "@/components/layout/AppShell";
 import PolicyCard from "@/components/policy/PolicyCard";
 import FreshnessBar from "@/components/common/FreshnessBar";
+import AdBanner from "@/components/common/AdBanner";
 import { getProfile } from "@/lib/storage";
 import { getRecommendations } from "@/lib/recommendation";
 import { usePolicies } from "@/hooks/usePolicies";
@@ -188,6 +189,7 @@ export default function HomePage() {
           </div>
         </div>
 
+        <AdBanner className="mx-4 mb-4 lg:mx-6" />
       </div>
     </AppShell>
   );

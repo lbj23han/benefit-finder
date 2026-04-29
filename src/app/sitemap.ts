@@ -1,11 +1,13 @@
 import { MetadataRoute } from 'next';
 import { policies } from '@/data/policies';
 
+export const dynamic = 'force-static';
+
 const BASE_URL = 'https://findmymoney.vercel.app';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const policyEntries: MetadataRoute.Sitemap = policies.map((p) => ({
-    url: `${BASE_URL}/policy/${p.id}`,
+    url: `${BASE_URL}/policy/${p.id}/`,
     lastModified: new Date(),
     changeFrequency: 'weekly',
     priority: 0.8,

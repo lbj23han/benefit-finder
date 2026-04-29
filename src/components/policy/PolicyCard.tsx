@@ -6,6 +6,7 @@ import { Policy } from '@/types';
 import { formatAmount, getCategoryLabel, getCategoryColor, getCategoryIcon, getRegionLabel } from '@/lib/utils';
 import { getDaysUntilDeadline } from '@/lib/recommendation';
 import BookmarkButton from '@/components/common/BookmarkButton';
+import { saveSelectedPolicy } from '@/lib/selectedPolicy';
 
 interface PolicyCardProps {
   policy: Policy;
@@ -20,7 +21,8 @@ export default function PolicyCard({ policy, score, matchReasons, isFullMatch, r
   const days = getDaysUntilDeadline(policy);
   const isUrgent = days !== null && days >= 0 && days <= 7;
   const isExpired = days !== null && days < 0;
-  const href = `/policy/${policy.id}/`;
+  const isTossBuild = process.env.NEXT_PUBLIC_TOSS_BUILD === 'true';
+  const href = isTossBuild ? `/policy?id=${encodeURIComponent(policy.id)}` : `/policy/${policy.id}/`;
 
   const BADGE = 'inline-flex items-center gap-1 h-5 text-xs font-semibold px-2 rounded-full whitespace-nowrap leading-none';
 
@@ -120,7 +122,11 @@ export default function PolicyCard({ policy, score, matchReasons, isFullMatch, r
   );
 
   return (
-    <Link href={href} className="block h-full active:scale-[0.97] transition-transform duration-150">
+    <Link
+      href={href}
+      className="block h-full active:scale-[0.97] transition-transform duration-150"
+      onClick={() => { if (isTossBuild) saveSelectedPolicy(policy); }}
+    >
       {content}
     </Link>
   );

@@ -5,6 +5,7 @@ import NavDirectionTracker from "@/components/common/NavDirectionTracker";
 import { ViewTransitions } from "next-view-transitions";
 
 const BASE_URL = "https://findmymoney.vercel.app";
+const isToss = process.env.NEXT_PUBLIC_TOSS_BUILD === "true";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
@@ -141,25 +142,33 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const document = (
+    <html lang="ko" className="h-full">
+      <head>
+        {/* AdSense 스크립트는 콘텐츠 페이지에서만 로드 (AdBanner 컴포넌트 참조) */}
+        {jsonLd.map((schema, i) => (
+          <script
+            key={i}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          />
+        ))}
+      </head>
+      <body className="min-h-full">
+        <ServiceWorkerRegistrar />
+        <NavDirectionTracker />
+        {children}
+      </body>
+    </html>
+  );
+
+  if (isToss) {
+    return document;
+  }
+
   return (
     <ViewTransitions>
-      <html lang="ko" className="h-full">
-        <head>
-          {/* AdSense 스크립트는 콘텐츠 페이지에서만 로드 (AdBanner 컴포넌트 참조) */}
-          {jsonLd.map((schema, i) => (
-            <script
-              key={i}
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-            />
-          ))}
-        </head>
-        <body className="min-h-full">
-          <ServiceWorkerRegistrar />
-          <NavDirectionTracker />
-          {children}
-        </body>
-      </html>
+      {document}
     </ViewTransitions>
   );
 }

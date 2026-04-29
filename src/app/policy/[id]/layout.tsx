@@ -26,13 +26,17 @@ function buildDescription(policy: ReturnType<typeof policies.find>): string {
   return `${base} | ${parts.join(' · ')}`;
 }
 
+export async function generateStaticParams() {
+  return policies.map((policy) => ({ id: policy.id }));
+}
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const policy = policies.find((p) => p.id === id);
+  const policy = policies.find((policy) => policy.id === id);
 
   if (!policy) {
     return { title: '혜택 상세' };
@@ -44,11 +48,11 @@ export async function generateMetadata({
     title: policy.title,
     description,
     alternates: {
-      canonical: `${BASE_URL}/policy/${id}`,
+      canonical: `${BASE_URL}/policy/${id}/`,
     },
     openGraph: {
       type: 'article',
-      url: `${BASE_URL}/policy/${id}`,
+      url: `${BASE_URL}/policy/${id}/`,
       title: policy.title,
       description,
     },
@@ -63,13 +67,13 @@ export default async function PolicyLayout({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const policy = policies.find((p) => p.id === id);
+  const policy = policies.find((policy) => policy.id === id);
 
   if (!policy) return <>{children}</>;
 
   const categoryLabel = getCategoryLabel(policy.category);
   const description = buildDescription(policy);
-  const pageUrl = `${BASE_URL}/policy/${id}`;
+  const pageUrl = `${BASE_URL}/policy/${id}/`;
 
   const breadcrumbSchema = {
     '@context': 'https://schema.org',

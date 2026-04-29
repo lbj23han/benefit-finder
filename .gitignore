@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# toss build output
+/dist
+*.ait
+
+# appintoss upload images (local only)
+/public/appintoss_*.png
+/public/appintoss_*.jpg
