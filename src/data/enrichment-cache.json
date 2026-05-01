@@ -19817,5 +19817,16 @@
     "targetSpecialty": null,
     "relevanceScore": 0.15,
     "estimatedBenefitText": "입학축하금 지원 (정확한 금액 미명시)"
+  },
+  "gov24-174100000113": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "건강보험료 기준 산정 지원금"
   }
 }
