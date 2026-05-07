@@ -19828,5 +19828,16 @@
     "targetSpecialty": null,
     "relevanceScore": 0.3,
     "estimatedBenefitText": "건강보험료 기준 산정 지원금"
+  },
+  "gov24-318000000432": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "입양비 지원 (구체적 금액 미명시)"
   }
 }
