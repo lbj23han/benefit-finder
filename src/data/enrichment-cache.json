@@ -19839,5 +19839,42 @@
     "targetSpecialty": null,
     "relevanceScore": 0.15,
     "estimatedBenefitText": "입양비 지원 (구체적 금액 미명시)"
+  },
+  "gov24-320000000313": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "유기동물 입양비 지원"
+  },
+  "youth-20260504005400113084": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": [
+      "self-employed"
+    ],
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.35,
+    "estimatedBenefitText": "사업화 자금 지원, 창업보육센터 입주 운영 지원"
+  },
+  "youth-20260504005400113083": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": [
+      "self-employed"
+    ],
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.25,
+    "estimatedBenefitText": "스타트업 육성, 입주사무실 제공 등 사업 지원"
   }
 }
