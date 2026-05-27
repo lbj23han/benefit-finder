@@ -19904,5 +19904,26 @@
     "targetSpecialty": null,
     "relevanceScore": 0.35,
     "estimatedBenefitText": "사업화 자금 지원 (금액은 공고별 상이)"
+  },
+  "WLF00002617": {
+    "ageMin": 20,
+    "ageMax": 49,
+    "occupationTarget": [
+      "employed",
+      "self-employed",
+      "freelancer"
+    ],
+    "incomeCondition": [
+      "low",
+      "middle-low",
+      "middle"
+    ],
+    "householdCondition": [
+      "couple"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.65,
+    "estimatedBenefitText": "임차보증금 최대 1억원 대출"
   }
 }
