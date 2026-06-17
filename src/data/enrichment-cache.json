@@ -19925,5 +19925,16 @@
     "targetSpecialty": null,
     "relevanceScore": 0.65,
     "estimatedBenefitText": "임차보증금 최대 1억원 대출"
+  },
+  "WLF00003436": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "전동휠체어/스쿠터 수리비 지원 (금액기준 미정)"
   }
 }
