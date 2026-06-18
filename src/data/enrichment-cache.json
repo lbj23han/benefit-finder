@@ -19936,5 +19936,57 @@
     "targetSpecialty": "disability-severe",
     "relevanceScore": 0.15,
     "estimatedBenefitText": "전동휠체어/스쿠터 수리비 지원 (금액기준 미정)"
+  },
+  "WLF00006329": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": [
+      "freelancer"
+    ],
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "고용산재보험료 일부 지원"
+  },
+  "WLF00005938": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "암환자 가발구입비 지원"
+  },
+  "WLF00000588": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": [
+      "single"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "귀향여비 지원"
+  },
+  "WLF00002158": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.5,
+    "estimatedBenefitText": "국민건강보험료 지원"
   }
 }
