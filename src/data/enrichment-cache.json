@@ -19988,5 +19988,18 @@
     "targetSpecialty": null,
     "relevanceScore": 0.5,
     "estimatedBenefitText": "국민건강보험료 지원"
+  },
+  "gov24-306000000243": {
+    "ageMin": 18,
+    "ageMax": 49,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": [
+      "family-with-children"
+    ],
+    "genderCondition": "female",
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "유축기 무료 대여 서비스"
   }
 }
