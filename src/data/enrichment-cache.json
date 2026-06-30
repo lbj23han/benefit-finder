@@ -20188,5 +20188,27 @@
     "targetSpecialty": null,
     "relevanceScore": 0.05,
     "estimatedBenefitText": "행려자 여비 및 급식비 지원"
+  },
+  "WLF00006259": {
+    "ageMin": 65,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "방문요양, 의료, 간호 등 통합 돌봄 서비스 제공"
+  },
+  "WLF00006243": {
+    "ageMin": 65,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "방문요양 한시 서비스 제공"
   }
 }
