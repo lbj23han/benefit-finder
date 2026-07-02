@@ -20210,5 +20210,439 @@
     "targetSpecialty": null,
     "relevanceScore": 0.1,
     "estimatedBenefitText": "방문요양 한시 서비스 제공"
+  },
+  "WLF00006467": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.9,
+    "estimatedBenefitText": "100만원 이하 장례비"
+  },
+  "WLF00006458": {
+    "ageMin": 100,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.05,
+    "estimatedBenefitText": "장수축하물품"
+  },
+  "WLF00006456": {
+    "ageMin": 65,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "대상포진 예방접종 비용 지원"
+  },
+  "WLF00006454": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.5,
+    "estimatedBenefitText": "전입 환영물품 지급"
+  },
+  "WLF00006453": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "전동보조기기 보험 가입 지원"
+  },
+  "WLF00006452": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "전동보장구 보험서비스 지원"
+  },
+  "WLF00006444": {
+    "ageMin": null,
+    "ageMax": 65,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.12,
+    "estimatedBenefitText": "24시간 추가 장애인활동지원"
+  },
+  "WLF00006432": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "방문 장애인 등록 서비스"
+  },
+  "WLF00006427": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "배상책임보험 가입비 지원"
+  },
+  "WLF00006422": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": "family-with-children",
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.08,
+    "estimatedBenefitText": "장애인가정 출산지원금"
+  },
+  "WLF00006421": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "화장장려금 지원"
+  },
+  "WLF00006410": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.12,
+    "estimatedBenefitText": "상수도요금 지원"
+  },
+  "WLF00006408": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "배상책임보험 가입비 지원"
+  },
+  "WLF00006404": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": "low",
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.35,
+    "estimatedBenefitText": "주거환경 개선 및 통합지원"
+  },
+  "WLF00006403": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "위생용품 구입비 지원"
+  },
+  "WLF00006402": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "foreign-national",
+    "relevanceScore": 0.08,
+    "estimatedBenefitText": "국적취득자 지원금"
+  },
+  "WLF00006401": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.45,
+    "estimatedBenefitText": "전입지원금"
+  },
+  "WLF00006392": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": "low",
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.35,
+    "estimatedBenefitText": "중개보수 지원"
+  },
+  "WLF00006387": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.12,
+    "estimatedBenefitText": "전동보조기기 수리비 지원"
+  },
+  "WLF00005993": {
+    "ageMin": 20,
+    "ageMax": 50,
+    "occupationTarget": [
+      "employed"
+    ],
+    "incomeCondition": [
+      "middle-low",
+      "middle"
+    ],
+    "householdCondition": [
+      "couple",
+      "family-with-children"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.55,
+    "estimatedBenefitText": "주택자금 대출이자 지원"
+  },
+  "WLF00005655": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": [
+      "single"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "귀향여비 지급"
+  },
+  "WLF00005249": {
+    "ageMin": 20,
+    "ageMax": 49,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": [
+      "family-with-children"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.6,
+    "estimatedBenefitText": "출산 1~3자녀별 장려금 지급"
+  },
+  "WLF00004834": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": [
+      "single"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.05,
+    "estimatedBenefitText": "장례비용 전액 지원"
+  },
+  "WLF00003968": {
+    "ageMin": 20,
+    "ageMax": 49,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": [
+      "family-with-children"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "출산지원금 지급"
+  },
+  "WLF00004512": {
+    "ageMin": 20,
+    "ageMax": 49,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": [
+      "family-with-children"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.4,
+    "estimatedBenefitText": "임신축하금 지급"
+  },
+  "WLF00000746": {
+    "ageMin": 20,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "주간보호 서비스 제공"
+  },
+  "WLF00004144": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.05,
+    "estimatedBenefitText": "화장장려금 지급"
+  },
+  "WLF00001587": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": [
+      "with-parents"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "효행장려금 지급"
+  },
+  "WLF00003007": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "보장구 수리비 지원"
+  },
+  "WLF00003401": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": [
+      "with-parents"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.08,
+    "estimatedBenefitText": "월 효도수당 지급"
+  },
+  "WLF00002799": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": [
+      "single"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.05,
+    "estimatedBenefitText": "사망자 장례비용 지원"
+  },
+  "WLF00000439": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": [
+      "single"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.08,
+    "estimatedBenefitText": "구호 및 장제비 지원"
+  },
+  "WLF00002364": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "휠체어 수리비 지원"
+  },
+  "WLF00001927": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.12,
+    "estimatedBenefitText": "단체 상해보험 가입"
+  },
+  "WLF00002744": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": [
+      "single"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.05,
+    "estimatedBenefitText": "장례비용 지원"
+  },
+  "WLF00001522": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.12,
+    "estimatedBenefitText": "월별 용변처리 용품 지원"
   }
 }
