@@ -20953,5 +20953,93 @@
     "targetSpecialty": null,
     "relevanceScore": 0.7,
     "estimatedBenefitText": "근로기회 제공 및 일급 지급"
+  },
+  "WLF00006560": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": [
+      "family-with-children"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "가사도우미 서비스 지원"
+  },
+  "WLF00003996": {
+    "ageMin": 50,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.6,
+    "estimatedBenefitText": "대상포진 예방접종 비용 지원"
+  },
+  "WLF00002402": {
+    "ageMin": 80,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0,
+    "estimatedBenefitText": "월 최대 10만원 수당"
+  },
+  "WLF00000327": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "veteran",
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "의료비 본인부담금 최대 100만원 지원"
+  },
+  "WLF00003842": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": [
+      "unemployed"
+    ],
+    "incomeCondition": [
+      "low",
+      "middle-low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.7,
+    "estimatedBenefitText": "공공일자리 제공 및 임금 지급"
+  },
+  "WLF00003650": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": [
+      "single"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.2,
+    "estimatedBenefitText": "교통비, 식비 등 일시구호금"
+  },
+  "WLF00005885": {
+    "ageMin": 70,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.05,
+    "estimatedBenefitText": "축하물품 지급"
   }
 }
