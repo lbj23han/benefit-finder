@@ -21041,5 +21041,142 @@
     "targetSpecialty": null,
     "relevanceScore": 0.05,
     "estimatedBenefitText": "축하물품 지급"
+  },
+  "WLF00006563": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.5,
+    "estimatedBenefitText": "에어컨 청소 무료 서비스 제공"
+  },
+  "WLF00005395": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "화장장려금 지원 (금액 미정)"
+  },
+  "WLF00005355": {
+    "ageMin": 80,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "월 장수수당 지원"
+  },
+  "WLF00005369": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": [
+      "unemployed"
+    ],
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": [
+      "single"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.2,
+    "estimatedBenefitText": "귀향여비 지원"
+  },
+  "WLF00004921": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": [
+      "unemployed"
+    ],
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": [
+      "single"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.2,
+    "estimatedBenefitText": "노숙인 복지 지원 (세부내용 미정)"
+  },
+  "WLF00001218": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "월 교통비 지원"
+  },
+  "WLF00001794": {
+    "ageMin": 20,
+    "ageMax": 50,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low",
+      "middle-low"
+    ],
+    "householdCondition": [
+      "family-with-children"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "출산 시 일시금 지원"
+  },
+  "WLF00001222": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": [
+      "with-parents"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.4,
+    "estimatedBenefitText": "월 효행수당 지원"
+  },
+  "WLF00002186": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "장애인보장구 수리비 지원"
+  },
+  "WLF00002820": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.6,
+    "estimatedBenefitText": "명절 위문금 일시 지원"
   }
 }
