@@ -21178,5 +21178,38 @@
     "targetSpecialty": null,
     "relevanceScore": 0.6,
     "estimatedBenefitText": "명절 위문금 일시 지원"
+  },
+  "WLF00006569": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "장애인통합복지카드 발급수수료 전액 지원"
+  },
+  "WLF00006568": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.85,
+    "estimatedBenefitText": "헌혈 1회당 상품권 지급"
+  },
+  "WLF00002113": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "veteran",
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "의사상자 특별위로금 지급"
   }
 }
