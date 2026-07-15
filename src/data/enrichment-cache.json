@@ -21211,5 +21211,73 @@
     "targetSpecialty": "veteran",
     "relevanceScore": 0.1,
     "estimatedBenefitText": "의사상자 특별위로금 지급"
+  },
+  "WLF00006582": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low",
+      "middle-low"
+    ],
+    "householdCondition": [
+      "family-with-children"
+    ],
+    "genderCondition": "female",
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "산모신생아 건강관리 서비스 본인부담금 지원"
+  },
+  "WLF00006579": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.6,
+    "estimatedBenefitText": "무료 상담 및 사회적 관계 회복 프로그램"
+  },
+  "WLF00002813": {
+    "ageMin": 65,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "국민건강보험료 및 노인장기요양보험료 지원"
+  },
+  "WLF00004293": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": [
+      "disability-severe"
+    ],
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "건강보험료 지원"
+  },
+  "WLF00001478": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": [
+      "with-parents"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "월 효도수당 현금 지급"
   }
 }
