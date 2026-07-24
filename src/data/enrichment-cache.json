@@ -21784,5 +21784,27 @@
     "targetSpecialty": null,
     "relevanceScore": 0.35,
     "estimatedBenefitText": "산모·신생아 건강관리 지원 (방문 건강관리 서비스)"
+  },
+  "WLF00006689": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "월 최대 5만원 상당의 종량제봉투 지원"
+  },
+  "WLF00001789": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "화장 시 최대 200만원 장려금"
   }
 }
