@@ -21806,5 +21806,42 @@
     "targetSpecialty": null,
     "relevanceScore": 0.15,
     "estimatedBenefitText": "화장 시 최대 200만원 장려금"
+  },
+  "WLF00004777": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "월 교통비 지원 (울릉군 거주 중증장애인 한정)"
+  },
+  "WLF00003366": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": [
+      "family-with-children"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "신생아 출산 시 일시금 지원 (중증장애인 가정)"
+  },
+  "WLF00001307": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.12,
+    "estimatedBenefitText": "복지카드 발급수수료 지원"
   }
 }
