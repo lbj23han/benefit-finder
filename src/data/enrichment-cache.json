@@ -21843,5 +21843,103 @@
     "targetSpecialty": "disability-severe",
     "relevanceScore": 0.12,
     "estimatedBenefitText": "복지카드 발급수수료 지원"
+  },
+  "WLF00006703": {
+    "ageMin": 30,
+    "ageMax": 50,
+    "occupationTarget": [
+      "unemployed"
+    ],
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": "female",
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "구직지원금, 인턴십, 고용장려금 지원"
+  },
+  "WLF00006702": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "음성스위치 설치 지원"
+  },
+  "WLF00006701": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "수동휠체어 동력보조장치 지원"
+  },
+  "WLF00006700": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "맞춤형 보조기기 대여 지원"
+  },
+  "WLF00003510": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.05,
+    "estimatedBenefitText": "화장장려금 지원"
+  },
+  "WLF00003614": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": [
+      "unemployed"
+    ],
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.6,
+    "estimatedBenefitText": "공공일자리 및 임금 지원"
+  },
+  "WLF00000907": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": [
+      "single"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "긴급 생활지원"
+  },
+  "WLF00002836": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0,
+    "estimatedBenefitText": null
   }
 }
