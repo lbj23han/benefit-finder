@@ -21941,5 +21941,40 @@
     "targetSpecialty": null,
     "relevanceScore": 0,
     "estimatedBenefitText": null
+  },
+  "WLF00004621": {
+    "ageMin": 80,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.05,
+    "estimatedBenefitText": "월 장수수당 지급"
+  },
+  "WLF00000913": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": [
+      "single"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "장례비 지원"
+  },
+  "gov24-313000000168": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "사고보장 및 배상책임 보험 보장"
   }
 }
