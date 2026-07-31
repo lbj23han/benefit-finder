@@ -21976,5 +21976,87 @@
     "targetSpecialty": null,
     "relevanceScore": 0.15,
     "estimatedBenefitText": "사고보장 및 배상책임 보험 보장"
+  },
+  "WLF00005498": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": [
+      "family-with-children"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "출산축하용품 일괄 지원"
+  },
+  "WLF00000889": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": [
+      "single"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "귀가여비 실비 지원"
+  },
+  "WLF00002013": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low",
+      "middle-low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.6,
+    "estimatedBenefitText": "국민건강보험료 전액/일부 지원"
+  },
+  "WLF00002224": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.5,
+    "estimatedBenefitText": "명절위문금 현금 지급"
+  },
+  "WLF00006338": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low",
+      "middle-low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.55,
+    "estimatedBenefitText": "주거환경개선 집수리 지원"
+  },
+  "gov24-319000000175": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": [
+      "self-employed"
+    ],
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "이미용업소 시설개선비 지원"
   }
 }
