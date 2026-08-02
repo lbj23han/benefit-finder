@@ -22058,5 +22058,18 @@
     "targetSpecialty": null,
     "relevanceScore": 0.1,
     "estimatedBenefitText": "이미용업소 시설개선비 지원"
+  },
+  "gov24-306000000239": {
+    "ageMin": 0,
+    "ageMax": 0,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": [
+      "family-with-children"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "출산축하용품 일괄 지원"
   }
 }
