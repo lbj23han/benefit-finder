@@ -22071,5 +22071,16 @@
     "targetSpecialty": null,
     "relevanceScore": 0.3,
     "estimatedBenefitText": "출산축하용품 일괄 지원"
+  },
+  "gov24-316000000158": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "공동주택관리 보조금 지원"
   }
 }
