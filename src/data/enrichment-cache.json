@@ -22305,5 +22305,49 @@
     "targetSpecialty": null,
     "relevanceScore": 0.2,
     "estimatedBenefitText": "반려동물산업 수출 및 해외판로 지원"
+  },
+  "WLF00004449": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "재해 피해 정도에 따른 구호금 및 복구비"
+  },
+  "WLF00004533": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.05,
+    "estimatedBenefitText": "지자체별 효도수당 지급(지역마다 상이)"
+  },
+  "WLF00006729": {
+    "ageMin": 18,
+    "ageMax": 50,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": "female",
+    "targetSpecialty": "agriculture",
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "산후조리비 최대 150만원 지원"
+  },
+  "WLF00006728": {
+    "ageMin": 20,
+    "ageMax": 50,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": "couple",
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "난임시술 원거리 이동 교통비 지원"
   }
 }
