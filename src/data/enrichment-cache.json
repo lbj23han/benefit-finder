@@ -22349,5 +22349,31 @@
     "targetSpecialty": null,
     "relevanceScore": 0.1,
     "estimatedBenefitText": "난임시술 원거리 이동 교통비 지원"
+  },
+  "WLF00003697": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": [
+      "single"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "숙식 제공 및 자활 프로그램 운영"
+  },
+  "WLF00003596": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.9,
+    "estimatedBenefitText": "화장비용 일부 지원"
   }
 }
