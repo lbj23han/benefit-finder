@@ -22375,5 +22375,57 @@
     "targetSpecialty": null,
     "relevanceScore": 0.9,
     "estimatedBenefitText": "화장비용 일부 지원"
+  },
+  "WLF00000956": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": [
+      "with-parents"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "월 효행수당 지급 (금액은 지자체별 상이)"
+  },
+  "WLF00000237": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "긴급 귀가 조치, 안전 구호 및 사망 시 장례 지원"
+  },
+  "WLF00002259": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": [
+      "single"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.08,
+    "estimatedBenefitText": "임시거처 제공, 여비 지원, 의료서비스"
+  },
+  "WLF00006694": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "보장구 무료 대여 및 수리"
   }
 }
