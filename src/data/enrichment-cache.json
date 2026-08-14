@@ -22427,5 +22427,77 @@
     "targetSpecialty": "disability-severe",
     "relevanceScore": 0.15,
     "estimatedBenefitText": "보장구 무료 대여 및 수리"
+  },
+  "WLF00003957": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "veteran",
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "월 명예수당 지급"
+  },
+  "WLF00000250": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "자원봉사자 표창 및 시상"
+  },
+  "WLF00000325": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.5,
+    "estimatedBenefitText": "무료 휠체어 단기 대여 서비스"
+  },
+  "WLF00000356": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.6,
+    "estimatedBenefitText": "화장 시 장려금 지급"
+  },
+  "WLF00001391": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": [
+      "family-with-children"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.35,
+    "estimatedBenefitText": "월 효도수당 지급"
+  },
+  "gov24-135200005029": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": [
+      "unemployed"
+    ],
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.25,
+    "estimatedBenefitText": "자활근로 참여확인서 발급"
   }
 }
