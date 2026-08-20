@@ -22766,5 +22766,60 @@
     "targetSpecialty": null,
     "relevanceScore": 0.25,
     "estimatedBenefitText": "난임시술비 본인부담금 일부 지원"
+  },
+  "WLF00003934": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "장애인보장구 수리비 전액 지원"
+  },
+  "WLF00004242": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "veteran",
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "월 단위 참전명예수당 지급"
+  },
+  "WLF00004524": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.05,
+    "estimatedBenefitText": "장례비 일부 지원"
+  },
+  "WLF00001980": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": "low",
+    "householdCondition": "single",
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.12,
+    "estimatedBenefitText": "귀향 여객선비 지원"
+  },
+  "WLF00001668": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.08,
+    "estimatedBenefitText": "재해 발생 시 생활 필수품 및 주거 지원"
   }
 }
