@@ -22821,5 +22821,71 @@
     "targetSpecialty": null,
     "relevanceScore": 0.08,
     "estimatedBenefitText": "재해 발생 시 생활 필수품 및 주거 지원"
+  },
+  "WLF00006757": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "희귀질환 치료 관련 교통비 지원"
+  },
+  "WLF00003315": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": "family-with-children",
+    "genderCondition": "female",
+    "targetSpecialty": null,
+    "relevanceScore": 0.35,
+    "estimatedBenefitText": "산후조리비 지원"
+  },
+  "WLF00003114": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "100세 이상 부모 부양 시 효행장려금 지급"
+  },
+  "WLF00000521": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.05,
+    "estimatedBenefitText": "화장 시 장례비용 일부 지원"
+  },
+  "WLF00003694": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.05,
+    "estimatedBenefitText": "최대 50만원 화장장 사용료 지원"
+  },
+  "WLF00000107": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": "low",
+    "householdCondition": "single",
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.2,
+    "estimatedBenefitText": "노숙인 등 응급상황 보호 및 지원"
   }
 }
