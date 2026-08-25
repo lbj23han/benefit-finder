@@ -22887,5 +22887,60 @@
     "targetSpecialty": null,
     "relevanceScore": 0.2,
     "estimatedBenefitText": "노숙인 등 응급상황 보호 및 지원"
+  },
+  "WLF00005522": {
+    "ageMin": 55,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "대상포진 예방접종 비용 지원"
+  },
+  "WLF00000405": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "veteran",
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "참전유공자 및 유족 수당 지급"
+  },
+  "WLF00003410": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "장애인보장구 수리비 지원"
+  },
+  "WLF00003735": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "거동불편 장애인 특별운송 서비스 무료 제공"
+  },
+  "WLF00003143": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "veteran",
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "참전유공자 명예수당 지급"
   }
 }
