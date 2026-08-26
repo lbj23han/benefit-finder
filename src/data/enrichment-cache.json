@@ -22942,5 +22942,86 @@
     "targetSpecialty": "veteran",
     "relevanceScore": 0.1,
     "estimatedBenefitText": "참전유공자 명예수당 지급"
+  },
+  "WLF00006765": {
+    "ageMin": 65,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low",
+      "middle-low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "GPS 배회감지기 구입비 지원"
+  },
+  "WLF00006764": {
+    "ageMin": 65,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low",
+      "middle-low"
+    ],
+    "householdCondition": [
+      "with-parents"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "조손이 함께하는 놀이방 무료 운영"
+  },
+  "WLF00004157": {
+    "ageMin": 65,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.12,
+    "estimatedBenefitText": "월 수당 지원"
+  },
+  "WLF00003643": {
+    "ageMin": 85,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low",
+      "middle-low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.08,
+    "estimatedBenefitText": "월 수당 지원"
+  },
+  "WLF00000886": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": [
+      "single"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.05,
+    "estimatedBenefitText": "장례비 지원"
+  },
+  "gov24-304000000243": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "전문 상담 서비스 제공"
   }
 }
