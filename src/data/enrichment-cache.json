@@ -23023,5 +23023,62 @@
     "targetSpecialty": null,
     "relevanceScore": 0.3,
     "estimatedBenefitText": "전문 상담 서비스 제공"
+  },
+  "WLF00000614": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "화재보험 가입 지원 (무료)"
+  },
+  "gov24-304000000237": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "부동산 공시지가 문자발송 안내"
+  },
+  "gov24-304000000244": {
+    "ageMin": 0,
+    "ageMax": 6,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "여권민원 원스톱 서비스 (무료)"
+  },
+  "gov24-304000000245": {
+    "ageMin": 75,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.05,
+    "estimatedBenefitText": "공중선 정비 서비스 (무료)"
+  },
+  "gov24-304000000246": {
+    "ageMin": 75,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.05,
+    "estimatedBenefitText": "정보공개신청서 구술대필 서비스 (무료)"
   }
 }
