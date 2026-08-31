@@ -23080,5 +23080,16 @@
     "targetSpecialty": null,
     "relevanceScore": 0.05,
     "estimatedBenefitText": "정보공개신청서 구술대필 서비스 (무료)"
+  },
+  "WLF00003840": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "긴급 생활비, 의료비, 주거비 등 현금 및 물품 지원"
   }
 }
