@@ -23143,5 +23143,16 @@
     "targetSpecialty": "disability-severe",
     "relevanceScore": 0.15,
     "estimatedBenefitText": "유료방송 이용요금 지원"
+  },
+  "gov24-320000000310": {
+    "ageMin": 14,
+    "ageMax": 64,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "인플루엔자 백신 및 접종 무료 제공"
   }
 }
