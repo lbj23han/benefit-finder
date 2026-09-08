@@ -23154,5 +23154,16 @@
     "targetSpecialty": "disability-severe",
     "relevanceScore": 0.15,
     "estimatedBenefitText": "인플루엔자 백신 및 접종 무료 제공"
+  },
+  "WLF00002480": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": null
   }
 }
