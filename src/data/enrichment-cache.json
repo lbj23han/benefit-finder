@@ -23165,5 +23165,55 @@
     "targetSpecialty": null,
     "relevanceScore": 0.1,
     "estimatedBenefitText": null
+  },
+  "gov24-179038700010": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low",
+      "middle-low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "희귀질환 의료비 지원 (질환별 상이)"
+  },
+  "gov24-179038700014": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.2,
+    "estimatedBenefitText": "잠복결핵감염 검진 확인서 발급 (무료 서비스)"
+  },
+  "gov24-179038700015": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.2,
+    "estimatedBenefitText": "잠복결핵감염 검진 결과서 발급 (무료 서비스)"
+  },
+  "youth-20260930005400113716": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": [
+      "student",
+      "self-employed"
+    ],
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.35,
+    "estimatedBenefitText": "AI·SW 교육 및 창업 지원 (교육비·창업자금)"
   }
 }
