@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import aitDevtools from "@apps-in-toss/devtools/unplugin";
 
 const isTossBuild = process.env.TOSS_BUILD === 'true';
 
@@ -26,6 +27,13 @@ const nextConfig: NextConfig = {
   }),
   images: {
     unoptimized: isTossBuild,
+  },
+  webpack: (config, { dev, isServer }) => {
+    if (dev && !isServer) {
+      config.plugins.unshift(aitDevtools.webpack());
+    }
+
+    return config;
   },
   ...(!isTossBuild && {
     headers: async () => [
