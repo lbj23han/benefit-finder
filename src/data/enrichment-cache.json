@@ -23237,5 +23237,18 @@
     "targetSpecialty": null,
     "relevanceScore": 0.15,
     "estimatedBenefitText": "가사·이동·방문목욕 서비스 무료 제공"
+  },
+  "youth-20261004005400213864": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": [
+      "student"
+    ],
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "석사학위 취득, 바이오헬스 산업 전문교육"
   }
 }
