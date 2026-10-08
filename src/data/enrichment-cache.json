@@ -23250,5 +23250,27 @@
     "targetSpecialty": null,
     "relevanceScore": 0.15,
     "estimatedBenefitText": "석사학위 취득, 바이오헬스 산업 전문교육"
+  },
+  "WLF00006788": {
+    "ageMin": 65,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "가사지원, 병원동행 등 통합돌봄 서비스 무료 제공"
+  },
+  "WLF00006787": {
+    "ageMin": 65,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "가사지원, 병원동행, 방문운동, 방문목욕 등 통합돌봄 서비스 무료 제공"
   }
 }
