@@ -8,5 +8,8 @@ export default defineConfig({
   },
 
   permissions: [],
+  navigationBar: {
+    withBackButton: false,
+  },
   webBundleDir: 'dist/web'
 });
