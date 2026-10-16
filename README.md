@@ -1,6 +1,6 @@
 # 혜택줍줍 (Benefit Finder)
 
-> 나에게 맞는 정부 지원 혜택을 자동으로 찾아주는 모바일 PWA
+> 나에게 맞는 정부 지원 혜택을 자동으로 찾아주는 App in Toss 미니앱 겸 반응형 웹 서비스
 
 [![Data Update](https://github.com/lbj23han/benefit-finder/actions/workflows/update-policies.yml/badge.svg)](https://github.com/lbj23han/benefit-finder/actions/workflows/update-policies.yml)
 
@@ -8,7 +8,7 @@
 
 ## 제품 소개
 
-**혜택줍줍**은 나이·지역·직업·소득·가구 유형을 입력하면 받을 수 있는 정부 지원 혜택을 자동으로 추천해주는 프론트엔드 PWA입니다.
+**혜택줍줍**은 나이·지역·직업·소득·가구 유형을 입력하면 받을 수 있는 정부 지원 혜택을 자동으로 추천해주는 서비스입니다. 하나의 Next.js 코드베이스에서 App in Toss용 정적 번들과 일반 웹 배포를 함께 관리합니다.
 
 정책 데이터는 **복지로 공식 API · 정부24 API (data.go.kr)** 에서 매일 자동으로 수집·갱신되며, **Claude AI (Haiku)**가 각 정책의 대상 특성·지원 금액·일반 관련도를 분석해 추천 품질을 높입니다.
 
@@ -40,9 +40,29 @@
 - **Styling**: Tailwind CSS v4
 - **Icons**: Lucide React (크로스 플랫폼 SVG 아이콘)
 - **State**: React hooks + localStorage
+- **App in Toss**: `@apps-in-toss/web-framework` / CLI / Devtools 3.7.0
 - **AI 보강**: Claude Haiku (claude-haiku-4-5) — 빌드 타임 배치 처리
 - **Data Pipeline**: GitHub Actions + 복지로 Open API + 정부24 API (data.go.kr)
-- **Deployment**: Vercel
+- **Deployment**: Apps in Toss `.ait` 번들 + Vercel
+
+### 이중 빌드 구조
+
+| 명령 | 결과 |
+|------|------|
+| `npm run build` | 토스용 정적 export 후 `benefit-finder.ait` 생성 |
+| `npm run build:toss` | `npm run build`와 동일한 토스 제출용 빌드 |
+| `npm run export:toss` | `dist/web`에 토스용 Next.js 정적 번들 생성 |
+| `npm run build:web` | Vercel용 일반 Next.js 프로덕션 빌드 |
+
+토스 빌드에서는 `TOSS_BUILD=true`, `NEXT_PUBLIC_TOSS_BUILD=true`를 사용합니다. 이 값으로 정적 export 설정과 토스 전용 UI 분기를 활성화하며, 일반 웹 빌드에는 영향을 주지 않습니다.
+
+### 토스 내비게이션 처리
+
+- `apps-in-toss.config.ts`에서 토스 기본 내비게이션 바와 뒤로가기 버튼을 사용합니다.
+- 토스 빌드에서는 온보딩, 혜택 상세, 이용약관, 개인정보처리방침의 자체 뒤로가기 버튼을 렌더링하지 않습니다.
+- 홈의 모바일 자체 브랜드 헤더와 혜택 상세의 자체 상단 헤더도 토스 빌드에서 제거해 토스 내비게이션 바와 중복되지 않게 합니다.
+- 일반 웹 빌드에서는 기존 자체 헤더와 뒤로가기 버튼을 그대로 유지합니다.
+- 환경 분기는 `src/lib/buildEnvironment.ts`의 `IS_TOSS_BUILD`를 사용합니다.
 
 ---
 
@@ -183,6 +203,8 @@ LCGV API가 반환하는 전체 지역명을 프로필 약칭으로 변환:
 ## 로컬 실행
 
 ```bash
+# Node.js 24 이상
+
 # 1. 의존성 설치
 npm install
 
@@ -190,6 +212,27 @@ npm install
 npm run dev
 # → http://localhost:3000
 ```
+
+### 검증 및 빌드
+
+```bash
+# 추천 로직 단위 테스트
+npm test
+
+# TypeScript 검사
+npx tsc --noEmit
+
+# 토스 제출 파일 생성
+npm run build
+
+# 일반 웹 프로덕션 빌드
+npm run build:web
+
+# 변경 파일 형식 검사
+git diff --check
+```
+
+`npm run build`가 성공하면 프로젝트 루트에 `benefit-finder.ait`가 생성됩니다. 제출 전 AIT Devtools와 콘솔 QR 테스트에서 토스 내비게이션 바와 미니앱 자체 뒤로가기 버튼이 함께 노출되지 않는지 확인합니다.
 
 ### 정책 데이터 직접 갱신 (선택)
 
@@ -245,6 +288,7 @@ src/
   hooks/
     usePolicies.ts         # 데이터 로드 훅 (30분 폴링 + 탭 포커스 갱신)
   lib/
+    buildEnvironment.ts    # 일반 웹/토스 빌드 UI 분기
     recommendation.ts      # 추천 점수 알고리즘 (핵심 로직)
     policyCache.ts         # API 캐시 관리
     storage.ts             # localStorage (프로필 + 북마크)
