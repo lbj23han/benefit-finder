@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { AlertTriangle } from 'lucide-react';
 import AppShell from '@/components/layout/AppShell';
+import { IS_TOSS_BUILD } from '@/lib/buildEnvironment';
 
 export const metadata: Metadata = {
   title: '이용약관',
@@ -15,16 +16,21 @@ export default function TermsPage() {
   return (
     <AppShell>
       <div className="flex flex-col">
-        <header className="bg-white px-5 pt-12 pb-5 lg:pt-8 border-b border-gray-50 flex items-center gap-3">
-          <Link href="/profile" className="p-2 -ml-2 rounded-full hover:bg-gray-100">
-            <svg className="w-5 h-5 text-[#1a1a1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </Link>
-          <h1 className="text-xl font-extrabold text-[#1a1a1a]">이용약관</h1>
-        </header>
+        {!IS_TOSS_BUILD && (
+          <header className="bg-white px-5 pt-12 pb-5 lg:pt-8 border-b border-gray-50 flex items-center gap-3">
+            <Link href="/profile" className="p-2 -ml-2 rounded-full hover:bg-gray-100" aria-label="프로필로 돌아가기">
+              <svg className="w-5 h-5 text-[#1a1a1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </Link>
+            <h1 className="text-xl font-extrabold text-[#1a1a1a]">이용약관</h1>
+          </header>
+        )}
 
         <div className="px-5 py-6 space-y-6 max-w-2xl lg:px-8 text-sm text-[#333] leading-relaxed">
+          {IS_TOSS_BUILD && (
+            <h1 className="text-xl font-extrabold text-[#1a1a1a]">이용약관</h1>
+          )}
 
           <div className="bg-[#E0F2EC] rounded-2xl p-4">
             <p className="text-xs text-[#1B6B4A]">시행일: {EFFECTIVE_DATE} · 최종 수정: {LAST_UPDATED}</p>

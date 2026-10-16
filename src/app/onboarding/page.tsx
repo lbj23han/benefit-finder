@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Briefcase, Store, GraduationCap, Search, Laptop2, User, Home, Users, UserCheck, Lock } from 'lucide-react';
 import { UserProfile } from '@/types';
 import { saveProfile } from '@/lib/storage';
+import { IS_TOSS_BUILD } from '@/lib/buildEnvironment';
 import { DISTRICTS } from '@/constants/districts';
 
 const REGIONS = ['서울', '경기', '인천', '부산', '대구', '광주', '대전', '울산', '세종', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주'];
@@ -67,11 +68,13 @@ export default function OnboardingPage() {
         {/* Header */}
         <div className="px-5 pt-12 pb-4">
           <div className="flex items-center gap-3 mb-6">
-            <button onClick={back} className="p-2 -ml-2 rounded-full hover:bg-gray-100">
-              <svg className="w-5 h-5 text-[#1a1a1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
+            {!IS_TOSS_BUILD && (
+              <button onClick={back} className="p-2 -ml-2 rounded-full hover:bg-gray-100" aria-label="이전 단계로">
+                <svg className="w-5 h-5 text-[#1a1a1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+            )}
             <div className="flex-1">
               {/* Progress bar */}
               <div className="flex items-center gap-2">

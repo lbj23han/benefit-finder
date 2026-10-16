@@ -14,6 +14,7 @@ import FreshnessBar from "@/components/common/FreshnessBar";
 import AdBanner from "@/components/common/AdBanner";
 import { getProfile } from "@/lib/storage";
 import { getRecommendations } from "@/lib/recommendation";
+import { IS_TOSS_BUILD } from "@/lib/buildEnvironment";
 import { usePolicies } from "@/hooks/usePolicies";
 import { UserProfile, RecommendationResult } from "@/types";
 
@@ -52,11 +53,13 @@ export default function HomePage() {
     <AppShell>
       <div className="flex flex-col">
         {/* Header — logo only on mobile; hidden on desktop (sidebar shows it) */}
-        <header className="flex items-center px-5 pt-12 pb-4 bg-white lg:hidden">
-          <span className="text-xl font-extrabold text-[#1B6B4A]">
-            혜택줍줍
-          </span>
-        </header>
+        {!IS_TOSS_BUILD && (
+          <header className="flex items-center px-5 pt-12 pb-4 bg-white lg:hidden">
+            <span className="text-xl font-extrabold text-[#1B6B4A]">
+              혜택줍줍
+            </span>
+          </header>
+        )}
         {/* Desktop page title */}
         <header className="hidden lg:flex items-center px-8 pt-10 pb-4 bg-white border-b border-gray-50">
           <h1 className="text-2xl font-extrabold text-[#1a1a1a]">홈</h1>

@@ -9,7 +9,7 @@ export default defineConfig({
 
   permissions: [],
   navigationBar: {
-    withBackButton: false,
+    withBackButton: true,
   },
   webBundleDir: 'dist/web'
 });

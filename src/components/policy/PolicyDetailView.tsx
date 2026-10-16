@@ -6,6 +6,7 @@ import { Info, Clock, Frown } from 'lucide-react';
 import { formatAmount, getCategoryLabel, getEligibilityIcon } from '@/lib/utils';
 import { getDaysUntilDeadline } from '@/lib/recommendation';
 import { getBestUrl } from '@/lib/deeplink';
+import { IS_TOSS_BUILD } from '@/lib/buildEnvironment';
 import AdBanner from '@/components/common/AdBanner';
 
 interface PolicyDetailViewProps {
@@ -50,19 +51,26 @@ export default function PolicyDetailView({
   return (
     <AppShell>
       <div className="flex flex-col">
-        <header className="bg-white px-5 pt-12 pb-4 lg:pt-8 sticky top-0 z-30 border-b border-gray-50">
-          <div className="flex items-center justify-between">
-            <Link href={backHref} className="p-2 -ml-2 rounded-full hover:bg-gray-100" aria-label="혜택 목록으로">
-              <svg className="w-5 h-5 text-[#1a1a1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </Link>
-            <span className="text-sm font-semibold text-[#1B6B4A]">혜택줍줍</span>
-            <BookmarkButton policyId={policy.id} />
-          </div>
-        </header>
+        {!IS_TOSS_BUILD && (
+          <header className="bg-white px-5 pt-12 pb-4 lg:pt-8 sticky top-0 z-30 border-b border-gray-50">
+            <div className="flex items-center justify-between">
+              <Link href={backHref} className="p-2 -ml-2 rounded-full hover:bg-gray-100" aria-label="혜택 목록으로">
+                <svg className="w-5 h-5 text-[#1a1a1a]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </Link>
+              <span className="text-sm font-semibold text-[#1B6B4A]">혜택줍줍</span>
+              <BookmarkButton policyId={policy.id} />
+            </div>
+          </header>
+        )}
 
         <div className="px-5 py-5 space-y-5 lg:max-w-2xl lg:px-8">
+          {IS_TOSS_BUILD && (
+            <div className="flex justify-end">
+              <BookmarkButton policyId={policy.id} />
+            </div>
+          )}
           <div>
             <div className="flex items-center gap-2 mb-3">
               <span className="text-xs font-bold text-[#2A9D8F] uppercase tracking-wider">혜택줍줍 •</span>
