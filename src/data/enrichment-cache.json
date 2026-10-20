@@ -23272,5 +23272,44 @@
     "targetSpecialty": null,
     "relevanceScore": 0.15,
     "estimatedBenefitText": "가사지원, 병원동행, 방문운동, 방문목욕 등 통합돌봄 서비스 무료 제공"
+  },
+  "WLF00006802": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "무료 컴퓨터 및 영어 교육 서비스 제공"
+  },
+  "WLF00006801": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.25,
+    "estimatedBenefitText": "무료 재활 운동 지도 및 운동기구 이용"
+  },
+  "youth-20261016005400213977": {
+    "ageMin": 18,
+    "ageMax": 29,
+    "occupationTarget": [
+      "student"
+    ],
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": null
   }
 }
