@@ -23311,5 +23311,16 @@
     "targetSpecialty": null,
     "relevanceScore": 0.15,
     "estimatedBenefitText": null
+  },
+  "gov24-314000000266": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "국내선 최대 4천원, 국제선 최대 17천원 공항이용료 감면"
   }
 }
