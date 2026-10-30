@@ -23335,5 +23335,18 @@
     "targetSpecialty": "maritime",
     "relevanceScore": 0.15,
     "estimatedBenefitText": "창업 아이디어 개발부터 사업화·마케팅·판로개척 단계별 지원"
+  },
+  "youth-20261021005400214242": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": [
+      "self-employed"
+    ],
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.4,
+    "estimatedBenefitText": "사업안정화 및 성장 지원 (구체적 금액은 프로그램별 상이)"
   }
 }
