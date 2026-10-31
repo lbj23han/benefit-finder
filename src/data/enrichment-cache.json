@@ -23348,5 +23348,16 @@
     "targetSpecialty": null,
     "relevanceScore": 0.4,
     "estimatedBenefitText": "사업안정화 및 성장 지원 (구체적 금액은 프로그램별 상이)"
+  },
+  "WLF00006784": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "disability-severe",
+    "relevanceScore": 0.05,
+    "estimatedBenefitText": "생활안심보험 가입 및 보험료 지원"
   }
 }
