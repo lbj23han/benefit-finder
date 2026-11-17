@@ -23359,5 +23359,86 @@
     "targetSpecialty": "disability-severe",
     "relevanceScore": 0.05,
     "estimatedBenefitText": "생활안심보험 가입 및 보험료 지원"
+  },
+  "gov24-128200000001": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.1,
+    "estimatedBenefitText": "범죄 신고 시 포상금 지급"
+  },
+  "gov24-154300005050": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": [
+      "self-employed"
+    ],
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "agriculture",
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "농업기계 미세먼지 저감 지원"
+  },
+  "gov24-304000000109": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": [
+      "family-with-children"
+    ],
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.2,
+    "estimatedBenefitText": "입양축하금 지원"
+  },
+  "gov24-304000000199": {
+    "ageMin": 65,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.05,
+    "estimatedBenefitText": "대상포진 예방접종 무료 제공"
+  },
+  "gov24-304000000238": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": "female",
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "임신부 운동교실 무료 제공"
+  },
+  "gov24-310000000377": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.6,
+    "estimatedBenefitText": "자전거보험 가입비 지원"
+  },
+  "gov24-319000000176": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": "female",
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "태교 패키지 프로그램 무료 제공"
   }
 }
