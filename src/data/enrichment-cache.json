@@ -23440,5 +23440,55 @@
     "targetSpecialty": null,
     "relevanceScore": 0.3,
     "estimatedBenefitText": "태교 패키지 프로그램 무료 제공"
+  },
+  "WLF00006815": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": [
+      "employed"
+    ],
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.05,
+    "estimatedBenefitText": "1인당 5만원"
+  },
+  "WLF00006814": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": [
+      "employed"
+    ],
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.05,
+    "estimatedBenefitText": "1인당 5만원"
+  },
+  "WLF00006809": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.9,
+    "estimatedBenefitText": "무료 인플루엔자 예방접종"
+  },
+  "WLF00002435": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": [
+      "low"
+    ],
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.3,
+    "estimatedBenefitText": "주거환경개선 집수리 지원"
   }
 }
