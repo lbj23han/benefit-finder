@@ -23490,5 +23490,16 @@
     "targetSpecialty": null,
     "relevanceScore": 0.3,
     "estimatedBenefitText": "주거환경개선 집수리 지원"
+  },
+  "WLF00002267": {
+    "ageMin": 55,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": "veteran",
+    "relevanceScore": 0.15,
+    "estimatedBenefitText": "월 25만원~63만원 참전명예수당"
   }
 }
