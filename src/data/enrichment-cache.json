@@ -23501,5 +23501,16 @@
     "targetSpecialty": "veteran",
     "relevanceScore": 0.15,
     "estimatedBenefitText": "월 25만원~63만원 참전명예수당"
+  },
+  "WLF00003091": {
+    "ageMin": null,
+    "ageMax": null,
+    "occupationTarget": null,
+    "incomeCondition": null,
+    "householdCondition": null,
+    "genderCondition": null,
+    "targetSpecialty": null,
+    "relevanceScore": 0.05,
+    "estimatedBenefitText": "화장 장려금 지원 (구체적 금액은 지역별 상이)"
   }
 }
